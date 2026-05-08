@@ -1,0 +1,452 @@
+/* ============================================================
+ * Service Areas - shared tile styles + community page styles.
+ * Used on the home page section, /areas/ index, and individual
+ * community pages (e.g. /areas/agoura-hills/).
+ * ============================================================ */
+
+/* --------- Tile grid (4x2 → 2x4 → 1x8 responsive) --------- */
+.dmg-areas-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 1rem;
+	max-width: 1280px;
+	margin: 0 auto;
+}
+.dmg-area-tile {
+	position: relative;
+	display: flex;
+	align-items: flex-end;
+	aspect-ratio: 4 / 3;
+	padding: 1.25rem 1.4rem;
+	color: #fff;
+	text-decoration: none;
+	overflow: hidden;
+	background-color: var(--wp--preset--color--gray-700);
+	background-size: cover;
+	background-position: center;
+	transition: transform 0.4s ease;
+}
+.dmg-area-tile--placeholder {
+	background-image: linear-gradient(135deg, var(--wp--preset--color--gray-700), var(--wp--preset--color--gray-900));
+}
+.dmg-area-tile::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.78) 100%);
+	transition: background 0.3s ease;
+	z-index: 1;
+}
+.dmg-area-tile:hover::before {
+	background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.85) 100%);
+}
+.dmg-area-tile:hover { transform: translateY(-2px); }
+.dmg-area-tile:hover .dmg-area-image { transform: scale(1.06); }
+
+.dmg-area-image {
+	position: absolute;
+	inset: 0;
+	background-size: cover;
+	background-position: center;
+	transition: transform 0.5s ease;
+	z-index: 0;
+}
+.dmg-area-name {
+	position: relative;
+	z-index: 2;
+	font-size: 1.0625rem;
+	font-weight: 700;
+	letter-spacing: 0.01em;
+	line-height: 1.2;
+	text-shadow: 0 1px 8px rgba(0,0,0,0.45);
+}
+.dmg-area-arrow {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	z-index: 2;
+	width: 32px;
+	height: 32px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(255,255,255,0.12);
+	border: 1px solid rgba(255,255,255,0.35);
+	color: #fff;
+	opacity: 0;
+	transform: translateY(-4px);
+	transition: opacity 0.25s ease, transform 0.25s ease, background 0.25s ease;
+}
+.dmg-area-tile:hover .dmg-area-arrow {
+	opacity: 1;
+	transform: translateY(0);
+	background: var(--wp--preset--color--primary);
+	border-color: var(--wp--preset--color--primary);
+}
+@media (max-width: 1024px) {
+	.dmg-areas-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+	.dmg-areas-grid { grid-template-columns: 1fr; }
+	.dmg-area-tile { aspect-ratio: 16 / 10; }
+}
+
+/* "Nearby Communities" - same tile, but smaller grid (3 across). */
+.dmg-areas-grid--nearby { grid-template-columns: repeat(3, 1fr); max-width: 1080px; }
+@media (max-width: 900px) {
+	.dmg-areas-grid--nearby { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+	.dmg-areas-grid--nearby { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+ * Single Community Page styles
+ * ============================================================ */
+
+/* --------- Hero --------- */
+.dmg-area-hero {
+	position: relative;
+	width: 100%;
+	min-height: 70vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	background-size: cover;
+	background-position: center;
+	overflow: hidden;
+}
+.dmg-area-hero::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.65) 100%);
+}
+.dmg-area-hero-inner {
+	position: relative;
+	z-index: 1;
+	max-width: 880px;
+	padding: 6rem 2rem 5rem;
+	text-align: center;
+}
+.dmg-area-hero-eyebrow {
+	display: inline-block;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.25em;
+	text-transform: uppercase;
+	color: #fff;
+	background: rgba(255,255,255,0.12);
+	border: 1px solid rgba(255,255,255,0.4);
+	padding: 0.4rem 0.85rem;
+	margin-bottom: 1.5rem;
+}
+.dmg-area-hero-title {
+	font-size: clamp(2.5rem, 6vw, 4rem);
+	font-weight: 700;
+	line-height: 1.05;
+	letter-spacing: -0.02em;
+	margin: 0 0 1.5rem;
+	color: #fff;
+}
+.dmg-area-hero-intro {
+	font-size: 1.1875rem;
+	line-height: 1.65;
+	color: rgba(255,255,255,0.92);
+	margin: 0 auto 2.5rem;
+	max-width: 720px;
+}
+.dmg-area-hero-ctas {
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+.dmg-btn-primary, .dmg-btn-secondary {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.875rem 1.75rem;
+	font-size: 0.875rem;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	text-transform: none;
+	text-decoration: none;
+	transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.dmg-btn-primary {
+	background: var(--wp--preset--color--primary);
+	color: #fff;
+}
+.dmg-btn-primary:hover {
+	background: var(--wp--preset--color--primary-dark);
+	color: #fff;
+}
+.dmg-btn-secondary {
+	background: transparent;
+	color: #fff;
+	border: 1px solid #fff;
+}
+.dmg-btn-secondary:hover {
+	background: #fff;
+	color: var(--wp--preset--color--gray-900);
+}
+@media (max-width: 600px) {
+	.dmg-area-hero { min-height: 60vh; }
+	.dmg-area-hero-inner { padding: 4rem 1.5rem 3.5rem; }
+}
+
+/* --------- Section eyebrow + heading (shared with home patterns) --------- */
+.dmg-area-section {
+	padding: 6rem 2rem;
+}
+.dmg-area-section--dark {
+	background: var(--wp--preset--color--gray-900);
+	color: #fff;
+}
+.dmg-area-section--alt {
+	background: var(--wp--preset--color--gray-50);
+}
+.dmg-area-section-inner {
+	max-width: 880px;
+	margin: 0 auto;
+}
+.dmg-area-section-inner--wide { max-width: 1100px; }
+
+.dmg-area-eyebrow-row {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.625rem;
+	margin: 0 0 1rem;
+}
+.dmg-area-eyebrow-icon {
+	display: inline-flex;
+	color: var(--wp--preset--color--primary);
+}
+.dmg-area-eyebrow-label {
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.25em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--gray-500);
+	margin: 0;
+}
+.dmg-area-section--dark .dmg-area-eyebrow-label { color: var(--wp--preset--color--gray-300); }
+
+.dmg-area-section-title {
+	text-align: center;
+	font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+	font-weight: 700;
+	letter-spacing: -0.015em;
+	line-height: 1.1;
+	margin: 0 0 3rem;
+	color: var(--wp--preset--color--gray-900);
+}
+.dmg-area-section--dark .dmg-area-section-title { color: #fff; }
+
+.dmg-area-prose p {
+	font-size: 1.0625rem;
+	line-height: 1.8;
+	color: var(--wp--preset--color--gray-800);
+	margin: 0 0 1.25rem;
+}
+.dmg-area-prose p:last-child { margin-bottom: 0; }
+.dmg-area-section--dark .dmg-area-prose p { color: var(--wp--preset--color--gray-100); }
+
+/* --------- Snapshot card grid --------- */
+.dmg-snapshot-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 1px;
+	background: var(--wp--preset--color--gray-100);
+	border: 1px solid var(--wp--preset--color--gray-100);
+}
+.dmg-snapshot-card {
+	background: #fff;
+	padding: 1.5rem 1.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+}
+.dmg-snapshot-label {
+	font-size: 0.6875rem;
+	font-weight: 700;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--primary);
+	margin: 0;
+}
+.dmg-snapshot-value {
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--wp--preset--color--gray-900);
+	line-height: 1.4;
+	margin: 0;
+}
+@media (max-width: 900px) {
+	.dmg-snapshot-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* --------- Sub-neighborhood cards --------- */
+.dmg-subhood-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1.5rem;
+}
+.dmg-subhood-card {
+	border: 1px solid var(--wp--preset--color--gray-100);
+	padding: 1.75rem 1.75rem 1.85rem;
+	background: #fff;
+}
+.dmg-subhood-card h3 {
+	font-size: 1.25rem;
+	font-weight: 700;
+	letter-spacing: -0.005em;
+	color: var(--wp--preset--color--gray-900);
+	margin: 0 0 0.5rem;
+}
+.dmg-subhood-card p {
+	font-size: 0.9375rem;
+	line-height: 1.65;
+	color: var(--wp--preset--color--gray-700);
+	margin: 0 0 0.75rem;
+}
+.dmg-subhood-card p:last-child { margin-bottom: 0; }
+.dmg-subhood-tags {
+	display: flex;
+	gap: 0.4rem;
+	flex-wrap: wrap;
+	margin-top: 0.75rem;
+}
+.dmg-subhood-tag {
+	font-size: 0.6875rem;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--gray-700);
+	background: var(--wp--preset--color--gray-100);
+	padding: 0.3rem 0.6rem;
+}
+@media (max-width: 700px) {
+	.dmg-subhood-grid { grid-template-columns: 1fr; }
+}
+
+/* --------- Schools / things-to-do columns --------- */
+.dmg-info-cols {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 2.5rem;
+}
+.dmg-info-cols h3 {
+	font-size: 1rem;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--primary);
+	margin: 0 0 1rem;
+}
+.dmg-info-cols ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.dmg-info-cols li {
+	padding: 0.65rem 0;
+	border-bottom: 1px solid var(--wp--preset--color--gray-100);
+	font-size: 0.9375rem;
+	line-height: 1.5;
+	color: var(--wp--preset--color--gray-800);
+}
+.dmg-info-cols li:last-child { border-bottom: 0; }
+.dmg-info-cols li strong {
+	display: block;
+	font-weight: 700;
+	color: var(--wp--preset--color--gray-900);
+	margin-bottom: 0.15rem;
+}
+.dmg-info-cols li small {
+	display: block;
+	font-size: 0.8125rem;
+	color: var(--wp--preset--color--gray-700);
+	margin-top: 0.15rem;
+}
+@media (max-width: 700px) {
+	.dmg-info-cols { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+/* --------- Image placeholder (light gray, signals "drop image here") --------- */
+.dmg-area-image-placeholder {
+	background: linear-gradient(135deg, var(--wp--preset--color--gray-100), var(--wp--preset--color--gray-300));
+	aspect-ratio: 16 / 9;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--wp--preset--color--gray-500);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+}
+
+/* --------- FAQ accordion (HTML5 details/summary) --------- */
+.dmg-faq-list { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--wp--preset--color--gray-100); }
+.dmg-faq-item {
+	border-bottom: 1px solid var(--wp--preset--color--gray-100);
+}
+.dmg-faq-item summary {
+	list-style: none;
+	cursor: pointer;
+	padding: 1.4rem 0;
+	font-size: 1.0625rem;
+	font-weight: 600;
+	color: var(--wp--preset--color--gray-900);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1.5rem;
+}
+.dmg-faq-item summary::-webkit-details-marker { display: none; }
+.dmg-faq-item summary::after {
+	content: "+";
+	font-size: 1.5rem;
+	font-weight: 400;
+	color: var(--wp--preset--color--primary);
+	transition: transform 0.2s ease;
+	line-height: 1;
+}
+.dmg-faq-item[open] summary::after {
+	content: "−";
+}
+.dmg-faq-item-body {
+	padding: 0 0 1.4rem;
+	font-size: 1rem;
+	line-height: 1.7;
+	color: var(--wp--preset--color--gray-700);
+}
+
+/* --------- CTA blocks (used multiple times on community pages) --------- */
+.dmg-cta-block {
+	text-align: center;
+	max-width: 720px;
+	margin: 0 auto;
+}
+.dmg-cta-block h2 {
+	font-size: clamp(1.75rem, 3vw, 2.25rem);
+	font-weight: 700;
+	letter-spacing: -0.015em;
+	line-height: 1.15;
+	margin: 0 0 1.25rem;
+}
+.dmg-cta-block p {
+	font-size: 1.0625rem;
+	line-height: 1.65;
+	margin: 0 0 2rem;
+}
+.dmg-cta-block .dmg-cta-row {
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+	flex-wrap: wrap;
+}
