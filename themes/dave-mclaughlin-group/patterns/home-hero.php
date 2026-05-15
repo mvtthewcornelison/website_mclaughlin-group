@@ -9,9 +9,9 @@
 $video_url  = esc_url( get_theme_file_uri( 'assets/video/hero-loop.mp4' ) );
 $poster_url = esc_url( get_theme_file_uri( 'assets/video/hero-poster.jpg' ) );
 ?>
-<!-- wp:cover {"url":"<?php echo $video_url; ?>","useFeaturedImage":false,"dimRatio":50,"overlayColor":"black","backgroundType":"video","minHeight":90,"minHeightUnit":"vh","contentPosition":"center center","align":"full"} -->
+<!-- wp:cover {"url":"<?php echo $video_url; ?>","useFeaturedImage":false,"dimRatio":55,"overlayColor":"black","backgroundType":"video","minHeight":90,"minHeightUnit":"vh","contentPosition":"center center","align":"full"} -->
 <div class="wp-block-cover alignfull" style="min-height:90vh">
-	<span aria-hidden="true" class="wp-block-cover__background has-black-background-color has-background-dim-50 has-background-dim"></span>
+	<span aria-hidden="true" class="wp-block-cover__background has-black-background-color has-background-dim-55 has-background-dim"></span>
 	<video class="wp-block-cover__video-background intrinsic-ignore" autoplay muted loop playsinline poster="<?php echo $poster_url; ?>" src="<?php echo $video_url; ?>" data-object-fit="cover"></video>
 	<div class="wp-block-cover__inner-container">
 
@@ -27,7 +27,7 @@ $poster_url = esc_url( get_theme_file_uri( 'assets/video/hero-poster.jpg' ) );
 		<div class="wp-block-buttons">
 
 			<!-- wp:button {"backgroundColor":"white","textColor":"black","style":{"border":{"radius":"0px"},"typography":{"fontWeight":"500","letterSpacing":"0.02em"},"spacing":{"padding":{"top":"0.875rem","bottom":"0.875rem","left":"1.75rem","right":"1.75rem"}}}} -->
-			<div class="wp-block-button"><a class="wp-block-button__link has-black-color has-white-background-color has-text-color has-background wp-element-button" style="border-radius:0px;padding-top:0.875rem;padding-right:1.75rem;padding-bottom:0.875rem;padding-left:1.75rem;font-weight:500;letter-spacing:0.02em" href="#listings">Open listings</a></div>
+			<div class="wp-block-button"><a class="wp-block-button__link has-black-color has-white-background-color has-text-color has-background wp-element-button" style="border-radius:0px;padding-top:0.875rem;padding-right:1.75rem;padding-bottom:0.875rem;padding-left:1.75rem;font-weight:500;letter-spacing:0.02em" href="/listings/">My Featured Listings</a></div>
 			<!-- /wp:button -->
 
 			<!-- wp:button {"backgroundColor":"white","textColor":"black","style":{"border":{"radius":"0px"},"typography":{"fontWeight":"500","letterSpacing":"0.02em"},"spacing":{"padding":{"top":"0.875rem","bottom":"0.875rem","left":"1.75rem","right":"1.75rem"}}}} -->

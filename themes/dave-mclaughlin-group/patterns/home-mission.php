@@ -5,6 +5,13 @@
  * Categories: featured
  * Inserter: false
  */
+
+/**
+ * NOTE: This pattern was removed from the homepage (front-page.html) in May 2025.
+ * It is preserved here for use on a future standalone About/Mission page.
+ * To use it: insert the "Home: Mission" pattern in any page via the block editor.
+ * The mission statement, stats bar, and awards sections all live in this file.
+ */
 ?>
 <!-- wp:group {"tagName":"section","align":"full","style":{"spacing":{"padding":{"top":"8rem","bottom":"8rem","left":"2rem","right":"2rem"}}},"backgroundColor":"gray-900","textColor":"white","layout":{"type":"constrained","contentSize":"720px"}} -->
 <section class="wp-block-group alignfull has-white-color has-gray-900-background-color has-text-color has-background" style="padding-top:8rem;padding-right:2rem;padding-bottom:8rem;padding-left:2rem">

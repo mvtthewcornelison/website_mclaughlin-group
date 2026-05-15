@@ -26,14 +26,14 @@ add_action( 'init', function () {
 			'menu_name'     => 'Listings',
 			'all_items'     => 'All Listings',
 		],
-		'public'       => false,
+		'public'       => true,
 		'show_ui'      => true,
 		'show_in_menu' => true,
 		'menu_position' => 20,
 		'menu_icon'    => 'dashicons-admin-home',
 		'show_in_rest' => true,
 		'has_archive'  => false,
-		'rewrite'      => false,
+		'rewrite'      => [ 'slug' => 'listings', 'with_front' => false ],
 		'supports'     => [ 'title', 'thumbnail', 'page-attributes' ],
 	] );
 } );
@@ -53,6 +53,10 @@ add_action( 'init', function () {
 		'dmg_kw_url'       => 'esc_url_raw',
 		'dmg_gallery'      => 'sanitize_text_field',
 		'dmg_neighborhood' => 'sanitize_text_field',
+		'dmg_description'  => 'sanitize_textarea_field',
+		'dmg_garage'       => 'sanitize_text_field',
+		'dmg_lot_size'     => 'sanitize_text_field',
+		'dmg_open_house'   => 'sanitize_text_field',
 	];
 	foreach ( $meta as $key => $sanitize ) {
 		register_post_meta( 'dmg_listing', $key, [
@@ -63,6 +67,14 @@ add_action( 'init', function () {
 			'auth_callback'     => function () { return current_user_can( 'edit_posts' ); },
 		] );
 	}
+
+	register_post_meta( 'dmg_listing', 'dmg_featured', [
+		'type'              => 'boolean',
+		'single'            => true,
+		'show_in_rest'      => true,
+		'sanitize_callback' => 'rest_sanitize_boolean',
+		'auth_callback'     => function () { return current_user_can( 'edit_posts' ); },
+	] );
 } );
 
 // ---------------------------------------------------------------------------
@@ -92,6 +104,11 @@ function dmg_listing_render_meta_box( $post ) {
 	$kw_url       = get_post_meta( $post->ID, 'dmg_kw_url', true );
 	$gallery      = get_post_meta( $post->ID, 'dmg_gallery', true );
 	$neighborhood = get_post_meta( $post->ID, 'dmg_neighborhood', true );
+	$description  = get_post_meta( $post->ID, 'dmg_description', true );
+	$garage       = get_post_meta( $post->ID, 'dmg_garage', true );
+	$lot_size     = get_post_meta( $post->ID, 'dmg_lot_size', true );
+	$open_house   = get_post_meta( $post->ID, 'dmg_open_house', true );
+	$featured     = (bool) get_post_meta( $post->ID, 'dmg_featured', true );
 
 	$dmg_areas = [
 		''                 => 'Not assigned',
@@ -108,7 +125,8 @@ function dmg_listing_render_meta_box( $post ) {
 	<style>
 		.dmg-listing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.5rem; max-width: 760px; }
 		.dmg-listing-grid p { margin: 0 0 0.4rem 0; }
-		.dmg-listing-grid input[type="text"], .dmg-listing-grid select { width: 100%; }
+		.dmg-listing-grid input[type="text"], .dmg-listing-grid select, .dmg-listing-grid textarea { width: 100%; }
+		.dmg-listing-grid textarea { min-height: 100px; resize: vertical; }
 		.dmg-listing-row { grid-column: 1 / -1; }
 		.dmg-gallery-list { padding: 0.75rem; background: #f6f7f7; border: 1px solid #dcdcde; min-height: 96px; }
 		.dmg-gallery-list img { display: inline-block; vertical-align: top; margin: 0 6px 6px 0; height: 80px; width: 80px; object-fit: cover; border: 1px solid #dcdcde; }
@@ -188,6 +206,33 @@ function dmg_listing_render_meta_box( $post ) {
 			</div>
 		</div>
 
+		<div class="dmg-listing-row">
+			<p><label for="dmg_description"><strong>Description</strong></label></p>
+			<textarea id="dmg_description" name="dmg_description"><?php echo esc_textarea( $description ); ?></textarea>
+		</div>
+
+		<div>
+			<p><label for="dmg_garage"><strong>Garage</strong></label></p>
+			<input type="text" id="dmg_garage" name="dmg_garage" value="<?php echo esc_attr( $garage ); ?>" placeholder="2-car attached" />
+		</div>
+
+		<div>
+			<p><label for="dmg_lot_size"><strong>Lot Size</strong></label></p>
+			<input type="text" id="dmg_lot_size" name="dmg_lot_size" value="<?php echo esc_attr( $lot_size ); ?>" placeholder="7,500 sq ft" />
+		</div>
+
+		<div class="dmg-listing-row">
+			<p><label for="dmg_open_house"><strong>Open House</strong></label></p>
+			<input type="text" id="dmg_open_house" name="dmg_open_house" value="<?php echo esc_attr( $open_house ); ?>" placeholder="e.g. Sun June 1, 1–4pm" />
+		</div>
+
+		<div class="dmg-listing-row">
+			<label>
+				<input type="checkbox" name="dmg_featured" value="1" <?php checked( $featured ); ?> />
+				<strong>Featured on Homepage</strong> — Show in homepage Featured Listings carousel
+			</label>
+		</div>
+
 	</div>
 
 	<script>
@@ -262,6 +307,10 @@ add_action( 'save_post_dmg_listing', function ( $post_id ) {
 		'dmg_zillow_url'   => 'esc_url_raw',
 		'dmg_kw_url'       => 'esc_url_raw',
 		'dmg_neighborhood' => 'sanitize_text_field',
+		'dmg_description'  => 'sanitize_textarea_field',
+		'dmg_garage'       => 'sanitize_text_field',
+		'dmg_lot_size'     => 'sanitize_text_field',
+		'dmg_open_house'   => 'sanitize_text_field',
 	];
 
 	foreach ( $fields as $key => $sanitize ) {
@@ -274,6 +323,9 @@ add_action( 'save_post_dmg_listing', function ( $post_id ) {
 		$ids = array_filter( array_map( 'absint', explode( ',', wp_unslash( $_POST['dmg_gallery'] ) ) ) );
 		update_post_meta( $post_id, 'dmg_gallery', implode( ',', $ids ) );
 	}
+
+	// dmg_featured is a checkbox — only present in POST when checked.
+	update_post_meta( $post_id, 'dmg_featured', rest_sanitize_boolean( isset( $_POST['dmg_featured'] ) ) );
 } );
 
 // ---------------------------------------------------------------------------
@@ -353,3 +405,53 @@ function dmg_get_listings_by_area( $area_slug ) {
 		],
 	] );
 }
+
+function dmg_get_featured_listings() {
+	return get_posts( [
+		'post_type'      => 'dmg_listing',
+		'post_status'    => 'publish',
+		'posts_per_page' => -1,
+		'orderby'        => [ 'menu_order' => 'ASC' ],
+		'meta_query'     => [
+			[
+				'key'   => 'dmg_featured',
+				'value' => '1',
+			],
+		],
+	] );
+}
+
+// ---------------------------------------------------------------------------
+// Auto-create "Open Listings" page (self-healing, runs on init)
+// ---------------------------------------------------------------------------
+add_action( 'init', function () {
+	if ( get_page_by_path( 'listings', OBJECT, 'page' ) ) {
+		return;
+	}
+
+	$page_id = wp_insert_post( [
+		'post_title'  => 'Open Listings',
+		'post_name'   => 'listings',
+		'post_status' => 'publish',
+		'post_type'   => 'page',
+	] );
+
+	if ( $page_id && ! is_wp_error( $page_id ) ) {
+		update_post_meta( $page_id, '_wp_page_template', 'page-listings' );
+	}
+} );
+
+// ---------------------------------------------------------------------------
+// Flush rewrite rules once after CPT was made public (checks current rules)
+// ---------------------------------------------------------------------------
+add_action( 'init', function () {
+	$rules = get_option( 'rewrite_rules' );
+	if ( is_array( $rules ) ) {
+		foreach ( array_keys( $rules ) as $pattern ) {
+			if ( strpos( $pattern, 'listings' ) !== false ) {
+				return; // Already registered — no flush needed.
+			}
+		}
+	}
+	flush_rewrite_rules( false );
+}, 999 );

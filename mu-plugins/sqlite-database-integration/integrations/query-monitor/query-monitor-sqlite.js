@@ -48,7 +48,7 @@ function inject( shadowRoot, data ) {
 		shadowRoot.appendChild( style );
 	}
 
-	// Match by SQL rather than row position - robust to filtering, sorting, etc.
+	// Match by SQL rather than row position — robust to filtering, sorting, etc.
 	for ( const code of panel.querySelectorAll( 'td.qm-cell-sql > code' ) ) {
 		const cell = code.parentElement;
 		const key = code.innerText.replace( /\s+/g, ' ' ).trim();

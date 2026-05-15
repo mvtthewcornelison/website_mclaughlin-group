@@ -44,7 +44,7 @@
 	<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 	<div class="wp-block-buttons">
 		<!-- wp:button {"backgroundColor":"black","textColor":"white","style":{"border":{"radius":"0px"},"typography":{"fontWeight":"500","letterSpacing":"0.02em"},"spacing":{"padding":{"top":"0.875rem","bottom":"0.875rem","left":"1.75rem","right":"1.75rem"}}}} -->
-		<div class="wp-block-button"><a class="wp-block-button__link has-white-color has-black-background-color has-text-color has-background wp-element-button" href="/contact-us/?subject=Connect%20with%20us&amp;source=connect-with-us" style="border-radius:0px;padding-top:0.875rem;padding-right:1.75rem;padding-bottom:0.875rem;padding-left:1.75rem;font-weight:500;letter-spacing:0.02em">Connect with us</a></div>
+		<div class="wp-block-button"><a class="wp-block-button__link has-white-color has-black-background-color has-text-color has-background wp-element-button" href="/contact-us/?subject=Connect%20with%20us&amp;source=seller-inquiry" style="border-radius:0px;padding-top:0.875rem;padding-right:1.75rem;padding-bottom:0.875rem;padding-left:1.75rem;font-weight:500;letter-spacing:0.02em">Connect with us</a></div>
 		<!-- /wp:button -->
 	</div>
 	<!-- /wp:buttons -->

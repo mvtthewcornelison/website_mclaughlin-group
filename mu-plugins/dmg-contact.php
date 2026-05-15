@@ -12,6 +12,10 @@ function dmg_contact_recipient_email() {
 	return get_option( 'dmg_contact_recipient_email', 'ddmclaugh@aol.com' );
 }
 
+function dmg_contact_seller_email() {
+	return get_option( 'dmg_seller_email', 'ddmclaugh@aol.com' );
+}
+
 function dmg_contact_field_value( $key ) {
 	if ( isset( $_POST[ $key ] ) ) {
 		return sanitize_text_field( wp_unslash( $_POST[ $key ] ) );
@@ -35,7 +39,10 @@ function dmg_contact_inquiry_labels() {
 		'schedule-consultation' => 'Schedule a consultation',
 		'speak-with-dave' => 'Speak with Dave',
 		'contact-dave' => 'Contact Dave',
-		'open-listings' => 'Open listings',
+		'open-listings'    => 'Open listings',
+		'seller-inquiry'   => 'Seller Inquiry',
+		'buyer-inquiry'    => 'Buyer Inquiry',
+		'listing-inquiry'  => 'Listing Inquiry',
 	];
 }
 
@@ -172,8 +179,10 @@ function dmg_handle_contact_submit() {
 		$message,
 	] );
 
+	$to = ( false !== strpos( $source, 'sell' ) ) ? dmg_contact_seller_email() : dmg_contact_recipient_email();
+
 	wp_mail(
-		dmg_contact_recipient_email(),
+		$to,
 		$subject_line,
 		$body,
 		[
@@ -196,6 +205,61 @@ function dmg_handle_contact_submit() {
 
 	wp_safe_redirect( add_query_arg( [ 'dmg_contact_error' => 'save' ], wp_get_referer() ?: home_url( '/contact-us/' ) ) );
 	exit;
+}
+
+add_action( 'admin_menu', function () {
+	add_options_page(
+		'Contact Settings',
+		'Contact Settings',
+		'manage_options',
+		'dmg-contact-settings',
+		'dmg_contact_settings_page'
+	);
+} );
+
+function dmg_contact_settings_page() {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	if ( isset( $_POST['dmg_contact_settings_nonce'] ) && wp_verify_nonce( $_POST['dmg_contact_settings_nonce'], 'dmg_contact_settings_save' ) ) {
+		if ( isset( $_POST['dmg_contact_recipient_email'] ) ) {
+			update_option( 'dmg_contact_recipient_email', sanitize_email( wp_unslash( $_POST['dmg_contact_recipient_email'] ) ) );
+		}
+		if ( isset( $_POST['dmg_seller_email'] ) ) {
+			update_option( 'dmg_seller_email', sanitize_email( wp_unslash( $_POST['dmg_seller_email'] ) ) );
+		}
+		echo '<div class="notice notice-success is-dismissible"><p>Settings saved.</p></div>';
+	}
+	?>
+	<div class="wrap">
+		<h1>Contact Settings</h1>
+		<form method="post" action="">
+			<?php wp_nonce_field( 'dmg_contact_settings_save', 'dmg_contact_settings_nonce' ); ?>
+			<table class="form-table" role="presentation">
+				<tr>
+					<th scope="row"><label for="dmg_contact_recipient_email">Buyer Lead Email</label></th>
+					<td>
+						<input type="email" id="dmg_contact_recipient_email" name="dmg_contact_recipient_email"
+							value="<?php echo esc_attr( dmg_contact_recipient_email() ); ?>"
+							class="regular-text" />
+						<p class="description">Email address for buyer inquiries and general contact form submissions.</p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="dmg_seller_email">Seller Lead Email</label></th>
+					<td>
+						<input type="email" id="dmg_seller_email" name="dmg_seller_email"
+							value="<?php echo esc_attr( dmg_contact_seller_email() ); ?>"
+							class="regular-text" />
+						<p class="description">Email address for seller inquiries (source containing &ldquo;sell&rdquo;).</p>
+					</td>
+				</tr>
+			</table>
+			<?php submit_button( 'Save Settings' ); ?>
+		</form>
+	</div>
+	<?php
 }
 
 add_action( 'init', function () {

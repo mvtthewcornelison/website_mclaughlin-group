@@ -44,6 +44,16 @@
 				pauseOnFocus: true
 			}).mount();
 		}
+
+		document.querySelectorAll('.dmg-listing-gallery').forEach(function (el) {
+			new Splide(el, {
+				type: 'loop',
+				perPage: 1,
+				arrows: true,
+				pagination: true,
+				gap: '0'
+			}).mount();
+		});
 	}
 
 	function animateCounter(el) {

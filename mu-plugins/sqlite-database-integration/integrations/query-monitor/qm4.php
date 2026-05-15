@@ -37,7 +37,7 @@ class SQLite_QM_Collector extends QM_Collector {
 			return;
 		}
 
-		// Index by SQL rather than row position - robust to filtering, sorting, etc.
+		// Index by SQL rather than row position — robust to filtering, sorting, etc.
 		$mapped = array();
 		foreach ( $wpdb->queries as $query ) {
 			// Query Monitor skips queries with 'wp_admin_bar' in the stack.

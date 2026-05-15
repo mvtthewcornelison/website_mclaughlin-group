@@ -106,7 +106,7 @@ $status_label = [
 	</style>
 
 	<?php if ( empty( $listings ) ) : ?>
-		<p style="text-align:center;color:#737373;font-style:italic;max-width:560px;margin:0 auto">No listings yet, add one from the <strong>Listings</strong> menu in the WordPress admin.</p>
+		<p style="text-align:center;color:#737373;font-style:italic;max-width:560px;margin:0 auto">No listings yet — check back soon!</p>
 	<?php else : ?>
 		<div class="dmg-listings-wrap">
 			<div class="splide dmg-listings-carousel" aria-label="Featured Listings" data-per-page="<?php echo (int) $per_page; ?>">
@@ -120,9 +120,7 @@ $status_label = [
 							$baths       = get_post_meta( $listing->ID, 'dmg_baths', true );
 							$sqft        = get_post_meta( $listing->ID, 'dmg_sqft', true );
 							$hoa         = get_post_meta( $listing->ID, 'dmg_hoa', true );
-							$kw_url      = get_post_meta( $listing->ID, 'dmg_kw_url', true );
-							$zillow_url  = get_post_meta( $listing->ID, 'dmg_zillow_url', true );
-							$detail_url  = $kw_url ?: $zillow_url;
+							$detail_url  = get_permalink( $listing->ID );
 							$gallery_csv = get_post_meta( $listing->ID, 'dmg_gallery', true );
 							$gallery_ids = $gallery_csv ? array_filter( array_map( 'absint', explode( ',', $gallery_csv ) ) ) : [];
 							$thumb_id    = (int) get_post_thumbnail_id( $listing );
@@ -162,9 +160,7 @@ $status_label = [
 										<li><strong><?php echo $sqft ? esc_html( $sqft ) : '-'; ?></strong> Sq Ft</li>
 										<li><strong><?php echo $hoa ? esc_html( $hoa ) : '-'; ?></strong> HOA</li>
 									</ul>
-									<?php if ( $detail_url ) : ?>
-										<a class="dmg-listing-cta" href="<?php echo esc_url( $detail_url ); ?>" target="_blank" rel="noopener">View listing</a>
-									<?php endif; ?>
+									<a class="dmg-listing-cta" href="<?php echo esc_url( $detail_url ); ?>">View Listing</a>
 								</div>
 							</article>
 						</li>
