@@ -1,32 +1,18 @@
-# TMG.com — Handoff Prompt (Post Client Review Session)
-
-## Where to Find the Plan
-
-The full implementation plan lives at:
-```
-~/.claude/plans/claude-code-handoff-structured-clover.md
-```
-
-That file contains the complete section-by-section spec with complexity ratings, file paths, and verification steps. Read it before making further changes to understand the intended architecture.
+# TMG.com — Handoff Prompt
 
 ---
 
-## What Was Completed (commit `643fcec`)
+## What Was Completed
 
-### Hero
+### commit `643fcec` — Client review session
+
+#### Hero
 - CTA button label changed: "Open listings" → "My Featured Listings"
 - Button now links to `/listings/` (the new archive page)
 - Overlay opacity increased: 50% → 55% (visibly darker, video still visible)
 - Future hook comment added near the video element for the video clipper tool
 
-### Homepage Section Reorder
-New order: **Hero → Featured Listings → Latest Video → Buyer CTA → Seller CTA → Testimonials**
-
-Removed from homepage (patterns preserved, not deleted):
-- `home-mission.php` — mission statement + stats bar + awards (has a top comment explaining why it was removed; available for a future `/about/` page)
-- `home-areas.php` — still accessible at `/areas/`; just not on the homepage
-
-### Native Listing Detail Pages (Primary Build Task)
+#### Native Listing Detail Pages
 
 **`mu-plugins/dmg-listings.php`** — Extended significantly:
 - CPT is now `public: true` with `rewrite slug: listings` and `has_archive: false`
@@ -57,7 +43,7 @@ Removed from homepage (patterns preserved, not deleted):
 - Empty state message when all cards are filtered out
 - All cards pre-rendered in PHP; JS shows/hides via `hidden` attribute
 
-### Latest Video Section
+#### Latest Video Section
 
 **`mu-plugins/dmg-video.php`** (new):
 - Registers `dmg_featured_video_url` and `dmg_youtube_channel_url` options
@@ -69,7 +55,7 @@ Removed from homepage (patterns preserved, not deleted):
 - If URL empty + logged out: renders section heading + "See All Videos" link only (no broken embed)
 - "See All Videos" falls back to `href="#"` with HTML comment if channel URL not set yet
 
-### Buyer/Seller Form Routing
+#### Buyer/Seller Form Routing
 
 **`mu-plugins/dmg-contact.php`**:
 - New `dmg_seller_email` option (defaults to `ddmclaugh@aol.com`)
@@ -78,16 +64,41 @@ Removed from homepage (patterns preserved, not deleted):
 - Settings > Contact Settings admin page for both email addresses
 - New source labels added: `seller-inquiry`, `buyer-inquiry`, `listing-inquiry`
 
-**`patterns/home-seller-cta.php`**: source param → `seller-inquiry`
+**`patterns/home-seller-cta.php`**: source param → `seller-inquiry` (pattern preserved on disk, not on homepage — see below)
 **`patterns/home-buyer-cta.php`**: source param → `buyer-inquiry`
 
-### Charity Spotlight Block
+#### Charity Spotlight Block
 
 **`patterns/charity-spotlight.php`** (new):
 - Available in block editor under Patterns → Featured as "Charity Spotlight"
 - Static HTML with placeholder img tags and a prominent comment block explaining to Dave how to update it
 - Optional CTA button is commented out with instructions to uncomment
 - NOT placed on any page automatically — Dave inserts it where he wants
+
+---
+
+### commit `01cf792` — Homepage section alternation fix
+
+**Current homepage order: Hero → Featured Listings → Latest Video → Buyer CTA → Testimonials**
+
+The Seller CTA section (`home-seller-cta.php`) has been removed from the homepage template. The pattern file is preserved on disk (like `home-mission.php` and `home-areas.php`) in case it's needed later.
+
+The Buyer CTA section was converted from dark to light background so the five sections alternate cleanly:
+
+| Section | Background |
+|---------|------------|
+| Hero | Dark (video overlay) |
+| Featured Listings | Light (`gray-50`) |
+| Latest Video | Dark (`gray-900`) |
+| Buyer CTA | Light (`gray-50`) |
+| Testimonials | Dark (`gray-900`) |
+
+**Changes to `home-buyer-cta.php`:** background `gray-900` → `gray-50`; heading/body text updated to dark colors; button inverted to black-on-white (matching the visual style of the removed Seller CTA).
+
+Patterns removed from homepage (files preserved on disk):
+- `home-seller-cta.php` — removed in this session; available to re-add or repurpose
+- `home-mission.php` — mission statement + stats bar + awards; available for a future `/about/` page
+- `home-areas.php` — still accessible at `/areas/`; just not on the homepage
 
 ---
 
@@ -150,7 +161,7 @@ This requires the WordPress Site Editor, which operates outside of code/git.
 
 ---
 
-## Before Launch Checklist (from CLAUDE.md)
+## Before Launch Checklist
 
 - [ ] Remove pattern cache flush in `themes/dave-mclaughlin-group/functions.php` lines 72–74
 - [ ] Decide on MySQL migration path (SQLite is dev-only)
