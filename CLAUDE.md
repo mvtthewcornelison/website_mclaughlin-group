@@ -31,31 +31,37 @@ The setup script backs up Studio's default wp-content and symlinks this repo in 
 Key files:
 - `theme.json` — design tokens (brand red `#B20000`, fluid type, layout widths)
 - `templates/` — full-page block templates (front-page, contact, team, areas, testimonials, etc.)
-- `patterns/` — reusable block patterns; cache is flushed on every load (dev-only, see below)
+- `patterns/` — reusable block patterns; cache is flushed on every load (dev-only, see HANDOFF.md)
 - `assets/js/carousels.js` — Splide init for listings + testimonials carousels
 - `assets/js/header.js` — smart sticky header (hide on scroll-down, reveal on scroll-up)
 
 ## mu-plugins/
 
-All files are must-use plugins, auto-loaded by WordPress. Three register custom post types; three manage standard WordPress pages.
+All files are must-use plugins, auto-loaded by WordPress.
 
-**Custom post types (registered via `register_post_type`):**
+**Custom post types:**
 
 | File | CPT slug | Purpose |
 |------|----------|---------|
-| `dmg-listings.php` | `dmg_listing` | Featured property listings (price, beds, baths, sqft, HOA) |
-| `dmg-reviews.php` | `dmg_review` | Client testimonials with rating, quote, source |
-| `dmg-contact.php` | `dmg_inquiry` | Contact form submissions; sends email on new inquiry |
+| `dmg-listings.php` | `dmg_listing` | Property listings (price, beds, baths, sqft, HOA, garage, lot size, open house, featured flag); also auto-creates `/listings/` archive page |
+| `dmg-reviews.php` | `dmg_review` | Client testimonials (rating, quote, source) |
+| `dmg-contact.php` | `dmg_inquiry` | Contact form submissions; routes buyer vs. seller email; sends email on submit |
 
 All CPTs have REST API support enabled.
 
-**Self-healing page managers (create standard `page` post-type entries on init):**
+**Self-healing page managers** (create standard `page` entries on init; idempotent):
 
 | File | Pages created | Notes |
 |------|---------------|-------|
-| `dmg-team.php` | `/meet-the-team/` | Creates page if missing |
-| `dmg-areas.php` | `/areas/` + 8 community child pages | Agoura Hills, Westlake Village, Malibu, etc. Also emits `<meta name="description">` on each area page |
+| `dmg-team.php` | `/meet-the-team/` | |
+| `dmg-areas.php` | `/areas/` + 8 community child pages | Also emits `<meta name="description">` on each area page |
 | `dmg-give-back.php` | `/we-give-back/` + `/we-give-back/royal-family-kids/` | Also emits SEO meta description |
+
+**Settings plugins:**
+
+| File | Purpose |
+|------|---------|
+| `dmg-video.php` | YouTube channel feed — stores channel URL + auto-resolved channel ID; `dmg_get_youtube_videos(n)` fetches the public Atom RSS feed and caches results for 1 hour; optional featured video override |
 
 ## SQLite notes
 
@@ -63,5 +69,6 @@ The database is committed to git (`database/.ht.sqlite`). This is intentional fo
 
 ## Before launching to production
 
-- Remove the pattern cache flush in `themes/dave-mclaughlin-group/functions.php` line 72–74
+- Remove the pattern cache flush in `themes/dave-mclaughlin-group/functions.php` lines 72–74
 - Decide on a MySQL migration path (SQLite is dev-only; production WordPress typically uses MySQL)
+- See `HANDOFF.md` for the full launch checklist and outstanding items
