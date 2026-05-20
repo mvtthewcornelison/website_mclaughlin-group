@@ -6,10 +6,13 @@
  * Inserter: false
  */
 
-$hero_image = get_theme_file_uri( 'assets/images/neighborhoods/agoura-hills.png' );
-$listings   = function_exists( 'dmg_get_listings_by_area' ) ? dmg_get_listings_by_area( 'agoura-hills' ) : [];
+$hero_image   = get_theme_file_uri( 'assets/images/neighborhoods/agoura-hills.png' );
+$area_slug    = 'agoura-hills';
+$area_name    = 'Agoura Hills';
+$listings     = function_exists( 'dmg_get_area_listings_prioritized' ) ? dmg_get_area_listings_prioritized( $area_slug ) : [];
+$idx_listings = apply_filters( 'dmg_idx_listings_for_area', [], $area_slug );
+$has_listings = ! empty( $listings ) || ! empty( $idx_listings );
 
-// Pull tile images for "Nearby Communities" cards (Westlake Village, Oak Park, Thousand Oaks).
 $resolve_neighbor_image = function ( $slug ) {
 	foreach ( [ 'jpg', 'jpeg', 'png', 'webp' ] as $ext ) {
 		$rel = "assets/images/neighborhoods/{$slug}.{$ext}";
@@ -27,34 +30,46 @@ $nearby = [
 ];
 
 $faqs = [
-	[
-		'q' => 'Is Agoura Hills a good place to live?',
-		'a' => 'Agoura Hills consistently ranks among the most livable cities in Los Angeles County. Residents tend to highlight the open space, the school district, the strong sense of community, and the rare combination of being close to the city while feeling genuinely tucked away.',
-	],
-	[
-		'q' => 'What school district serves Agoura Hills?',
-		'a' => 'Most of Agoura Hills falls within Las Virgenes Unified School District (LVUSD), which is regularly ranked among the top public school districts in California. The high school is Agoura High; elementary and middle schools include Yerba Buena, Sumac, Lindero Canyon, and A.E. Wright.',
-	],
-	[
-		'q' => 'How far is Agoura Hills from Los Angeles?',
-		'a' => 'Agoura Hills sits about 35 miles from downtown Los Angeles. Without traffic, you can reach Beverly Hills or the Westside in roughly 30–40 minutes via the 101. Burbank is around 30 minutes, and the beach in Malibu is about 30 minutes through the Santa Monica Mountains via Kanan-Dume Road.',
-	],
-	[
-		'q' => 'Is Agoura Hills family-friendly?',
-		'a' => 'Yes. Agoura Hills is one of the most family-oriented communities in the region, with a deep network of parks, youth sports leagues, community events, and well-established neighborhoods designed around families. The school district is a major draw for relocating parents.',
-	],
-	[
-		'q' => 'Are there luxury homes in Agoura Hills?',
-		'a' => 'Yes. Agoura Hills includes a range of price points, from updated single-family homes to large custom estates and equestrian properties in Old Agoura. The luxury tier is typically privately listed and benefits from working with a local agent who knows what is available off-market.',
-	],
-	[
-		'q' => 'What is the real estate market like in Agoura Hills?',
-		'a' => 'Inventory in Agoura Hills tends to be tight, many homes turn over within long-term family circles, and well-prepared listings move quickly. The market favors sellers who price thoughtfully and buyers who are pre-positioned and ready to act when the right home appears.',
-	],
+	[ 'q' => 'Is Agoura Hills a good place to live?', 'a' => 'Agoura Hills consistently ranks among the most livable cities in Los Angeles County. Residents tend to highlight the open space, the school district, the strong sense of community, and the rare combination of being close to the city while feeling genuinely tucked away.' ],
+	[ 'q' => 'What school district serves Agoura Hills?', 'a' => 'Most of Agoura Hills falls within Las Virgenes Unified School District (LVUSD), which is regularly ranked among the top public school districts in California. The high school is Agoura High; elementary and middle schools include Yerba Buena, Sumac, Lindero Canyon, and A.E. Wright.' ],
+	[ 'q' => 'How far is Agoura Hills from Los Angeles?', 'a' => 'Agoura Hills sits about 35 miles from downtown Los Angeles. Without traffic, you can reach Beverly Hills or the Westside in roughly 30–40 minutes via the 101. Burbank is around 30 minutes, and the beach in Malibu is about 30 minutes through the Santa Monica Mountains via Kanan-Dume Road.' ],
+	[ 'q' => 'Is Agoura Hills family-friendly?', 'a' => 'Yes. Agoura Hills is one of the most family-oriented communities in the region, with a deep network of parks, youth sports leagues, community events, and well-established neighborhoods designed around families. The school district is a major draw for relocating parents.' ],
+	[ 'q' => 'Are there luxury homes in Agoura Hills?', 'a' => 'Yes. Agoura Hills includes a range of price points, from updated single-family homes to large custom estates and equestrian properties in Old Agoura. The luxury tier is typically privately listed and benefits from working with a local agent who knows what is available off-market.' ],
+	[ 'q' => 'What is the real estate market like in Agoura Hills?', 'a' => 'Inventory in Agoura Hills tends to be tight, many homes turn over within long-term family circles, and well-prepared listings move quickly. The market favors sellers who price thoughtfully and buyers who are pre-positioned and ready to act when the right home appears.' ],
 ];
-
-$status_label = [ 'active' => 'Active', 'pending' => 'Pending', 'sold' => 'Sold' ];
 ?>
+
+<!-- ====== 1. LISTINGS (top of page) ====== -->
+<!-- wp:html -->
+<section class="dmg-area-section" id="agoura-hills-homes">
+	<div class="dmg-area-section-inner dmg-area-section-inner--wide">
+		<div class="dmg-area-eyebrow-row">
+			<span class="dmg-area-eyebrow-icon" aria-hidden="true">
+				<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+			</span>
+			<p class="dmg-area-eyebrow-label">Homes for Sale</p>
+		</div>
+		<h2 class="dmg-area-section-title">Active Listings in Agoura Hills</h2>
+
+		<?php if ( $has_listings ) : ?>
+			<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem;margin:0 auto;max-width:1280px">
+				<?php foreach ( $listings as $listing ) :
+					$is_featured = get_post_meta( $listing->ID, 'dmg_featured', true ) === '1';
+					dmg_render_area_listing_card( $listing, $is_featured ? 'Featured' : null );
+				endforeach; ?>
+				<?php foreach ( $idx_listings as $idx_listing ) :
+					dmg_render_idx_listing_card( $idx_listing );
+				endforeach; ?>
+			</div>
+		<?php else : ?>
+			<div style="text-align:center;padding:3rem 2rem;background:var(--wp--preset--color--gray-50);border:1px dashed var(--wp--preset--color--gray-300)">
+				<p style="font-size:1rem;color:var(--wp--preset--color--gray-700);margin:0 0 0.5rem">No active listings in Agoura Hills at the moment.</p>
+				<p style="font-size:0.9375rem;color:var(--wp--preset--color--gray-500);margin:0">Inventory in this market moves quickly, <a href="/contact-us/?subject=Questions%20about%20Agoura%20Hills&amp;source=reach-out" style="color:var(--wp--preset--color--primary);font-weight:600;text-decoration:underline">reach out</a> to be notified when something becomes available.</p>
+			</div>
+		<?php endif; ?>
+	</div>
+</section>
+<!-- /wp:html -->
 
 <!-- wp:html -->
 <section class="dmg-area-hero" style="background-image:url('<?php echo esc_url( $hero_image ); ?>')" aria-label="Living in Agoura Hills">
@@ -63,7 +78,6 @@ $status_label = [ 'active' => 'Active', 'pending' => 'Pending', 'sold' => 'Sold'
 		<h1 class="dmg-area-hero-title">Living in Agoura Hills</h1>
 		<p class="dmg-area-hero-intro">A community shaped by oak canyons, generational families, and a quiet preference for the way things ought to be done, close to Los Angeles, but a world unto itself.</p>
 		<div class="dmg-area-hero-ctas">
-			<a class="dmg-btn-primary" href="#agoura-hills-homes">View homes for sale</a>
 			<a class="dmg-btn-secondary" href="/contact-us/?subject=Speak%20with%20a%20local%20expert&amp;source=local-expert">Speak with a local expert</a>
 		</div>
 	</div>
@@ -149,69 +163,6 @@ $status_label = [ 'active' => 'Active', 'pending' => 'Pending', 'sold' => 'Sold'
 
 			<p>For us, Agoura Hills isn&rsquo;t a market, it&rsquo;s a place we&rsquo;ve lived alongside for three generations. We&rsquo;ve watched neighborhoods evolve, fires reshape the hills, families grow up and come back to raise their own kids two streets over. When we list a home here or help a buyer find one, we&rsquo;re talking about somewhere we already know.</p>
 		</div>
-	</div>
-</section>
-<!-- /wp:html -->
-
-<!-- ====== 4. REAL ESTATE MARKET (with dynamic listings) ====== -->
-<!-- wp:html -->
-<section class="dmg-area-section" id="agoura-hills-homes">
-	<div class="dmg-area-section-inner dmg-area-section-inner--wide">
-		<div class="dmg-area-eyebrow-row">
-			<span class="dmg-area-eyebrow-icon" aria-hidden="true">
-				<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-			</span>
-			<p class="dmg-area-eyebrow-label">Real Estate</p>
-		</div>
-		<h2 class="dmg-area-section-title">The Market in Agoura Hills</h2>
-
-		<div class="dmg-area-prose" style="margin-bottom:3rem">
-			<p>Agoura Hills offers one of the more varied housing landscapes in the Conejo Valley. The bulk of single-family inventory sits in established hillside neighborhoods built between the 1970s and 1990s, ranch and traditional homes on quarter to half-acre lots, often updated by long-term owners. The newer neighborhoods on the south side trend slightly larger and more contemporary in style.</p>
-
-			<p>At the higher end, custom estates and view properties typically range from the upper $2M figures into the $5M+ range, with a meaningful luxury tier in Old Agoura&rsquo;s equestrian properties. More approachable single-family homes, three to four bedrooms, well-maintained, in good school zones, tend to anchor the family market in the low-to-mid seven figures depending on size, condition, and location. There is a small townhome and condo segment, primarily concentrated near Kanan and Cornell.</p>
-
-			<p>Inventory is consistently tight. Many homes turn over within long-term family circles or off-market, which is one of the reasons working with a local agent matters here. Well-prepared, well-priced listings move quickly. Buyers who win in this market tend to be pre-positioned, decisive, and represented by someone who hears about properties before they hit Zillow.</p>
-		</div>
-
-		<?php if ( ! empty( $listings ) ) : ?>
-			<h3 style="font-size:1.125rem;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--wp--preset--color--gray-700);margin:0 0 1.5rem;text-align:center">Active Agoura Hills Listings</h3>
-			<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem;margin:0 auto;max-width:1280px">
-				<?php foreach ( $listings as $listing ) :
-					$title       = get_the_title( $listing );
-					$status      = get_post_meta( $listing->ID, 'dmg_status', true ) ?: 'active';
-					$price       = get_post_meta( $listing->ID, 'dmg_price', true );
-					$beds        = get_post_meta( $listing->ID, 'dmg_beds', true );
-					$baths       = get_post_meta( $listing->ID, 'dmg_baths', true );
-					$sqft        = get_post_meta( $listing->ID, 'dmg_sqft', true );
-					$kw_url      = get_post_meta( $listing->ID, 'dmg_kw_url', true );
-					$zillow_url  = get_post_meta( $listing->ID, 'dmg_zillow_url', true );
-					$detail_url  = $kw_url ?: $zillow_url;
-					$thumb       = get_the_post_thumbnail_url( $listing, 'large' );
-				?>
-					<article class="dmg-listing-card" style="border:1px solid var(--wp--preset--color--gray-100);background:#fff;display:flex;flex-direction:column;overflow:hidden">
-						<?php if ( $thumb ) : ?>
-							<div style="aspect-ratio:3 / 2;background-image:url('<?php echo esc_url( $thumb ); ?>');background-size:cover;background-position:center"></div>
-						<?php else : ?>
-							<div class="dmg-area-image-placeholder" style="aspect-ratio:3 / 2">Listing photo</div>
-						<?php endif; ?>
-						<div style="padding:1.5rem 1.5rem 1.75rem;display:flex;flex-direction:column;gap:0.5rem">
-							<span class="dmg-listing-status dmg-listing-status--<?php echo esc_attr( $status ); ?>" style="align-self:flex-start;font-size:0.6875rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;padding:0.3rem 0.6rem"><?php echo esc_html( $status_label[ $status ] ?? 'Active' ); ?></span>
-							<h4 style="font-size:1.125rem;font-weight:700;line-height:1.3;margin:0.25rem 0 0;letter-spacing:-0.005em"><?php echo esc_html( $title ); ?></h4>
-							<p style="font-size:1.5rem;font-weight:700;color:var(--wp--preset--color--primary);margin:0;letter-spacing:-0.01em"><?php echo $price ? esc_html( $price ) : '-'; ?></p>
-							<p style="font-size:0.875rem;color:var(--wp--preset--color--gray-700);margin:0.25rem 0 0"><?php echo esc_html( ( $beds ?: '-' ) . ' bed · ' . ( $baths ?: '-' ) . ' bath · ' . ( $sqft ?: '-' ) . ' sqft' ); ?></p>
-							<?php if ( $detail_url ) : ?>
-								<a class="dmg-btn-primary" style="margin-top:1rem;align-self:flex-start" href="<?php echo esc_url( $detail_url ); ?>" target="_blank" rel="noopener">View listing</a>
-							<?php endif; ?>
-						</div>
-					</article>
-				<?php endforeach; ?>
-			</div>
-		<?php else : ?>
-			<div style="text-align:center;padding:3rem 2rem;background:var(--wp--preset--color--gray-50);border:1px dashed var(--wp--preset--color--gray-300)">
-				<p style="font-size:1rem;color:var(--wp--preset--color--gray-700);margin:0 0 0.5rem">No active listings in Agoura Hills at the moment.</p>
-				<p style="font-size:0.9375rem;color:var(--wp--preset--color--gray-500);margin:0">Inventory in this market moves quickly, <a href="/contact-us/?subject=Questions%20about%20Agoura%20Hills&amp;source=reach-out" style="color:var(--wp--preset--color--primary);font-weight:600;text-decoration:underline">reach out</a> to be notified when something becomes available.</p>
-			</div>
-		<?php endif; ?>
 	</div>
 </section>
 <!-- /wp:html -->
@@ -417,7 +368,20 @@ $status_label = [ 'active' => 'Active', 'pending' => 'Pending', 'sold' => 'Sold'
 </section>
 <!-- /wp:html -->
 
-<!-- ====== 10. BUYER CTA ====== -->
+<!-- ====== 10. SELLER CTA ====== -->
+<!-- wp:html -->
+<section class="dmg-area-section dmg-area-section--dark">
+	<div class="dmg-cta-block">
+		<h2>Considering Selling in Agoura Hills?</h2>
+		<p style="color:var(--wp--preset--color--gray-100)">With deep local knowledge and a relationship-first approach, we help homeowners navigate the selling process with experience, integrity, and care. No high-pressure pitch, just an honest conversation about your home and the market.</p>
+		<div class="dmg-cta-row">
+			<a class="dmg-btn-primary" href="/contact-us/?subject=Speak%20with%20Dave&amp;source=speak-with-dave">Speak with Dave</a>
+		</div>
+	</div>
+</section>
+<!-- /wp:html -->
+
+<!-- ====== 11. BUYER CTA ====== -->
 <!-- wp:html -->
 <section class="dmg-area-section dmg-area-section--alt">
 	<div class="dmg-cta-block">
@@ -426,19 +390,6 @@ $status_label = [ 'active' => 'Active', 'pending' => 'Pending', 'sold' => 'Sold'
 		<div class="dmg-cta-row">
 			<a class="dmg-btn-primary" href="/contact-us/?subject=Schedule%20a%20consultation&amp;source=schedule-consultation">Schedule a consultation</a>
 			<a class="dmg-btn-secondary" style="color:var(--wp--preset--color--gray-900);border-color:var(--wp--preset--color--gray-900)" href="#agoura-hills-homes">Explore homes</a>
-		</div>
-	</div>
-</section>
-<!-- /wp:html -->
-
-<!-- ====== 11. SELLER CTA ====== -->
-<!-- wp:html -->
-<section class="dmg-area-section dmg-area-section--dark">
-	<div class="dmg-cta-block">
-		<h2>Considering Selling in Agoura Hills?</h2>
-		<p style="color:var(--wp--preset--color--gray-100)">With deep local knowledge and a relationship-first approach, we help homeowners navigate the selling process with experience, integrity, and care. No high-pressure pitch, just an honest conversation about your home and the market.</p>
-		<div class="dmg-cta-row">
-			<a class="dmg-btn-primary" href="/contact-us/?subject=Speak%20with%20Dave&amp;source=speak-with-dave">Speak with Dave</a>
 		</div>
 	</div>
 </section>
