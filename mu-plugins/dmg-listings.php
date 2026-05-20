@@ -421,6 +421,99 @@ function dmg_get_featured_listings() {
 	] );
 }
 
+function dmg_get_area_listings_prioritized( $area_slug ) {
+	if ( ! $area_slug ) {
+		return [];
+	}
+	$base = [
+		'post_type'      => 'dmg_listing',
+		'post_status'    => 'publish',
+		'posts_per_page' => -1,
+		'orderby'        => [ 'menu_order' => 'ASC', 'date' => 'DESC' ],
+	];
+
+	$featured = get_posts( array_merge( $base, [
+		'meta_query' => [
+			'relation' => 'AND',
+			[ 'key' => 'dmg_neighborhood', 'value' => $area_slug ],
+			[ 'key' => 'dmg_featured',     'value' => '1' ],
+		],
+	] ) );
+
+	$regular = get_posts( array_merge( $base, [
+		'meta_query' => [
+			'relation' => 'AND',
+			[ 'key' => 'dmg_neighborhood', 'value' => $area_slug ],
+			[
+				'relation' => 'OR',
+				[ 'key' => 'dmg_featured', 'compare' => 'NOT EXISTS' ],
+				[ 'key' => 'dmg_featured', 'value' => '1', 'compare' => '!=' ],
+			],
+		],
+	] ) );
+
+	return array_merge( $featured, $regular );
+}
+
+function dmg_render_area_listing_card( $listing, $badge = null ) {
+	static $status_label = [ 'active' => 'Active', 'pending' => 'Pending', 'sold' => 'Sold' ];
+	$title      = get_the_title( $listing );
+	$status     = get_post_meta( $listing->ID, 'dmg_status', true ) ?: 'active';
+	$price      = get_post_meta( $listing->ID, 'dmg_price', true );
+	$beds       = get_post_meta( $listing->ID, 'dmg_beds', true );
+	$baths      = get_post_meta( $listing->ID, 'dmg_baths', true );
+	$sqft       = get_post_meta( $listing->ID, 'dmg_sqft', true );
+	$kw_url     = get_post_meta( $listing->ID, 'dmg_kw_url', true );
+	$zillow_url = get_post_meta( $listing->ID, 'dmg_zillow_url', true );
+	$detail_url = $kw_url ?: $zillow_url;
+	$thumb      = get_the_post_thumbnail_url( $listing, 'large' );
+	?>
+	<article class="dmg-listing-card" style="border:1px solid var(--wp--preset--color--gray-100);background:#fff;display:flex;flex-direction:column;overflow:hidden">
+		<?php if ( $thumb ) : ?>
+			<div style="aspect-ratio:3 / 2;background-image:url('<?php echo esc_url( $thumb ); ?>');background-size:cover;background-position:center"></div>
+		<?php else : ?>
+			<div class="dmg-area-image-placeholder" style="aspect-ratio:3 / 2">Listing photo</div>
+		<?php endif; ?>
+		<div style="padding:1.5rem 1.5rem 1.75rem;display:flex;flex-direction:column;gap:0.5rem">
+			<?php if ( $badge ) : ?>
+				<span style="align-self:flex-start;font-size:0.6875rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;padding:0.3rem 0.6rem;background:var(--wp--preset--color--primary);color:#fff;margin-bottom:0.25rem"><?php echo esc_html( $badge ); ?></span>
+			<?php endif; ?>
+			<span class="dmg-listing-status dmg-listing-status--<?php echo esc_attr( $status ); ?>" style="align-self:flex-start;font-size:0.6875rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;padding:0.3rem 0.6rem"><?php echo esc_html( $status_label[ $status ] ?? 'Active' ); ?></span>
+			<h4 style="font-size:1.125rem;font-weight:700;line-height:1.3;margin:0.25rem 0 0;letter-spacing:-0.005em"><?php echo esc_html( $title ); ?></h4>
+			<p style="font-size:1.5rem;font-weight:700;color:var(--wp--preset--color--primary);margin:0;letter-spacing:-0.01em"><?php echo $price ? esc_html( $price ) : '-'; ?></p>
+			<p style="font-size:0.875rem;color:var(--wp--preset--color--gray-700);margin:0.25rem 0 0"><?php echo esc_html( ( $beds ?: '-' ) . ' bed · ' . ( $baths ?: '-' ) . ' bath · ' . ( $sqft ?: '-' ) . ' sqft' ); ?></p>
+			<?php if ( $detail_url ) : ?>
+				<a class="dmg-btn-primary" style="margin-top:1rem;align-self:flex-start" href="<?php echo esc_url( $detail_url ); ?>" target="_blank" rel="noopener">View listing</a>
+			<?php endif; ?>
+		</div>
+	</article>
+	<?php
+}
+
+function dmg_render_idx_listing_card( $idx ) {
+	static $status_label = [ 'active' => 'Active', 'pending' => 'Pending', 'sold' => 'Sold' ];
+	$status = $idx['status'] ?? 'active';
+	?>
+	<article class="dmg-listing-card" style="border:1px solid var(--wp--preset--color--gray-100);background:#fff;display:flex;flex-direction:column;overflow:hidden">
+		<?php if ( ! empty( $idx['thumb'] ) ) : ?>
+			<div style="aspect-ratio:3 / 2;background-image:url('<?php echo esc_url( $idx['thumb'] ); ?>');background-size:cover;background-position:center"></div>
+		<?php else : ?>
+			<div class="dmg-area-image-placeholder" style="aspect-ratio:3 / 2">Listing photo</div>
+		<?php endif; ?>
+		<div style="padding:1.5rem 1.5rem 1.75rem;display:flex;flex-direction:column;gap:0.5rem">
+			<span style="align-self:flex-start;font-size:0.6875rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;padding:0.3rem 0.6rem;background:var(--wp--preset--color--gray-500);color:#fff;margin-bottom:0.25rem">MLS Listing</span>
+			<span class="dmg-listing-status dmg-listing-status--<?php echo esc_attr( $status ); ?>" style="align-self:flex-start;font-size:0.6875rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;padding:0.3rem 0.6rem"><?php echo esc_html( $status_label[ $status ] ?? 'Active' ); ?></span>
+			<h4 style="font-size:1.125rem;font-weight:700;line-height:1.3;margin:0.25rem 0 0;letter-spacing:-0.005em"><?php echo esc_html( $idx['title'] ?? '' ); ?></h4>
+			<p style="font-size:1.5rem;font-weight:700;color:var(--wp--preset--color--primary);margin:0;letter-spacing:-0.01em"><?php echo ! empty( $idx['price'] ) ? esc_html( $idx['price'] ) : '-'; ?></p>
+			<p style="font-size:0.875rem;color:var(--wp--preset--color--gray-700);margin:0.25rem 0 0"><?php echo esc_html( ( $idx['beds'] ?? '-' ) . ' bed · ' . ( $idx['baths'] ?? '-' ) . ' bath · ' . ( $idx['sqft'] ?? '-' ) . ' sqft' ); ?></p>
+			<?php if ( ! empty( $idx['detail_url'] ) ) : ?>
+				<a class="dmg-btn-primary" style="margin-top:1rem;align-self:flex-start" href="<?php echo esc_url( $idx['detail_url'] ); ?>" target="_blank" rel="noopener">View listing</a>
+			<?php endif; ?>
+		</div>
+	</article>
+	<?php
+}
+
 // ---------------------------------------------------------------------------
 // Auto-create "Open Listings" page (self-healing, runs on init)
 // ---------------------------------------------------------------------------
