@@ -67,6 +67,10 @@ All CPTs have REST API support enabled.
 
 The database is committed to git (`database/.ht.sqlite`). This is intentional for portability — no separate DB import needed. One developer should own content changes at a time to avoid merge conflicts on the binary file.
 
+## Claude Code output limits
+
+When writing large plan or spec files, **never write more than ~250 lines in a single file-write operation**. Split large plans across multiple turns using Edit to append sections. This prevents hitting the 32 K output-token ceiling and losing work mid-write.
+
 ## Before launching to production
 
 - Remove the pattern cache flush in `themes/dave-mclaughlin-group/functions.php` lines 72–74

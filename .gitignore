@@ -5,3 +5,6 @@ dist
 build
 vendor
 uploads
+.playwright-mcp/
+debug.log
+upgrade/

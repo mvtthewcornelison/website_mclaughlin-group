@@ -59,13 +59,16 @@ function dmg_resolve_youtube_channel_id( string $url ): string {
 }
 
 /**
- * Returns up to $count recent videos from the channel RSS feed.
+ * Returns up to $count recent videos by scraping the channel's /videos page.
  * Each item: ['id' => string, 'title' => string].
  * Results are cached in a transient for 1 hour.
+ *
+ * YouTube's public Atom RSS feed (/feeds/videos.xml) no longer works reliably.
+ * This approach parses the inline JSON (ytInitialData) embedded in the channel page.
  */
 function dmg_get_youtube_videos( int $count = 4 ): array {
-	$channel_id = get_option( 'dmg_youtube_channel_id', '' );
-	if ( ! $channel_id ) {
+	$channel_url = get_option( 'dmg_youtube_channel_url', '' );
+	if ( ! $channel_url ) {
 		return [];
 	}
 
@@ -74,34 +77,48 @@ function dmg_get_youtube_videos( int $count = 4 ): array {
 		return array_slice( $cached, 0, $count );
 	}
 
-	$feed_url = 'https://www.youtube.com/feeds/videos.xml?channel_id=' . urlencode( $channel_id );
-	$response = wp_remote_get( $feed_url, [ 'timeout' => 10 ] );
+	$videos_url = rtrim( $channel_url, '/' ) . '/videos';
+	$response   = wp_remote_get( $videos_url, [
+		'timeout'    => 15,
+		'user-agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+	] );
 
 	if ( is_wp_error( $response ) || 200 !== (int) wp_remote_retrieve_response_code( $response ) ) {
 		set_transient( 'dmg_youtube_feed_cache', [], 5 * MINUTE_IN_SECONDS );
 		return [];
 	}
 
-	$body = wp_remote_retrieve_body( $response );
-	libxml_use_internal_errors( true );
-	$xml = simplexml_load_string( $body, 'SimpleXMLElement', LIBXML_NOCDATA );
-
-	if ( ! $xml ) {
-		set_transient( 'dmg_youtube_feed_cache', [], 5 * MINUTE_IN_SECONDS );
-		return [];
-	}
-
+	$body   = wp_remote_retrieve_body( $response );
 	$videos = [];
-	foreach ( $xml->entry as $entry ) {
-		$yt       = $entry->children( 'http://www.youtube.com/xml/schemas/2015' );
-		$video_id = (string) $yt->videoId;
-		if ( ! $video_id ) {
+	$seen   = [];
+
+	preg_match_all( '/"contentId":"([a-zA-Z0-9_\-]{11})"/', $body, $id_matches, PREG_OFFSET_CAPTURE );
+
+	foreach ( $id_matches[1] as $match ) {
+		$video_id = $match[0];
+		$pos      = $match[1];
+
+		if ( isset( $seen[ $video_id ] ) ) {
 			continue;
 		}
-		$videos[] = [
-			'id'    => $video_id,
-			'title' => (string) $entry->title,
-		];
+
+		// The accessibility label immediately follows contentId in the page JSON:
+		// "label":"VIDEO TITLE 2 minutes, 14 seconds"
+		$chunk = substr( $body, $pos, 2000 );
+		if ( ! preg_match( '/"label":"([^"]+)"/', $chunk, $label_m ) ) {
+			continue;
+		}
+
+		// Strip trailing duration (e.g., " 1 minute, 49 seconds")
+		$title = preg_replace( '/,?\s+(?:\d+ hours?,\s*)?\d+ minutes?,\s*\d+ seconds?$/i', '', $label_m[1] );
+		$title = trim( $title );
+
+		if ( ! $title ) {
+			continue;
+		}
+
+		$seen[ $video_id ] = true;
+		$videos[]          = [ 'id' => $video_id, 'title' => $title ];
 	}
 
 	set_transient( 'dmg_youtube_feed_cache', $videos, HOUR_IN_SECONDS );
@@ -114,6 +131,11 @@ function dmg_video_settings_page() {
 	}
 
 	$resolve_result = null;
+
+	if ( isset( $_POST['dmg_clear_cache_nonce'] ) && wp_verify_nonce( $_POST['dmg_clear_cache_nonce'], 'dmg_clear_video_cache' ) ) {
+		delete_transient( 'dmg_youtube_feed_cache' );
+		echo '<div class="notice notice-success is-dismissible"><p>Video cache cleared. The feed will be re-fetched on next page load.</p></div>';
+	}
 
 	if ( isset( $_POST['dmg_video_settings_nonce'] ) && wp_verify_nonce( $_POST['dmg_video_settings_nonce'], 'dmg_video_settings_save' ) ) {
 		if ( isset( $_POST['dmg_featured_video_url'] ) ) {
@@ -169,7 +191,7 @@ function dmg_video_settings_page() {
 							value="<?php echo esc_attr( get_option( 'dmg_youtube_channel_id', '' ) ); ?>"
 							class="regular-text"
 							placeholder="UCxxxxxxxxxxxxxxxxxxxxxxxx" />
-						<p class="description">Auto-populated when a valid channel URL is saved. If auto-resolution fails, find it in <strong>YouTube Studio &rsaquo; Settings &rsaquo; Advanced Settings &rsaquo; Channel ID</strong>.</p>
+						<p class="description">Not used for video fetching (YouTube's RSS feed was deprecated). Retained for reference. Find it in <strong>YouTube Studio &rsaquo; Settings &rsaquo; Advanced Settings &rsaquo; Channel ID</strong>.</p>
 					</td>
 				</tr>
 				<tr>
@@ -184,6 +206,14 @@ function dmg_video_settings_page() {
 				</tr>
 			</table>
 			<?php submit_button( 'Save Settings' ); ?>
+		</form>
+
+		<hr />
+		<h2>Cache</h2>
+		<p>If videos are not displaying, clear the cached feed to force a fresh fetch from YouTube.</p>
+		<form method="post" action="">
+			<?php wp_nonce_field( 'dmg_clear_video_cache', 'dmg_clear_cache_nonce' ); ?>
+			<?php submit_button( 'Clear Video Cache', 'secondary' ); ?>
 		</form>
 	</div>
 	<?php
