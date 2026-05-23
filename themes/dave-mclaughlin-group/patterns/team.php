@@ -160,9 +160,71 @@ $team = [
 		color:var(--wp--preset--color--gray-500);
 		margin-right:0.4rem;
 	}
+	.dmg-team-pitch {
+		max-width: 1180px;
+		margin: 1rem auto 0;
+		padding: 0 2rem 6rem;
+	}
+	.dmg-team-pitch-inner {
+		display: grid;
+		grid-template-columns: 5fr 7fr;
+		gap: 3.5rem;
+		align-items: center;
+		background: var(--wp--preset--color--gray-50);
+		padding: 3.5rem;
+	}
+	.dmg-team-pitch-image-wrap {
+		aspect-ratio: 4 / 5;
+		overflow: hidden;
+	}
+	.dmg-team-pitch-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+	.dmg-team-pitch-eyebrow-row {
+		display: flex;
+		align-items: center;
+		gap: 0.625rem;
+		margin: 0 0 1.25rem;
+	}
+	.dmg-team-pitch-eyebrow-icon { display: inline-flex; color: var(--wp--preset--color--primary); }
+	.dmg-team-pitch-eyebrow {
+		margin: 0;
+		font-size: 0.8125rem;
+		font-weight: 600;
+		letter-spacing: 0.25em;
+		text-transform: uppercase;
+		color: var(--wp--preset--color--gray-500);
+	}
+	.dmg-team-pitch-heading {
+		font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+		line-height: 1.15;
+		letter-spacing: -0.015em;
+		font-weight: 700;
+		margin: 0 0 1.25rem;
+		color: var(--wp--preset--color--gray-900);
+	}
+	.dmg-team-pitch-body {
+		font-size: 1.0625rem;
+		line-height: 1.75;
+		color: var(--wp--preset--color--gray-700);
+		margin: 0;
+	}
+	@media (max-width: 900px) {
+		.dmg-team-pitch-inner {
+			grid-template-columns: 1fr;
+			gap: 2.25rem;
+			padding: 2.25rem;
+		}
+		.dmg-team-pitch-image-wrap { aspect-ratio: 3 / 2; }
+	}
 	@media (max-width: 600px) {
 		.dmg-team-wrap { padding: 3.5rem 1.25rem 5rem; }
 		.dmg-team-card { flex: 0 1 100%; }
+		.dmg-team-pitch { padding: 0 1.25rem 4rem; }
+		.dmg-team-pitch-inner { padding: 1.75rem 1.5rem; }
 	}
 </style>
 <!-- /wp:html -->
@@ -246,4 +308,24 @@ $team = [
 	</div>
 </section>
 <!-- /wp:group -->
+
+<!-- wp:html -->
+<section class="dmg-team-pitch" aria-label="Why work with our team">
+	<div class="dmg-team-pitch-inner">
+		<div class="dmg-team-pitch-image-wrap">
+			<img class="dmg-team-pitch-image" src="<?php echo esc_url( get_theme_file_uri( 'assets/images/team/dave-emily-together.jpg' ) ); ?>" alt="Dave McLaughlin and Emily Berdon" loading="lazy" />
+		</div>
+		<div class="dmg-team-pitch-text">
+			<div class="dmg-team-pitch-eyebrow-row">
+				<span class="dmg-team-pitch-eyebrow-icon" aria-hidden="true">
+					<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.8L19 9.6l-3.7 3.4 1 5L12 15.6 7.7 18l1-5L5 9.6l5.1-1.8z"/><path d="M19 17l.7 1.7L21 19l-1.3.7L19 21l-.7-1.3L17 19l1.3-.7z"/><path d="M5 4l.5 1.2L7 5.5l-1.5.3L5 7l-.5-1.2L3 5.5l1.5-.3z"/></svg>
+				</span>
+				<p class="dmg-team-pitch-eyebrow">Why work with our team</p>
+			</div>
+			<h2 class="dmg-team-pitch-heading">Local expertise meets modern marketing.</h2>
+			<p class="dmg-team-pitch-body">Working with our team means getting the best of both worlds: trusted local expertise paired with modern marketing strategies designed for today&rsquo;s buyers. From cinematic video tours and social media exposure to personalized service and deep market knowledge, we use a fresh, high-visibility approach to help your home stand out, attract more attention, and sell with confidence.</p>
+		</div>
+	</div>
+</section>
+<!-- /wp:html -->
 
