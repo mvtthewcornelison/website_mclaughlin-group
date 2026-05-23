@@ -175,7 +175,7 @@ $reviews = function_exists( 'dmg_get_reviews' ) ? dmg_get_reviews() : [];
 			</span>
 			<svg class="dmg-cta-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
 		</a>
-		<a class="dmg-profile-cta dmg-profile-cta--google" href="#google-business-profile" target="_blank" rel="noopener" aria-label="View Google Business Profile">
+		<a class="dmg-profile-cta dmg-profile-cta--google" href="https://maps.app.goo.gl/vxCPDTRYyK7b3pZ4A?g_st=ig" target="_blank" rel="noopener" aria-label="View Google Business Profile">
 			<span class="dmg-google-logo">
 				<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
 					<path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/>
