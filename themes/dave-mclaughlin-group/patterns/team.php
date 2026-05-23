@@ -181,6 +181,7 @@ $team = [
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		object-position: center top;
 		display: block;
 	}
 	.dmg-team-pitch-eyebrow-row {
@@ -218,7 +219,7 @@ $team = [
 			gap: 2.25rem;
 			padding: 2.25rem;
 		}
-		.dmg-team-pitch-image-wrap { aspect-ratio: 3 / 2; }
+		.dmg-team-pitch-image-wrap { aspect-ratio: 4 / 3; }
 	}
 	@media (max-width: 600px) {
 		.dmg-team-wrap { padding: 3.5rem 1.25rem 5rem; }
