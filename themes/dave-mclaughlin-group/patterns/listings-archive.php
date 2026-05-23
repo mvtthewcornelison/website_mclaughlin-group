@@ -28,21 +28,24 @@ $neighborhoods = [
 <style>
 	/* ── Page header ── */
 	.dmg-archive-header {
-		background: #FAFAFA;
-		padding: 5rem 2rem 4rem;
+		background:
+			linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+			url('<?php echo esc_url( get_theme_file_uri( 'assets/images/listings/hero.jpg' ) ); ?>') center/cover no-repeat;
+		padding: 7rem 2rem 6rem;
 		text-align: center;
 		border-bottom: 1px solid var(--wp--preset--color--gray-100);
+		color: #fff;
 	}
 	.dmg-archive-header h1 {
 		font-size: clamp(2rem, 5vw, 3rem);
 		font-weight: 700;
 		margin: 0 0 0.75rem;
 		letter-spacing: -0.02em;
-		color: var(--wp--preset--color--gray-900);
+		color: #fff;
 	}
 	.dmg-archive-header p {
 		font-size: 1.0625rem;
-		color: var(--wp--preset--color--gray-500);
+		color: rgba(255, 255, 255, 0.85);
 		margin: 0;
 		max-width: 520px;
 		margin-inline: auto;
