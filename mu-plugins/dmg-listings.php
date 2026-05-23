@@ -178,7 +178,7 @@ function dmg_listing_render_meta_box( $post ) {
 		</div>
 
 		<div class="dmg-listing-row">
-			<p><label for="dmg_kw_url"><strong>Keller Williams URL</strong> <em>- used for the &ldquo;View Listing&rdquo; button (falls back to Zillow if empty)</em></label></p>
+			<p><label for="dmg_kw_url"><strong>Keller Williams URL</strong> <em>- saved for reference; site listing cards link to the native listing page</em></label></p>
 			<input type="text" id="dmg_kw_url" name="dmg_kw_url" value="<?php echo esc_attr( $kw_url ); ?>" placeholder="https://www.kw.com/property/..." />
 		</div>
 
@@ -463,9 +463,7 @@ function dmg_render_area_listing_card( $listing, $badge = null ) {
 	$beds       = get_post_meta( $listing->ID, 'dmg_beds', true );
 	$baths      = get_post_meta( $listing->ID, 'dmg_baths', true );
 	$sqft       = get_post_meta( $listing->ID, 'dmg_sqft', true );
-	$kw_url     = get_post_meta( $listing->ID, 'dmg_kw_url', true );
-	$zillow_url = get_post_meta( $listing->ID, 'dmg_zillow_url', true );
-	$detail_url = $kw_url ?: $zillow_url;
+	$detail_url = get_permalink( $listing->ID );
 	$thumb      = get_the_post_thumbnail_url( $listing, 'large' );
 	?>
 	<article class="dmg-listing-card" style="border:1px solid var(--wp--preset--color--gray-100);background:#fff;display:flex;flex-direction:column;overflow:hidden">
@@ -483,7 +481,7 @@ function dmg_render_area_listing_card( $listing, $badge = null ) {
 			<p style="font-size:1.5rem;font-weight:700;color:var(--wp--preset--color--primary);margin:0;letter-spacing:-0.01em"><?php echo $price ? esc_html( $price ) : '-'; ?></p>
 			<p style="font-size:0.875rem;color:var(--wp--preset--color--gray-700);margin:0.25rem 0 0"><?php echo esc_html( ( $beds ?: '-' ) . ' bed · ' . ( $baths ?: '-' ) . ' bath · ' . ( $sqft ?: '-' ) . ' sqft' ); ?></p>
 			<?php if ( $detail_url ) : ?>
-				<a class="dmg-btn-primary" style="margin-top:1rem;align-self:flex-start" href="<?php echo esc_url( $detail_url ); ?>" target="_blank" rel="noopener">View listing</a>
+				<a class="dmg-btn-primary" style="margin-top:1rem;align-self:flex-start" href="<?php echo esc_url( $detail_url ); ?>">View listing</a>
 			<?php endif; ?>
 		</div>
 	</article>
