@@ -7,6 +7,7 @@
  */
 
 $image_url = get_theme_file_uri( 'assets/images/give-back/royal-family-kids.webp' );
+$qr_url    = content_url( '/uploads/2026/05/royal-family-kids-qr.png' );
 ?>
 
 <!-- wp:html -->
@@ -150,14 +151,8 @@ $image_url = get_theme_file_uri( 'assets/images/give-back/royal-family-kids.webp
 	.dmg-rfk-qr {
 		width: 180px;
 		height: 180px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: var(--wp--preset--color--gray-50);
-		border: 2px dashed var(--wp--preset--color--gray-300);
-		color: var(--wp--preset--color--gray-500);
+		display: block;
 	}
-	.dmg-rfk-qr svg { display: block; }
 	.dmg-rfk-qr-label {
 		font-size: 0.75rem;
 		font-weight: 700;
@@ -165,12 +160,6 @@ $image_url = get_theme_file_uri( 'assets/images/give-back/royal-family-kids.webp
 		text-transform: uppercase;
 		color: var(--wp--preset--color--gray-700);
 		margin: 0;
-	}
-	.dmg-rfk-qr-sub {
-		font-size: 0.875rem;
-		color: var(--wp--preset--color--gray-500);
-		margin: 0;
-		font-style: italic;
 	}
 
 	@media (max-width: 800px) {
@@ -229,11 +218,8 @@ $image_url = get_theme_file_uri( 'assets/images/give-back/royal-family-kids.webp
 		</div>
 
 		<div class="dmg-rfk-qr-wrap">
-			<div class="dmg-rfk-qr" role="img" aria-label="QR code placeholder">
-				<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3"/><path d="M21 14v.01"/><path d="M14 21v-3"/><path d="M21 21v-3h-3"/><path d="M17 17v.01"/></svg>
-			</div>
+			<img class="dmg-rfk-qr" src="<?php echo esc_url( $qr_url ); ?>" alt="QR code to donate to Royal Family Kids Camp" width="180" height="180" loading="lazy" />
 			<p class="dmg-rfk-qr-label">Scan to donate</p>
-			<p class="dmg-rfk-qr-sub">QR code coming soon</p>
 		</div>
 	</section>
 

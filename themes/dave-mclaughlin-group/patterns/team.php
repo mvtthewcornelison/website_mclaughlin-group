@@ -8,16 +8,22 @@
 
 $team = [
 	[
-		'name'  => 'Dave McLaughlin',
-		'title' => 'Lead Realtor',
-		'image' => get_theme_file_uri( 'assets/images/team/dave-mclaughlin.jpg' ),
-		'desc'  => '[Matt to check with Dave]',
+		'name'   => 'Dave McLaughlin',
+		'title'  => 'Realtor / Team Lead',
+		'image'  => get_theme_file_uri( 'assets/images/team/dave-mclaughlin.jpg' ),
+		'phone'  => '818-290-7775',
+		'email'  => 'ddmclaugh@aol.com',
+		'dre'    => '01523573',
+		'rating' => '5/5 average on Google & Zillow',
 	],
 	[
-		'name'  => 'Kelly Ammerman',
-		'title' => 'Lead Administrator',
-		'image' => '',
-		'desc'  => '[Matt to check with Dave]',
+		'name'   => 'Emily Berdon',
+		'title'  => 'Lead Administrator',
+		'image'  => get_theme_file_uri( 'assets/images/team/emily-berdon.jpg' ),
+		'phone'  => '805-870-2121',
+		'email'  => 'emily@emilyberdon.com',
+		'dre'    => '02166248',
+		'rating' => '5/5 average on Google & Zillow',
 	],
 ];
 ?>
@@ -104,7 +110,56 @@ $team = [
 		text-transform:uppercase;
 		color:var(--wp--preset--color--primary);
 	}
-	.dmg-team-desc { margin:0.4rem 0 0; color:var(--wp--preset--color--gray-700); line-height:1.7; }
+	.dmg-team-info {
+		list-style:none;
+		margin:0.9rem 0 0;
+		padding:0.9rem 0 0;
+		border-top:1px solid var(--wp--preset--color--gray-100);
+		display:flex;
+		flex-direction:column;
+		gap:0.55rem;
+	}
+	.dmg-team-info li {
+		display:flex;
+		align-items:center;
+		gap:0.7rem;
+		font-size:0.9375rem;
+		line-height:1.4;
+		color:var(--wp--preset--color--gray-800);
+	}
+	.dmg-team-info .dmg-team-icon {
+		display:inline-flex;
+		align-items:center;
+		justify-content:center;
+		width:32px;
+		height:32px;
+		flex-shrink:0;
+		border-radius:8px;
+		background:rgba(178,0,0,0.07);
+		color:var(--wp--preset--color--primary);
+	}
+	.dmg-team-info .dmg-team-icon--star {
+		background:rgba(251,188,5,0.14);
+		color:#F4B400;
+	}
+	.dmg-team-info a {
+		color:inherit;
+		text-decoration:none;
+		border-bottom:1px solid transparent;
+		transition:border-color 0.15s ease, color 0.15s ease;
+	}
+	.dmg-team-info a:hover {
+		color:var(--wp--preset--color--primary);
+		border-bottom-color:var(--wp--preset--color--primary);
+	}
+	.dmg-team-info .dmg-team-info-label {
+		font-size:0.6875rem;
+		font-weight:700;
+		letter-spacing:0.14em;
+		text-transform:uppercase;
+		color:var(--wp--preset--color--gray-500);
+		margin-right:0.4rem;
+	}
 	@media (max-width: 600px) {
 		.dmg-team-wrap { padding: 3.5rem 1.25rem 5rem; }
 		.dmg-team-card { flex: 0 1 100%; }
@@ -137,8 +192,12 @@ $team = [
 						<?php if ( $member['image'] ) : ?>
 							<img src="<?php echo esc_url( $member['image'] ); ?>" alt="<?php echo esc_attr( $member['name'] ); ?>" loading="lazy" />
 						<?php else : ?>
+							<?php
+								$parts    = preg_split( '/\s+/', trim( $member['name'] ) );
+								$initials = strtoupper( substr( $parts[0] ?? '', 0, 1 ) . substr( $parts[ count( $parts ) - 1 ] ?? '', 0, 1 ) );
+							?>
 							<div class="dmg-team-placeholder">
-								<div class="initials" aria-hidden="true">KA</div>
+								<div class="initials" aria-hidden="true"><?php echo esc_html( $initials ); ?></div>
 								<span style="font-size:0.8125rem;letter-spacing:0.12em;text-transform:uppercase">Photo coming soon</span>
 							</div>
 						<?php endif; ?>
@@ -146,7 +205,40 @@ $team = [
 					<div class="dmg-team-body">
 						<h2 class="dmg-team-name"><?php echo esc_html( $member['name'] ); ?></h2>
 						<p class="dmg-team-title-label"><?php echo esc_html( $member['title'] ); ?></p>
-						<p class="dmg-team-desc"><?php echo esc_html( $member['desc'] ); ?></p>
+						<ul class="dmg-team-info">
+							<?php if ( ! empty( $member['phone'] ) ) : ?>
+								<li>
+									<span class="dmg-team-icon" aria-hidden="true">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+									</span>
+									<a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $member['phone'] ) ); ?>"><?php echo esc_html( $member['phone'] ); ?></a>
+								</li>
+							<?php endif; ?>
+							<?php if ( ! empty( $member['email'] ) ) : ?>
+								<li>
+									<span class="dmg-team-icon" aria-hidden="true">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+									</span>
+									<a href="mailto:<?php echo esc_attr( $member['email'] ); ?>"><?php echo esc_html( $member['email'] ); ?></a>
+								</li>
+							<?php endif; ?>
+							<?php if ( ! empty( $member['dre'] ) ) : ?>
+								<li>
+									<span class="dmg-team-icon" aria-hidden="true">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+									</span>
+									<span><span class="dmg-team-info-label">DRE</span><?php echo esc_html( $member['dre'] ); ?></span>
+								</li>
+							<?php endif; ?>
+							<?php if ( ! empty( $member['rating'] ) ) : ?>
+								<li>
+									<span class="dmg-team-icon dmg-team-icon--star" aria-hidden="true">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.95 6.99 7.55.66-5.74 4.97 1.74 7.38L12 18.27l-6.5 3.73 1.74-7.38L1.5 9.65l7.55-.66z"/></svg>
+									</span>
+									<span><?php echo esc_html( $member['rating'] ); ?></span>
+								</li>
+							<?php endif; ?>
+						</ul>
 					</div>
 				</article>
 			<?php endforeach; ?>
