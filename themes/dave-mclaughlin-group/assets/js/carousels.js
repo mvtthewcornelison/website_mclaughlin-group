@@ -46,7 +46,7 @@
 		}
 
 		document.querySelectorAll('.dmg-listing-gallery').forEach(function (el) {
-			new Splide(el, {
+			el.dmgSplide = new Splide(el, {
 				type: 'loop',
 				perPage: 1,
 				arrows: true,

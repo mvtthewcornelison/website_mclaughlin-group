@@ -33,7 +33,7 @@ add_action( 'wp_enqueue_scripts', function () {
 		'dmg-carousels',
 		get_theme_file_uri( 'assets/js/carousels.js' ),
 		[ 'splide' ],
-		'0.3.0',
+		'0.3.1',
 		true
 	);
 
