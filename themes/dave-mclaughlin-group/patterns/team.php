@@ -236,7 +236,7 @@ $team = [
 			<span class="dmg-team-eyebrow-icon" aria-hidden="true">
 				<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1"/><circle cx="10" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg>
 			</span>
-			<p class="dmg-team-eyebrow">Meet the team</p>
+			<p class="dmg-team-eyebrow">Who we are</p>
 		</div>
 		<h1 class="dmg-team-title">The people behind The McLaughlin Group</h1>
 		<p class="dmg-team-intro">A small team with deep local roots, a relationship-first approach, and a lot of practical experience in the Conejo Valley.</p>
