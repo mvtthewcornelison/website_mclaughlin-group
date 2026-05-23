@@ -6,7 +6,7 @@
  * Inserter: false
  */
 
-$hero_image   = get_theme_file_uri( 'assets/images/neighborhoods/malibou-lake.png' );
+$hero_image   = get_theme_file_uri( 'assets/images/neighborhoods/malibou-lake.jpeg' );
 $area_slug    = 'malibou-lake';
 $area_name    = 'Malibou Lake';
 $listings     = function_exists( 'dmg_get_area_listings_prioritized' ) ? dmg_get_area_listings_prioritized( $area_slug ) : [];

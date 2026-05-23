@@ -6,7 +6,7 @@
  * Inserter: false
  */
 
-$hero_image   = get_theme_file_uri( 'assets/images/neighborhoods/malibu.png' );
+$hero_image   = get_theme_file_uri( 'assets/images/neighborhoods/malibu.jpeg' );
 $area_slug    = 'malibu';
 $area_name    = 'Malibu';
 $listings     = function_exists( 'dmg_get_area_listings_prioritized' ) ? dmg_get_area_listings_prioritized( $area_slug ) : [];

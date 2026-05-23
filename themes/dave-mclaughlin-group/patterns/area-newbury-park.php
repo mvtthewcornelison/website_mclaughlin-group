@@ -6,7 +6,7 @@
  * Inserter: false
  */
 
-$hero_image   = get_theme_file_uri( 'assets/images/neighborhoods/newbury-park.png' );
+$hero_image   = get_theme_file_uri( 'assets/images/neighborhoods/newbury-park.jpg' );
 $area_slug    = 'newbury-park';
 $area_name    = 'Newbury Park';
 $listings     = function_exists( 'dmg_get_area_listings_prioritized' ) ? dmg_get_area_listings_prioritized( $area_slug ) : [];

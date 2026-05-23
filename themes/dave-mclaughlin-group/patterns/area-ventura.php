@@ -6,7 +6,7 @@
  * Inserter: false
  */
 
-$hero_image   = get_theme_file_uri( 'assets/images/neighborhoods/ventura.png' );
+$hero_image   = get_theme_file_uri( 'assets/images/neighborhoods/ventura.jpeg' );
 $area_slug    = 'ventura';
 $area_name    = 'Ventura';
 $listings     = function_exists( 'dmg_get_area_listings_prioritized' ) ? dmg_get_area_listings_prioritized( $area_slug ) : [];

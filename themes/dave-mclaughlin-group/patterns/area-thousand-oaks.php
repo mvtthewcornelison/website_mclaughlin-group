@@ -6,7 +6,7 @@
  * Inserter: false
  */
 
-$hero_image   = get_theme_file_uri( 'assets/images/neighborhoods/thousand-oaks.png' );
+$hero_image   = get_theme_file_uri( 'assets/images/neighborhoods/thousand-oaks.jpeg' );
 $area_slug    = 'thousand-oaks';
 $area_name    = 'Thousand Oaks';
 $listings     = function_exists( 'dmg_get_area_listings_prioritized' ) ? dmg_get_area_listings_prioritized( $area_slug ) : [];
