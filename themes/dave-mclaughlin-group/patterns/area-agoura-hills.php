@@ -275,10 +275,6 @@ $faqs = [
 			<p class="dmg-area-eyebrow-label">Lifestyle</p>
 		</div>
 		<h2 class="dmg-area-section-title">Things To Do in Agoura Hills</h2>
-
-		<!-- Image placeholder for lifestyle visuals -->
-		<div class="dmg-area-image-placeholder" style="margin-bottom:3rem;max-width:1100px;margin-left:auto;margin-right:auto">Lifestyle photo - coming soon</div>
-
 		<div class="dmg-info-cols">
 			<div>
 				<h3>Outdoors</h3>
@@ -361,8 +357,6 @@ $faqs = [
 			<p>Most of the families we&rsquo;ve helped in Agoura Hills didn&rsquo;t end up here by accident. They came for the schools or the open space or because a friend told them to take the Reyes Adobe exit instead of staying on the 101, and then they stayed because the place quietly delivers on what it promises. Kids grow up walking to friends&rsquo; houses, parents trade horse trail recommendations at the coffee shop, and the same neighbors show up at the same community events year after year.</p>
 
 			<p>For our family, this stretch of the Conejo Valley has been home across three generations. We&rsquo;ve watched the open space stay open, the school district stay strong, and the equestrian streets in Old Agoura keep their character even as the rest of the region has changed. That continuity is rare, and it&rsquo;s the thing residents tend to value most without always knowing how to name it.</p>
-
-			<p style="opacity:0.75;font-style:italic;font-size:0.95rem;margin-top:2rem">[Dave to personalize: a short paragraph here in your own voice, a memory, a favorite spot, the family&rsquo;s history with the area, would land especially well in this section.]</p>
 		</div>
 	</div>
 </section>

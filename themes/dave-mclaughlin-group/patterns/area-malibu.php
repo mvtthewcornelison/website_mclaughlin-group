@@ -33,9 +33,9 @@ $faqs = [
 	[ 'q' => 'Is Malibu worth the price premium?', 'a' => 'That depends on what you value. Malibu offers something genuinely rare in greater Los Angeles: Pacific coastline, canyon privacy, and mountain open space in combination, within 35 miles of the city\'s core. For buyers who prioritize that setting above other considerations, the premium reflects real scarcity. The 27-mile coastal strip cannot be replicated or expanded.' ],
 	[ 'q' => 'What are the best neighborhoods in Malibu?', 'a' => 'It depends on what kind of Malibu you want. Point Dume offers an elevated headland with both beach access and canyon quiet, considered by many to be the best balance of privacy and setting. Carbon and Broad Beach are the definitive luxury beachfront addresses. Malibu Colony is the historic gated enclave. Malibu Park and the canyon areas offer more land, more privacy, and a more rural feel at a comparatively accessible price point.' ],
 	[ 'q' => 'How far is Malibu from Los Angeles?', 'a' => 'Malibu stretches 27 miles along the coast. The eastern end (near Pacific Palisades) is roughly 20–30 minutes from Beverly Hills on a clear day. The western end (near Point Mugu) is 45–60 minutes from Beverly Hills. Pacific Coast Highway is the only through-route, and traffic on it is highly variable. Most residents accept the commute as the trade-off for the setting.' ],
-	[ 'q' => 'Are there non-beachfront homes in Malibu?', 'a' => 'Yes, and they represent the majority of Malibu real estate. Canyon properties — in Malibu Park, Las Virgenes Canyon, Latigo Canyon, and Kanan-Dume Road — offer large lots, mountain privacy, and the Malibu address without PCH frontage or beachfront pricing. They are often the most interesting properties in the market for buyers who want land and seclusion over sand.' ],
+	[ 'q' => 'Are there non-beachfront homes in Malibu?', 'a' => 'Yes, and they represent the majority of Malibu real estate. Canyon properties - in Malibu Park, Las Virgenes Canyon, Latigo Canyon, and Kanan-Dume Road - offer large lots, mountain privacy, and the Malibu address without PCH frontage or beachfront pricing. They are often the most interesting properties in the market for buyers who want land and seclusion over sand.' ],
 	[ 'q' => 'What school district serves Malibu?', 'a' => 'Malibu is served by Santa Monica-Malibu Unified School District (SMMUSD). Malibu High School serves local students. Some families in western Malibu are closer to Las Virgenes USD schools, and private school options in Calabasas and Westlake Village are within reasonable driving distance.' ],
-	[ 'q' => 'What is the real estate market like in Malibu?', 'a' => 'Malibu\'s market is defined by scarcity and extreme variance. Entry-level is roughly $2M–$3M for a canyon home or non-waterfront property. Mid-range beachfront runs $5M–$15M. Trophy properties on Carbon Beach or with significant acreage regularly exceed $20M–$50M. The market is thin at the top and moves on its own timeline — sometimes quickly, often not. Working with someone who has deep market relationships matters more here than almost anywhere else.' ],
+	[ 'q' => 'What is the real estate market like in Malibu?', 'a' => 'Malibu\'s market is defined by scarcity and extreme variance. Entry-level is roughly $2M–$3M for a canyon home or non-waterfront property. Mid-range beachfront runs $5M–$15M. Trophy properties on Carbon Beach or with significant acreage regularly exceed $20M–$50M. The market is thin at the top and moves on its own timeline - sometimes quickly, often not. Working with someone who has deep market relationships matters more here than almost anywhere else.' ],
 ];
 ?>
 
@@ -76,7 +76,7 @@ $faqs = [
 	<div class="dmg-area-hero-inner">
 		<span class="dmg-area-hero-eyebrow">Conejo Valley Communities</span>
 		<h1 class="dmg-area-hero-title">Living in Malibu</h1>
-		<p class="dmg-area-hero-intro">Twenty-seven miles of Pacific coastline, canyon privacy, and mountain open space &mdash; one of the most iconic and irreplaceable addresses in California.</p>
+		<p class="dmg-area-hero-intro">Twenty-seven miles of Pacific coastline, canyon privacy, and mountain open space - one of the most iconic and irreplaceable addresses in California.</p>
 		<div class="dmg-area-hero-ctas">
 			<a class="dmg-btn-secondary" href="/contact-us/?subject=Speak%20with%20a%20local%20expert&amp;source=local-expert">Speak with a local expert</a>
 		</div>
@@ -149,11 +149,11 @@ $faqs = [
 		<div class="dmg-area-prose">
 			<p>Malibu is 27 miles of Pacific coastline between the Santa Monica Mountains and the sea, and that description contains almost everything important about the place. The setting is the selling point, the lifestyle, the constraint, and the identity all at once. There is nowhere else in the Los Angeles basin where the mountains fall so directly into the ocean, and the combination produces a landscape that tends to hold people once they find it.</p>
 
-			<p>The city incorporated in 1991, largely to fend off development pressure from Los Angeles County. The result is a community that has held its low-density, rural-adjacent character more successfully than most coastal California cities of comparable value. Lot coverage limits are real here, the canyon roads stay canyon roads, and the open space that makes Malibu what it is has been protected with genuine intention. Zuma Beach, El Matador, and Point Dume are public. The rest of the mountains &mdash; most of the Santa Monica Mountains National Recreation Area &mdash; is public land managed for hiking, biking, and equestrian use.</p>
+			<p>The city incorporated in 1991, largely to fend off development pressure from Los Angeles County. The result is a community that has held its low-density, rural-adjacent character more successfully than most coastal California cities of comparable value. Lot coverage limits are real here, the canyon roads stay canyon roads, and the open space that makes Malibu what it is has been protected with genuine intention. Zuma Beach, El Matador, and Point Dume are public. The rest of the mountains - most of the Santa Monica Mountains National Recreation Area - is public land managed for hiking, biking, and equestrian use.</p>
 
-			<p>The residential story in Malibu is more varied than the beachfront stereotype suggests. Yes, Carbon Beach &mdash; locally known as Billionaire&rsquo;s Beach &mdash; is exactly what it sounds like, a strip of ultra-luxury oceanfront estates where prices regularly exceed $30M. And yes, Malibu Colony is the historic gated enclave where the celebrity concentration is highest. But the canyon areas &mdash; Malibu Park, Las Virgenes Canyon, Latigo, Kanan-Dume &mdash; represent the majority of the city&rsquo;s land area and offer something different: large lots, equestrian properties, mountain views, and genuine rural quiet at a price point that, while still significant, is a different order of magnitude from beachfront.</p>
+			<p>The residential story in Malibu is more varied than the beachfront stereotype suggests. Yes, Carbon Beach - locally known as Billionaire&rsquo;s Beach - is exactly what it sounds like, a strip of ultra-luxury oceanfront estates where prices regularly exceed $30M. And yes, Malibu Colony is the historic gated enclave where the celebrity concentration is highest. But the canyon areas - Malibu Park, Las Virgenes Canyon, Latigo, Kanan-Dume - represent the majority of the city&rsquo;s land area and offer something different: large lots, equestrian properties, mountain views, and genuine rural quiet at a price point that, while still significant, is a different order of magnitude from beachfront.</p>
 
-			<p>Pepperdine University sits on a hillside above the Pacific in the heart of Malibu, its campus one of the most dramatically sited in the country. The university brings an academic and cultural presence &mdash; events, facilities, a concert hall &mdash; that broadens what Malibu offers beyond the beach. The local school, Malibu High, is small and community-oriented in the way schools in small towns tend to be.</p>
+			<p>Pepperdine University sits on a hillside above the Pacific in the heart of Malibu, its campus one of the most dramatically sited in the country. The university brings an academic and cultural presence - events, facilities, a concert hall - that broadens what Malibu offers beyond the beach. The local school, Malibu High, is small and community-oriented in the way schools in small towns tend to be.</p>
 
 			<p>The commute is real and should not be minimized. Pacific Coast Highway is the only through-route, and it can be genuinely frustrating. Most Malibu residents make their peace with it the same way mountain residents make their peace with narrow roads: the trade is worth it. Those for whom it is not, typically leave. Those who stay tend to stop thinking about it.</p>
 		</div>
@@ -268,7 +268,7 @@ $faqs = [
 			<div>
 				<h3>Outdoors</h3>
 				<ul>
-					<li><strong>Zuma Beach</strong><small>Malibu&rsquo;s largest public beach — swimming, volleyball, lifeguards</small></li>
+					<li><strong>Zuma Beach</strong><small>Malibu&rsquo;s largest public beach - swimming, volleyball, lifeguards</small></li>
 					<li><strong>El Matador State Beach</strong><small>Sea caves and rock formations, one of the most scenic coves on the coast</small></li>
 					<li><strong>Point Dume State Beach &amp; Reserve</strong><small>Whale watching lookout, tide pools, trail to the bluffs</small></li>
 					<li><strong>Santa Monica Mountains NRA</strong><small>Hundreds of miles of trails from Malibu trailheads</small></li>
@@ -279,7 +279,7 @@ $faqs = [
 			<div>
 				<h3>Dining</h3>
 				<ul>
-					<li><strong>Nobu Malibu</strong><small>The Malibu dining institution — oceanfront Japanese cuisine</small></li>
+					<li><strong>Nobu Malibu</strong><small>The Malibu dining institution - oceanfront Japanese cuisine</small></li>
 					<li><strong>Taverna Tony</strong><small>Greek taverna at Malibu Country Mart, long-time local favorite</small></li>
 					<li><strong>The Sunset Restaurant</strong><small>Oceanfront dining at Point Dume</small></li>
 					<li><strong>Malibu Farm Pier Café</strong><small>Farm-to-table at the end of the Malibu Pier</small></li>
@@ -290,7 +290,7 @@ $faqs = [
 				<h3>Shopping</h3>
 				<ul>
 					<li><strong>Malibu Country Mart</strong><small>Open-air boutique shopping and dining courtyard</small></li>
-					<li><strong>Malibu Lumber Yard</strong><small>Curated boutique retail — Whole Foods, surf, fashion</small></li>
+					<li><strong>Malibu Lumber Yard</strong><small>Curated boutique retail - Whole Foods, surf, fashion</small></li>
 				</ul>
 			</div>
 			<div>
@@ -298,7 +298,7 @@ $faqs = [
 				<ul>
 					<li><strong>Malibu Film Society</strong><small>Independent film screenings and cultural events</small></li>
 					<li><strong>Pepperdine arts events</strong><small>Concerts, lectures, and theater open to the community</small></li>
-					<li><strong>Surfrider Beach</strong><small>The original surf culture landmark — a world-famous point break</small></li>
+					<li><strong>Surfrider Beach</strong><small>The original surf culture landmark - a world-famous point break</small></li>
 					<li><strong>Equestrian community</strong><small>Canyon riding, stables, and trail networks throughout the hills</small></li>
 				</ul>
 			</div>
@@ -320,7 +320,7 @@ $faqs = [
 		<h2 class="dmg-area-section-title">Commute &amp; Access</h2>
 
 		<div class="dmg-area-prose">
-			<p>Common reference points: <strong>Beverly Hills</strong> ~35 min from eastern Malibu via PCH (no traffic) &middot; <strong>Beverly Hills</strong> ~55+ min with typical afternoon PCH delays &middot; <strong>Agoura Hills</strong> ~30 min via Kanan-Dume Road &middot; <strong>Santa Monica</strong> ~45 min &middot; <strong>Downtown LA</strong> ~60+ min &middot; No practical public transit &mdash; car essential.</p>
+			<p>Common reference points: <strong>Beverly Hills</strong> ~35 min from eastern Malibu via PCH (no traffic) &middot; <strong>Beverly Hills</strong> ~55+ min with typical afternoon PCH delays &middot; <strong>Agoura Hills</strong> ~30 min via Kanan-Dume Road &middot; <strong>Santa Monica</strong> ~45 min &middot; <strong>Downtown LA</strong> ~60+ min &middot; No practical public transit - car essential.</p>
 		</div>
 	</div>
 </section>
@@ -339,9 +339,7 @@ $faqs = [
 		<h2 class="dmg-area-section-title">The Setting Wins Every Time</h2>
 
 		<div class="dmg-area-prose">
-			<p>Malibu has a way of making the commute feel irrelevant after a while. You spend enough mornings watching the light on the water or enough evenings watching it leave the mountains, and the 101 starts to feel like someone else&rsquo;s problem. The people who stay are the ones for whom the setting won out &mdash; and who found, over time, that it keeps winning.</p>
-
-			<p style="opacity:0.75;font-style:italic;font-size:0.95rem;margin-top:2rem">[Dave to personalize: a memory or experience that speaks to this community, anything in your own voice.]</p>
+			<p>Malibu has a way of making the commute feel irrelevant after a while. You spend enough mornings watching the light on the water or enough evenings watching it leave the mountains, and the 101 starts to feel like someone else&rsquo;s problem. The people who stay are the ones for whom the setting won out - and who found, over time, that it keeps winning.</p>
 		</div>
 	</div>
 </section>
@@ -435,7 +433,7 @@ $faqs = [
 <section class="dmg-area-section dmg-area-section--dark" style="padding-top:7rem;padding-bottom:7rem">
 	<div class="dmg-cta-block">
 		<h2>Work With a Team That Truly Knows the Conejo Valley</h2>
-		<p style="color:var(--wp--preset--color--gray-100)">For three generations, the McLaughlin family has lived, worked, and built relationships throughout the Conejo Valley. We don&rsquo;t just sell homes here &mdash; we proudly call this community home.</p>
+		<p style="color:var(--wp--preset--color--gray-100)">For three generations, the McLaughlin family has lived, worked, and built relationships throughout the Conejo Valley. We don&rsquo;t just sell homes here - we proudly call this community home.</p>
 		<div class="dmg-cta-row">
 			<a class="dmg-btn-primary" href="/contact-us/?subject=Contact%20Dave&amp;source=contact-dave">Contact Dave</a>
 		</div>
@@ -450,7 +448,7 @@ $faqs = [
 		{
 			"@type": "Place",
 			"name": "Malibu",
-			"description": "Twenty-seven miles of Pacific coastline between the Santa Monica Mountains and the sea — one of the most iconic and irreplaceable addresses in California.",
+			"description": "Twenty-seven miles of Pacific coastline between the Santa Monica Mountains and the sea - one of the most iconic and irreplaceable addresses in California.",
 			"address": {
 				"@type": "PostalAddress",
 				"addressLocality": "Malibu",

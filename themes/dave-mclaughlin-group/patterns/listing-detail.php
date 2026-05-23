@@ -317,7 +317,7 @@ $badge = $status_colors[ $status ] ?? $status_colors['active'];
 		<?php /* 2g. Back link (top of content area) */ ?>
 		<a href="<?php echo esc_url( home_url( '/listings/' ) ); ?>" class="dmg-listing-back">&larr; Back to listings</a>
 
-		<?php /* 2a. PHOTO GALLERY CAROUSEL — only if 2+ gallery images */ ?>
+		<?php /* 2a. PHOTO GALLERY CAROUSEL - only if 2+ gallery images */ ?>
 		<?php if ( count( $carousel_ids ) >= 2 ) : ?>
 			<div class="dmg-listing-gallery splide" aria-label="<?php echo esc_attr( get_the_title( $post_id ) ); ?> photos">
 				<div class="splide__track">
@@ -416,7 +416,7 @@ $badge = $status_colors[ $status ] ?? $status_colors['active'];
 			<h2>Interested in this property?</h2>
 
 			<?php if ( $success ) : ?>
-				<div class="dmg-listing-alert dmg-listing-alert--success">Thanks &mdash; your message has been sent. We&rsquo;ll be in touch soon.</div>
+				<div class="dmg-listing-alert dmg-listing-alert--success">Thanks - your message has been sent. We&rsquo;ll be in touch soon.</div>
 			<?php endif; ?>
 			<?php if ( $error ) : ?>
 				<div class="dmg-listing-alert dmg-listing-alert--error">Please fill out all required fields before sending your message.</div>

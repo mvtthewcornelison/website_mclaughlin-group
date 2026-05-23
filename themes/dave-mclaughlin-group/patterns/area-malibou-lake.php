@@ -31,7 +31,7 @@ $nearby = [
 
 $faqs = [
 	[ 'q' => 'Is Malibou Lake a gated community?', 'a' => 'Malibou Lake is a private, deed-restricted community managed by a homeowners association. Access to the lake and community amenities is limited to residents and their guests. The community has a long-standing culture of privacy and self-governance that residents actively work to preserve.' ],
-	[ 'q' => 'Can you swim or boat on Malibou Lake?', 'a' => 'Lake access — swimming, kayaking, paddleboarding, and non-motorized boating — is a private amenity reserved for Malibou Lake Mountain Club members and residents. It is one of the primary draws of living in the community.' ],
+	[ 'q' => 'Can you swim or boat on Malibou Lake?', 'a' => 'Lake access - swimming, kayaking, paddleboarding, and non-motorized boating - is a private amenity reserved for Malibou Lake Mountain Club members and residents. It is one of the primary draws of living in the community.' ],
 	[ 'q' => 'What school district serves Malibou Lake?', 'a' => 'Most Malibou Lake residents are served by Las Virgenes Unified School District (LVUSD), the same top-ranked district that serves Agoura Hills and Calabasas. Students typically attend Agoura High School.' ],
 	[ 'q' => 'How many homes are in Malibou Lake?', 'a' => 'The Malibou Lake community has approximately 200–250 residences surrounding the lake and along the adjoining canyon roads. Development is intentionally tightly restricted, which helps preserve the rural character residents value.' ],
 	[ 'q' => 'How did the 2018 Woolsey Fire affect Malibou Lake?', 'a' => 'The Woolsey Fire of November 2018 burned through much of the Santa Monica Mountains and impacted the Malibou Lake area significantly, destroying a number of homes. The community has rebuilt substantially since then, with many properties updated or newly constructed.' ],
@@ -76,7 +76,7 @@ $faqs = [
 	<div class="dmg-area-hero-inner">
 		<span class="dmg-area-hero-eyebrow">Conejo Valley Communities</span>
 		<h1 class="dmg-area-hero-title">Living in Malibou Lake</h1>
-		<p class="dmg-area-hero-intro">A private mountain lake community tucked into the Santa Monica Mountains — one of the most secluded and sought-after addresses within reach of Los Angeles.</p>
+		<p class="dmg-area-hero-intro">A private mountain lake community tucked into the Santa Monica Mountains - one of the most secluded and sought-after addresses within reach of Los Angeles.</p>
 		<div class="dmg-area-hero-ctas">
 			<a class="dmg-btn-secondary" href="/contact-us/?subject=Speak%20with%20a%20local%20expert&amp;source=local-expert">Speak with a local expert</a>
 		</div>
@@ -147,13 +147,13 @@ $faqs = [
 		<h2 class="dmg-area-section-title">A Private Lake in the Santa Monica Mountains</h2>
 
 		<div class="dmg-area-prose">
-			<p>Malibou Lake sits in a natural bowl in the Santa Monica Mountains, roughly five miles from the Agoura Hills exit on the 101. It is a private lake community of approximately 200&ndash;250 homes arranged around a 40-acre lake &mdash; small enough that most residents know their neighbors, remote enough that the city genuinely disappears. For those who find it, it tends to become non-negotiable.</p>
+			<p>Malibou Lake sits in a natural bowl in the Santa Monica Mountains, roughly five miles from the Agoura Hills exit on the 101. It is a private lake community of approximately 200&ndash;250 homes arranged around a 40-acre lake - small enough that most residents know their neighbors, remote enough that the city genuinely disappears. For those who find it, it tends to become non-negotiable.</p>
 
 			<p>The community traces its origins to the 1920s, when it was developed as a mountain resort destination, and traces of that history are still present in the original bungalow architecture scattered among newer construction. The Malibou Lake Mountain Club has been the center of community life for nearly a century, organizing events, managing lake access, and maintaining the sense of place that makes the area worth protecting.</p>
 
 			<p>The 2018 Woolsey Fire was a defining moment for Malibou Lake. The fire burned through much of the surrounding mountain terrain and destroyed a meaningful number of homes in the community. The response from residents was, by nearly all accounts, characteristic of the place: people showed up for each other, rebuilt with intention, and in many cases used the opportunity to construct homes that were more fire-resilient than what came before. The community that emerged is, if anything, more cohesive.</p>
 
-			<p>Daily life here is unhurried. Lake mornings, Malibu Creek State Park trails in the afternoon, dinner in Agoura Hills because Malibou Lake has no commercial center of its own. The narrow canyon roads are a known trade-off. So is the fire risk. Residents absorb both and stay anyway, because what they get in return &mdash; genuine seclusion, a working lake, mountain air &mdash; is genuinely difficult to replicate.</p>
+			<p>Daily life here is unhurried. Lake mornings, Malibu Creek State Park trails in the afternoon, dinner in Agoura Hills because Malibou Lake has no commercial center of its own. The narrow canyon roads are a known trade-off. So is the fire risk. Residents absorb both and stay anyway, because what they get in return - genuine seclusion, a working lake, mountain air - is genuinely difficult to replicate.</p>
 		</div>
 	</div>
 </section>
@@ -174,7 +174,7 @@ $faqs = [
 		<div class="dmg-subhood-grid">
 			<article class="dmg-subhood-card">
 				<h3>Lakefront Estates</h3>
-				<p>Properties directly on the lake perimeter — the most sought-after addresses in the community. Many have private docks and direct water access. Rarely available.</p>
+				<p>Properties directly on the lake perimeter - the most sought-after addresses in the community. Many have private docks and direct water access. Rarely available.</p>
 				<div class="dmg-subhood-tags">
 					<span class="dmg-subhood-tag">Lakefront</span>
 					<span class="dmg-subhood-tag">Private</span>
@@ -265,7 +265,7 @@ $faqs = [
 			<div>
 				<h3>Outdoors</h3>
 				<ul>
-					<li><strong>Malibu Creek State Park</strong><small>Adjacent &mdash; Rock Pool, Cage Trail, Crags Road</small></li>
+					<li><strong>Malibu Creek State Park</strong><small>Adjacent - Rock Pool, Cage Trail, Crags Road</small></li>
 					<li><strong>Paramount Ranch</strong><small>Historic film set + trails (recently rebuilt)</small></li>
 					<li><strong>Malibou Lake community paths</strong><small>Lakeside and hillside hiking</small></li>
 					<li><strong>Las Virgenes trail network</strong><small>Multi-use trails through the mountains</small></li>
@@ -313,7 +313,7 @@ $faqs = [
 		<h2 class="dmg-area-section-title">Commute &amp; Access</h2>
 
 		<div class="dmg-area-prose">
-			<p>Malibou Lake&rsquo;s position in the mountains means the 101 is a 5&ndash;10 minute drive away, and once you&rsquo;re on it, the rest of greater Los Angeles becomes accessible. Beverly Hills and the Westside are roughly 45&ndash;55 minutes. Burbank and the Valley are about 40 minutes. The beach in Malibu is a 20-minute drive south via Malibu Canyon Road &mdash; one of the genuinely scenic routes in the region. Public transit is not a realistic option. This is a car-dependent community by nature, and residents plan accordingly.</p>
+			<p>Malibou Lake&rsquo;s position in the mountains means the 101 is a 5&ndash;10 minute drive away, and once you&rsquo;re on it, the rest of greater Los Angeles becomes accessible. Beverly Hills and the Westside are roughly 45&ndash;55 minutes. Burbank and the Valley are about 40 minutes. The beach in Malibu is a 20-minute drive south via Malibu Canyon Road - one of the genuinely scenic routes in the region. Public transit is not a realistic option. This is a car-dependent community by nature, and residents plan accordingly.</p>
 		</div>
 	</div>
 </section>
@@ -332,9 +332,7 @@ $faqs = [
 		<h2 class="dmg-area-section-title">Nothing Quite Replaces It</h2>
 
 		<div class="dmg-area-prose">
-			<p>The people who live in Malibou Lake stay because nothing quite replaces it. The lake in the morning, the mountain quiet after the 101 is behind you, the feeling of arriving somewhere genuinely private at the end of the day &mdash; it is not for everyone, given the narrow roads, the fire risk, the absence of a coffee shop around the corner. But for those it fits, it fits completely.</p>
-
-			<p style="opacity:0.75;font-style:italic;font-size:0.95rem;margin-top:2rem">[Dave to personalize: a memory or family connection to this area, a specific trail or spot on the lake, anything in your own voice.]</p>
+			<p>The people who live in Malibou Lake stay because nothing quite replaces it. The lake in the morning, the mountain quiet after the 101 is behind you, the feeling of arriving somewhere genuinely private at the end of the day - it is not for everyone, given the narrow roads, the fire risk, the absence of a coffee shop around the corner. But for those it fits, it fits completely.</p>
 		</div>
 	</div>
 </section>
@@ -428,7 +426,7 @@ $faqs = [
 <section class="dmg-area-section dmg-area-section--dark" style="padding-top:7rem;padding-bottom:7rem">
 	<div class="dmg-cta-block">
 		<h2>Work With a Team That Truly Knows the Conejo Valley</h2>
-		<p style="color:var(--wp--preset--color--gray-100)">For three generations, the McLaughlin family has lived, worked, and built relationships throughout the Conejo Valley. We don&rsquo;t just sell homes here &mdash; we proudly call this community home.</p>
+		<p style="color:var(--wp--preset--color--gray-100)">For three generations, the McLaughlin family has lived, worked, and built relationships throughout the Conejo Valley. We don&rsquo;t just sell homes here - we proudly call this community home.</p>
 		<div class="dmg-cta-row">
 			<a class="dmg-btn-primary" href="/contact-us/?subject=Contact%20Dave&amp;source=contact-dave">Contact Dave</a>
 		</div>

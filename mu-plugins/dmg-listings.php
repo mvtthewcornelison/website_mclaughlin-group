@@ -229,7 +229,7 @@ function dmg_listing_render_meta_box( $post ) {
 		<div class="dmg-listing-row">
 			<label>
 				<input type="checkbox" name="dmg_featured" value="1" <?php checked( $featured ); ?> />
-				<strong>Featured on Homepage</strong> — Show in homepage Featured Listings carousel
+				<strong>Featured on Homepage</strong> - Show in homepage Featured Listings carousel
 			</label>
 		</div>
 
@@ -324,7 +324,7 @@ add_action( 'save_post_dmg_listing', function ( $post_id ) {
 		update_post_meta( $post_id, 'dmg_gallery', implode( ',', $ids ) );
 	}
 
-	// dmg_featured is a checkbox — only present in POST when checked.
+	// dmg_featured is a checkbox - only present in POST when checked.
 	update_post_meta( $post_id, 'dmg_featured', rest_sanitize_boolean( isset( $_POST['dmg_featured'] ) ) );
 } );
 
@@ -542,7 +542,7 @@ add_action( 'init', function () {
 	if ( is_array( $rules ) ) {
 		foreach ( array_keys( $rules ) as $pattern ) {
 			if ( strpos( $pattern, 'listings' ) !== false ) {
-				return; // Already registered — no flush needed.
+				return; // Already registered - no flush needed.
 			}
 		}
 	}

@@ -106,7 +106,7 @@ $status_label = [
 	</style>
 
 	<?php if ( empty( $listings ) ) : ?>
-		<p style="text-align:center;color:#737373;font-style:italic;max-width:560px;margin:0 auto">No listings yet — check back soon!</p>
+		<p style="text-align:center;color:#737373;font-style:italic;max-width:560px;margin:0 auto">No listings yet - check back soon!</p>
 	<?php else : ?>
 		<div class="dmg-listings-wrap">
 			<div class="splide dmg-listings-carousel" aria-label="Featured Listings" data-per-page="<?php echo (int) $per_page; ?>">

@@ -30,7 +30,7 @@ $nearby = [
 ];
 
 $faqs = [
-	[ 'q' => 'What is Thousand Oaks known for?', 'a' => 'Thousand Oaks is best known as one of the safest cities in the United States — it consistently ranks near the top of safety indices for cities its size — as well as for its park system, native oak canopy, and strong public schools. It is also home to Amgen, one of the world\'s largest biotechnology companies, and several other significant corporate headquarters.' ],
+	[ 'q' => 'What is Thousand Oaks known for?', 'a' => 'Thousand Oaks is best known as one of the safest cities in the United States - it consistently ranks near the top of safety indices for cities its size - as well as for its park system, native oak canopy, and strong public schools. It is also home to Amgen, one of the world\'s largest biotechnology companies, and several other significant corporate headquarters.' ],
 	[ 'q' => 'What school district serves Thousand Oaks?', 'a' => 'Thousand Oaks is served by Conejo Valley Unified School District (CVUSD), consistently ranked among the top public districts in California. Major high schools include Thousand Oaks High and Westlake High.' ],
 	[ 'q' => 'How far is Thousand Oaks from Los Angeles?', 'a' => 'Thousand Oaks is approximately 35–40 miles from downtown Los Angeles and about 35 miles from Beverly Hills. Without significant traffic, the Westside is roughly 35–45 minutes via the 101. The San Fernando Valley is closer, about 25–30 minutes.' ],
 	[ 'q' => 'What are the best neighborhoods in Thousand Oaks?', 'a' => 'It depends on priorities. Wildwood suits families who want immediate park access and strong school proximity. Lang Ranch appeals to buyers seeking newer construction and community amenities. Conejo Oaks offers established mid-century character. Newer developments near Dos Vientos offer upscale finishes and hillside views.' ],
@@ -76,7 +76,7 @@ $faqs = [
 	<div class="dmg-area-hero-inner">
 		<span class="dmg-area-hero-eyebrow">Conejo Valley Communities</span>
 		<h1 class="dmg-area-hero-title">Living in Thousand Oaks</h1>
-		<p class="dmg-area-hero-intro">The Conejo Valley&rsquo;s largest city &mdash; built into rolling hills beneath a native oak canopy and consistently ranked among the safest, most livable cities in America.</p>
+		<p class="dmg-area-hero-intro">The Conejo Valley&rsquo;s largest city - built into rolling hills beneath a native oak canopy and consistently ranked among the safest, most livable cities in America.</p>
 		<div class="dmg-area-hero-ctas">
 			<a class="dmg-btn-secondary" href="/contact-us/?subject=Speak%20with%20a%20local%20expert&amp;source=local-expert">Speak with a local expert</a>
 		</div>
@@ -147,13 +147,13 @@ $faqs = [
 		<h2 class="dmg-area-section-title">A City That Chose to Stay Itself</h2>
 
 		<div class="dmg-area-prose">
-			<p>Thousand Oaks incorporated in 1964 for a specific reason: to stop Los Angeles from becoming it. The city&rsquo;s founders wanted to preserve the rolling oak-studded hills and establish a community that would grow on its own terms. The name is literal &mdash; thousands of native valley oaks were already here, and the planning ordinances that followed were written to keep them. Six decades later, the oaks are still here, and so is the commitment to open space that made the place worth protecting.</p>
+			<p>Thousand Oaks incorporated in 1964 for a specific reason: to stop Los Angeles from becoming it. The city&rsquo;s founders wanted to preserve the rolling oak-studded hills and establish a community that would grow on its own terms. The name is literal - thousands of native valley oaks were already here, and the planning ordinances that followed were written to keep them. Six decades later, the oaks are still here, and so is the commitment to open space that made the place worth protecting.</p>
 
-			<p>Safety is the city&rsquo;s most cited quality, and the numbers back it up. Thousand Oaks has consistently appeared among the top-ranked cities in America for low violent crime, often in the top ten for cities of its size. That reputation shapes the community&rsquo;s character &mdash; it is a city where the culture of safety is not just a statistic but something residents actively maintain and value.</p>
+			<p>Safety is the city&rsquo;s most cited quality, and the numbers back it up. Thousand Oaks has consistently appeared among the top-ranked cities in America for low violent crime, often in the top ten for cities of its size. That reputation shapes the community&rsquo;s character - it is a city where the culture of safety is not just a statistic but something residents actively maintain and value.</p>
 
 			<p>The park system is exceptional for a suburban city. Wildwood Regional Park covers more than 1,700 acres of native chaparral and oak woodland directly within the city limits, with trailhead access from dozens of neighborhoods. The Conejo Valley Botanic Garden, the Conejo Recreation and Park District&rsquo;s trail network, and a dozen smaller community parks make outdoor access a genuine daily option rather than a weekend expedition.</p>
 
-			<p>Thousand Oaks also has a meaningful corporate presence. Amgen&rsquo;s world headquarters sits here, along with Baxter International and several other major employers. California Lutheran University adds an academic dimension. The result is a community with genuine economic depth &mdash; a working professional population alongside the family-oriented suburban core.</p>
+			<p>Thousand Oaks also has a meaningful corporate presence. Amgen&rsquo;s world headquarters sits here, along with Baxter International and several other major employers. California Lutheran University adds an academic dimension. The result is a community with genuine economic depth - a working professional population alongside the family-oriented suburban core.</p>
 
 			<p>Real estate ranges more widely here than in neighboring Westlake Village. Established single-family homes in Wildwood and Conejo Oaks start in the mid-$800Ks. Newer planned communities like Lang Ranch run $1.5M&ndash;$3M. The luxury hillside tier touches $4M and above. For buyers who want Conejo Valley school quality and community infrastructure without the top-of-market Westlake Village premium, Thousand Oaks is the natural answer.</p>
 		</div>
@@ -336,8 +336,6 @@ $faqs = [
 
 		<div class="dmg-area-prose">
 			<p>Thousand Oaks delivers what it promises. The crime statistics are real, the parks are genuinely accessible, and the school district backs up its reputation year after year. Families come for one reason and stay for ten. The city is large enough to have everything you need without ever feeling like a suburb that has lost itself to sprawl. The oaks are still here.</p>
-
-			<p style="opacity:0.75;font-style:italic;font-size:0.95rem;margin-top:2rem">[Dave to personalize: a memory or experience that speaks to this community, anything in your own voice.]</p>
 		</div>
 	</div>
 </section>
@@ -431,7 +429,7 @@ $faqs = [
 <section class="dmg-area-section dmg-area-section--dark" style="padding-top:7rem;padding-bottom:7rem">
 	<div class="dmg-cta-block">
 		<h2>Work With a Team That Truly Knows the Conejo Valley</h2>
-		<p style="color:var(--wp--preset--color--gray-100)">For three generations, the McLaughlin family has lived, worked, and built relationships throughout the Conejo Valley. We don&rsquo;t just sell homes here &mdash; we proudly call this community home.</p>
+		<p style="color:var(--wp--preset--color--gray-100)">For three generations, the McLaughlin family has lived, worked, and built relationships throughout the Conejo Valley. We don&rsquo;t just sell homes here - we proudly call this community home.</p>
 		<div class="dmg-cta-row">
 			<a class="dmg-btn-primary" href="/contact-us/?subject=Contact%20Dave&amp;source=contact-dave">Contact Dave</a>
 		</div>

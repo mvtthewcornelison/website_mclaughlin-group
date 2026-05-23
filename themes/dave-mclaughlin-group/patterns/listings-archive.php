@@ -339,7 +339,7 @@ $neighborhoods = [
 	<div class="dmg-listings-grid dmg-listings-grid--medium" id="dmg-listings-grid">
 
 		<?php if ( empty( $listings ) ) : ?>
-			<p class="dmg-listings-empty" style="display:block;">No listings available — check back soon!</p>
+			<p class="dmg-listings-empty" style="display:block;">No listings available - check back soon!</p>
 		<?php else : ?>
 
 			<?php foreach ( $listings as $listing ) :
@@ -390,7 +390,7 @@ $neighborhoods = [
 						<p class="dmg-listing-card__neighborhood"><?php echo esc_html( $neighborhood_name ); ?></p>
 					<?php endif; ?>
 					<h2 class="dmg-listing-card__address"><?php echo esc_html( $title ); ?></h2>
-					<p class="dmg-listing-card__price"><?php echo $price ? esc_html( $price ) : '&mdash;'; ?></p>
+					<p class="dmg-listing-card__price"><?php echo $price ? esc_html( $price ) : '-'; ?></p>
 					<ul class="dmg-listing-card__specs">
 						<?php if ( $beds ) : ?><li><strong><?php echo esc_html( $beds ); ?></strong> Beds</li><?php endif; ?>
 						<?php if ( $baths ) : ?><li><strong><?php echo esc_html( $baths ); ?></strong> Baths</li><?php endif; ?>

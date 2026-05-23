@@ -132,7 +132,6 @@
 	<!-- /wp:spacer -->
 
 	<!-- wp:paragraph {"align":"center","style":{"typography":{"fontStyle":"italic","fontSize":"1rem"}},"textColor":"gray-300"} -->
-	<p class="has-text-align-center has-gray-300-color has-text-color" style="font-size:1rem;font-style:italic">[Matt to check with Dave]</p>
 	<!-- /wp:paragraph -->
 
 </section>

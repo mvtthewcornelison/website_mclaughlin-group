@@ -76,7 +76,7 @@ $faqs = [
 	<div class="dmg-area-hero-inner">
 		<span class="dmg-area-hero-eyebrow">Conejo Valley Communities</span>
 		<h1 class="dmg-area-hero-title">Living in Westlake Village</h1>
-		<p class="dmg-area-hero-intro">A planned lakeside community built around a 160-acre private lake &mdash; one of the most refined and sought-after addresses in the Conejo Valley.</p>
+		<p class="dmg-area-hero-intro">A planned lakeside community built around a 160-acre private lake - one of the most refined and sought-after addresses in the Conejo Valley.</p>
 		<div class="dmg-area-hero-ctas">
 			<a class="dmg-btn-secondary" href="/contact-us/?subject=Speak%20with%20a%20local%20expert&amp;source=local-expert">Speak with a local expert</a>
 		</div>
@@ -147,15 +147,15 @@ $faqs = [
 		<h2 class="dmg-area-section-title">A Community Built Around a Lake</h2>
 
 		<div class="dmg-area-prose">
-			<p>Westlake Village was not discovered &mdash; it was designed. In 1968, the American-Hawaiian Steamship Company broke ground on a master-planned community centered on a 160-acre private lake, with every street, park, and commercial zone deliberately placed. What makes the result unusual is that it worked. More than fifty years on, the lake is still the community&rsquo;s organizing principle, the streets are walkable in ways most of the Conejo Valley is not, and the planning has held.</p>
+			<p>Westlake Village was not discovered - it was designed. In 1968, the American-Hawaiian Steamship Company broke ground on a master-planned community centered on a 160-acre private lake, with every street, park, and commercial zone deliberately placed. What makes the result unusual is that it worked. More than fifty years on, the lake is still the community&rsquo;s organizing principle, the streets are walkable in ways most of the Conejo Valley is not, and the planning has held.</p>
 
-			<p>The community straddles the Los Angeles and Ventura county lines, a quirk that shapes more than just mailing addresses. Property taxes differ between the two sides. School district assignment depends on which county your home falls in &mdash; Las Virgenes USD on the LA side, Conejo Valley USD on the Ventura side &mdash; and both districts are worth attention. Most buyers who move to Westlake Village know which side they&rsquo;re on before they close.</p>
+			<p>The community straddles the Los Angeles and Ventura county lines, a quirk that shapes more than just mailing addresses. Property taxes differ between the two sides. School district assignment depends on which county your home falls in - Las Virgenes USD on the LA side, Conejo Valley USD on the Ventura side - and both districts are worth attention. Most buyers who move to Westlake Village know which side they&rsquo;re on before they close.</p>
 
-			<p>The lake is active. The Westlake Yacht Club runs regattas, sailing instruction, and a full program of on-water events. The lakeside walking path circles the entire perimeter and is one of the more genuinely pleasant places to spend a morning in the Conejo Valley. The Island &mdash; a small collection of estate properties accessible only by private bridge &mdash; remains one of the most exclusive residential addresses in the region.</p>
+			<p>The lake is active. The Westlake Yacht Club runs regattas, sailing instruction, and a full program of on-water events. The lakeside walking path circles the entire perimeter and is one of the more genuinely pleasant places to spend a morning in the Conejo Valley. The Island - a small collection of estate properties accessible only by private bridge - remains one of the most exclusive residential addresses in the region.</p>
 
 			<p>Westlake Village has a pronounced corporate identity that its neighbors do not. Several significant company headquarters sit along the Thousand Oaks Boulevard corridor. That professional presence gives the community a working-day energy that coexists, somewhat unusually, with its resort-adjacent lake lifestyle.</p>
 
-			<p>Real estate in Westlake Village covers a genuine range. Entry-level condos and townhomes near the water, hillside single-family homes in Westlake Hills, golf course properties in North Ranch, and the lakefront estates of The Island &mdash; the price spread is meaningful, and the community has room for buyers at multiple stages of life.</p>
+			<p>Real estate in Westlake Village covers a genuine range. Entry-level condos and townhomes near the water, hillside single-family homes in Westlake Hills, golf course properties in North Ranch, and the lakefront estates of The Island - the price spread is meaningful, and the community has room for buyers at multiple stages of life.</p>
 		</div>
 	</div>
 </section>
@@ -338,8 +338,6 @@ $faqs = [
 
 		<div class="dmg-area-prose">
 			<p>Westlake Village earns its reputation for a reason. The lake is real, the schools are genuinely strong on both sides of the county line, and the community has a cared-for quality that comes from decades of intentional planning and resident investment. People arrive expecting a pleasant suburb and stay for something quieter: the walk to the lake on a weekday morning, the sense that the neighborhood keeps its promises.</p>
-
-			<p style="opacity:0.75;font-style:italic;font-size:0.95rem;margin-top:2rem">[Dave to personalize: a memory or experience that speaks to this community, anything in your own voice.]</p>
 		</div>
 	</div>
 </section>
@@ -433,7 +431,7 @@ $faqs = [
 <section class="dmg-area-section dmg-area-section--dark" style="padding-top:7rem;padding-bottom:7rem">
 	<div class="dmg-cta-block">
 		<h2>Work With a Team That Truly Knows the Conejo Valley</h2>
-		<p style="color:var(--wp--preset--color--gray-100)">For three generations, the McLaughlin family has lived, worked, and built relationships throughout the Conejo Valley. We don&rsquo;t just sell homes here &mdash; we proudly call this community home.</p>
+		<p style="color:var(--wp--preset--color--gray-100)">For three generations, the McLaughlin family has lived, worked, and built relationships throughout the Conejo Valley. We don&rsquo;t just sell homes here - we proudly call this community home.</p>
 		<div class="dmg-cta-row">
 			<a class="dmg-btn-primary" href="/contact-us/?subject=Contact%20Dave&amp;source=contact-dave">Contact Dave</a>
 		</div>

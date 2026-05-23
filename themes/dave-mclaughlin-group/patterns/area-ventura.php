@@ -24,13 +24,13 @@ $resolve_neighbor_image = function ( $slug ) {
 };
 
 $nearby = [
-	[ 'name' => 'Malibu',        'slug' => 'malibu',        'desc' => 'Pacific coastline luxury and canyon living, about 40 minutes south via PCH — a natural complement to Ventura\'s coastal lifestyle.' ],
-	[ 'name' => 'Thousand Oaks', 'slug' => 'thousand-oaks', 'desc' => 'The Conejo Valley\'s largest inland city, about 25 minutes southeast via the 101 — strong schools and suburban amenities.' ],
+	[ 'name' => 'Malibu',        'slug' => 'malibu',        'desc' => 'Pacific coastline luxury and canyon living, about 40 minutes south via PCH - a natural complement to Ventura\'s coastal lifestyle.' ],
+	[ 'name' => 'Thousand Oaks', 'slug' => 'thousand-oaks', 'desc' => 'The Conejo Valley\'s largest inland city, about 25 minutes southeast via the 101 - strong schools and suburban amenities.' ],
 	[ 'name' => 'Newbury Park',  'slug' => 'newbury-park',  'desc' => 'Outdoor-oriented Conejo Valley community with trail access, about 30 minutes south via CA-23.' ],
 ];
 
 $faqs = [
-	[ 'q' => 'Is Ventura a good place to live?', 'a' => 'Ventura offers a quality of life that surprises many people who discover it. It has a genuine historic downtown, direct access to the Pacific and Channel Islands, a surf culture that is taken seriously, and a community scale — about 110,000 people — that feels human without feeling small. It is significantly more affordable than Malibu or Santa Barbara while sharing much of the same coastal character.' ],
+	[ 'q' => 'Is Ventura a good place to live?', 'a' => 'Ventura offers a quality of life that surprises many people who discover it. It has a genuine historic downtown, direct access to the Pacific and Channel Islands, a surf culture that is taken seriously, and a community scale - about 110,000 people - that feels human without feeling small. It is significantly more affordable than Malibu or Santa Barbara while sharing much of the same coastal character.' ],
 	[ 'q' => 'How does Ventura compare to Malibu or Santa Barbara?', 'a' => 'Ventura sits between the two in geography and, broadly, in character. It has Malibu\'s surf access and mountain backdrop but without the celebrity premium. It has Santa Barbara\'s historic downtown and harbor culture but without the full Santa Barbara price tag. It is the coastal city in the region that tends to reward buyers who look past the more famous names.' ],
 	[ 'q' => 'What school district serves Ventura?', 'a' => 'Ventura is served by Ventura Unified School District (VUSD), which covers the city of Ventura. The district runs multiple elementary and middle schools and three comprehensive high schools: Buena, Foothill Tech, and Ventura High. Foothill Technology High School is a specialized magnet school with competitive admission and strong STEM and arts programming.' ],
 	[ 'q' => 'What neighborhoods are best in Ventura?', 'a' => 'It depends on priorities. Pierpont Beach and Midtown offer direct coastal access with an established bungalow-and-craftsman character. The Keys provides marina-adjacent waterfront living near the harbor. East Ventura offers more suburban neighborhoods at more accessible price points. The Ventura Hillsides give buyers elevated views, newer custom homes, and larger lots.' ],
@@ -76,7 +76,7 @@ $faqs = [
 	<div class="dmg-area-hero-inner">
 		<span class="dmg-area-hero-eyebrow">Conejo Valley Communities</span>
 		<h1 class="dmg-area-hero-title">Living in Ventura</h1>
-		<p class="dmg-area-hero-intro">A historic coastal city with a working harbor, world-class surf, and a downtown that has been worth walking since 1782 &mdash; where California&rsquo;s character shows up without the markup.</p>
+		<p class="dmg-area-hero-intro">A historic coastal city with a working harbor, world-class surf, and a downtown that has been worth walking since 1782 - where California&rsquo;s character shows up without the markup.</p>
 		<div class="dmg-area-hero-ctas">
 			<a class="dmg-btn-secondary" href="/contact-us/?subject=Speak%20with%20a%20local%20expert&amp;source=local-expert">Speak with a local expert</a>
 		</div>
@@ -147,13 +147,13 @@ $faqs = [
 		<h2 class="dmg-area-section-title">California&rsquo;s Most Underestimated Coast</h2>
 
 		<div class="dmg-area-prose">
-			<p>Ventura &mdash; officially San Buenaventura, though almost no one calls it that &mdash; is the Ventura County seat and the most underestimated city on the Southern California coast. It has a harbor, a working pier, a genuinely historic downtown anchored by a Spanish mission from 1782, and direct access to the Channel Islands, one of the most remarkable national parks in the country. It also has, relative to its coastal peers, prices that still reflect the fact that most people have not fully discovered it yet.</p>
+			<p>Ventura - officially San Buenaventura, though almost no one calls it that - is the Ventura County seat and the most underestimated city on the Southern California coast. It has a harbor, a working pier, a genuinely historic downtown anchored by a Spanish mission from 1782, and direct access to the Channel Islands, one of the most remarkable national parks in the country. It also has, relative to its coastal peers, prices that still reflect the fact that most people have not fully discovered it yet.</p>
 
 			<p>The downtown is real in a way that many California downtowns are not. Main Street has independent restaurants, galleries, vintage shops, and coffee that residents actually use day to day, not a theme park version of a downtown built for tourists. The Sunday farmers market at the parking structure on Santa Clara is a Ventura institution. The Ventura Theater and the Museum of Ventura County give the city a cultural life that punches above its population.</p>
 
-			<p>C Street &mdash; Surfers&rsquo; Point &mdash; is a world-class surf break. Serious surfers know this; the rest of California is slowly catching up. The point break at the intersection of Figueroa and the ocean produces long, rideable waves that draw regulars from across the region. The surf culture here is genuine and long-standing, not imported. It shapes the morning character of the neighborhoods closest to the coast.</p>
+			<p>C Street - Surfers&rsquo; Point - is a world-class surf break. Serious surfers know this; the rest of California is slowly catching up. The point break at the intersection of Figueroa and the ocean produces long, rideable waves that draw regulars from across the region. The surf culture here is genuine and long-standing, not imported. It shapes the morning character of the neighborhoods closest to the coast.</p>
 
-			<p>The Channel Islands sit visible from the harbor on a clear day, and they are accessible &mdash; Island Packers runs daily boat service from Ventura Harbor. The islands are some of the most pristine coastal wilderness in the continental United States: no cars, no development, camping, snorkeling, sea caves, and wildlife that exists nowhere else on earth. Having them as a day trip is one of those things Ventura residents mention quietly to friends and feel quietly superior about.</p>
+			<p>The Channel Islands sit visible from the harbor on a clear day, and they are accessible - Island Packers runs daily boat service from Ventura Harbor. The islands are some of the most pristine coastal wilderness in the continental United States: no cars, no development, camping, snorkeling, sea caves, and wildlife that exists nowhere else on earth. Having them as a day trip is one of those things Ventura residents mention quietly to friends and feel quietly superior about.</p>
 
 			<p>Real estate in Ventura covers meaningful range. Coastal bungalows and craftsmans in Midtown and Pierpont offer character and proximity to the ocean. East Ventura and the newer suburban neighborhoods on the city&rsquo;s edges provide more square footage at more accessible price points. The Hillside neighborhoods on the eastern ridge offer views across the channel and larger lots. For buyers who have been priced out of Malibu or Santa Barbara, Ventura represents the honest version of the same coastal life.</p>
 		</div>
@@ -176,7 +176,7 @@ $faqs = [
 		<div class="dmg-subhood-grid">
 			<article class="dmg-subhood-card">
 				<h3>Midtown &amp; Pierpont Beach</h3>
-				<p>The most established coastal neighborhood &mdash; bungalows, craftsmans, and beach cottages within walking distance of the ocean and downtown. Strong character, long-time residents.</p>
+				<p>The most established coastal neighborhood - bungalows, craftsmans, and beach cottages within walking distance of the ocean and downtown. Strong character, long-time residents.</p>
 				<div class="dmg-subhood-tags">
 					<span class="dmg-subhood-tag">Coastal</span>
 					<span class="dmg-subhood-tag">Historic</span>
@@ -227,7 +227,7 @@ $faqs = [
 		<h2 class="dmg-area-section-title">Ventura Unified School District</h2>
 
 		<div class="dmg-area-prose" style="margin-bottom:3rem">
-			<p><strong>Ventura Unified School District (VUSD)</strong> serves the city of Ventura with multiple elementaries, middle schools, and three comprehensive high schools. Foothill Technology High School is a standout &mdash; a competitive STEM and arts magnet that draws students from across the district.</p>
+			<p><strong>Ventura Unified School District (VUSD)</strong> serves the city of Ventura with multiple elementaries, middle schools, and three comprehensive high schools. Foothill Technology High School is a standout - a competitive STEM and arts magnet that draws students from across the district.</p>
 		</div>
 
 		<div class="dmg-info-cols">
@@ -271,7 +271,7 @@ $faqs = [
 				<h3>Outdoors</h3>
 				<ul>
 					<li><strong>Channel Islands National Park</strong><small>Daily boat service from Ventura Harbor via Island Packers</small></li>
-					<li><strong>C Street &mdash; Surfers&rsquo; Point</strong><small>World-class point break, long-standing surf culture</small></li>
+					<li><strong>C Street - Surfers&rsquo; Point</strong><small>World-class point break, long-standing surf culture</small></li>
 					<li><strong>Ventura Pier &amp; Emma Wood State Beach</strong><small>Swimming, fishing, and beachside recreation</small></li>
 					<li><strong>Los Padres National Forest</strong><small>Hiking and backcountry access to the northeast</small></li>
 					<li><strong>Ojai day trips</strong><small>Arts enclave and hiking hub ~20 min away</small></li>
@@ -299,7 +299,7 @@ $faqs = [
 			<div>
 				<h3>Community</h3>
 				<ul>
-					<li><strong>Downtown Farmers Market</strong><small>Sundays on Santa Clara — a Ventura institution</small></li>
+					<li><strong>Downtown Farmers Market</strong><small>Sundays on Santa Clara - a Ventura institution</small></li>
 					<li><strong>Ventura Music Festival</strong><small>Annual performing arts festival</small></li>
 					<li><strong>Concerts in the Park</strong><small>Summer outdoor concert series</small></li>
 					<li><strong>Island Packers excursions</strong><small>Channel Islands day trips and wildlife cruises</small></li>
@@ -342,9 +342,7 @@ $faqs = [
 		<h2 class="dmg-area-section-title">The Ones Who Noticed</h2>
 
 		<div class="dmg-area-prose">
-			<p>Ventura has a way of not needing to convince anyone once they&rsquo;ve actually lived there. The Channel Islands on the horizon, C Street at first light, the farmers market on Sunday, the kind of downtown that gets better the more you know it &mdash; it is a coastal city that rewards people who pay attention to it. The ones who stay are the ones who noticed.</p>
-
-			<p style="opacity:0.75;font-style:italic;font-size:0.95rem;margin-top:2rem">[Dave to personalize: a memory or experience that speaks to this community, anything in your own voice.]</p>
+			<p>Ventura has a way of not needing to convince anyone once they&rsquo;ve actually lived there. The Channel Islands on the horizon, C Street at first light, the farmers market on Sunday, the kind of downtown that gets better the more you know it - it is a coastal city that rewards people who pay attention to it. The ones who stay are the ones who noticed.</p>
 		</div>
 	</div>
 </section>
@@ -438,7 +436,7 @@ $faqs = [
 <section class="dmg-area-section dmg-area-section--dark" style="padding-top:7rem;padding-bottom:7rem">
 	<div class="dmg-cta-block">
 		<h2>Work With a Team That Truly Knows the Conejo Valley</h2>
-		<p style="color:var(--wp--preset--color--gray-100)">For three generations, the McLaughlin family has lived, worked, and built relationships throughout the Conejo Valley. We don&rsquo;t just sell homes here &mdash; we proudly call this community home.</p>
+		<p style="color:var(--wp--preset--color--gray-100)">For three generations, the McLaughlin family has lived, worked, and built relationships throughout the Conejo Valley. We don&rsquo;t just sell homes here - we proudly call this community home.</p>
 		<div class="dmg-cta-row">
 			<a class="dmg-btn-primary" href="/contact-us/?subject=Contact%20Dave&amp;source=contact-dave">Contact Dave</a>
 		</div>
@@ -453,7 +451,7 @@ $faqs = [
 		{
 			"@type": "Place",
 			"name": "Ventura",
-			"description": "A historic coastal city with a working harbor, world-class surf, and a downtown anchored by a Spanish mission from 1782 — one of Southern California's most underestimated coastal communities.",
+			"description": "A historic coastal city with a working harbor, world-class surf, and a downtown anchored by a Spanish mission from 1782 - one of Southern California's most underestimated coastal communities.",
 			"address": {
 				"@type": "PostalAddress",
 				"addressLocality": "Ventura",

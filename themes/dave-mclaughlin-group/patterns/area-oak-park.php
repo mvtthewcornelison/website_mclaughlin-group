@@ -26,16 +26,16 @@ $resolve_neighbor_image = function ( $slug ) {
 $nearby = [
 	[ 'name' => 'Agoura Hills',     'slug' => 'agoura-hills',     'desc' => 'The closest city to Oak Park, with shopping, dining, equestrian heritage, and top-rated Las Virgenes USD schools.' ],
 	[ 'name' => 'Westlake Village', 'slug' => 'westlake-village', 'desc' => 'Upscale lakeside community with private lake, golf courses, and refined Conejo Valley amenities just minutes away.' ],
-	[ 'name' => 'Thousand Oaks',    'slug' => 'thousand-oaks',    'desc' => 'The Conejo Valley\'s largest city — parks, safety, and broad amenities about 10 minutes east.' ],
+	[ 'name' => 'Thousand Oaks',    'slug' => 'thousand-oaks',    'desc' => 'The Conejo Valley\'s largest city - parks, safety, and broad amenities about 10 minutes east.' ],
 ];
 
 $faqs = [
 	[ 'q' => 'What makes Oak Park Unified School District so highly rated?', 'a' => 'Oak Park Unified is a small, independent district serving only the Oak Park community. Its small size allows for close attention to individual students, strong parental involvement, and consistent academic programming. The district regularly posts some of the highest test scores and graduation rates in California, and Oak Park High School is consistently ranked among the top public high schools in the state.' ],
-	[ 'q' => 'Is Oak Park its own city?', 'a' => 'No. Oak Park is an unincorporated community in Ventura County, meaning it has no incorporated city government of its own. It is governed at the county level, with its own zip code, community identity, and — critically — its own independent school district, which is separate from neighboring Thousand Oaks and Agoura Hills.' ],
+	[ 'q' => 'Is Oak Park its own city?', 'a' => 'No. Oak Park is an unincorporated community in Ventura County, meaning it has no incorporated city government of its own. It is governed at the county level, with its own zip code, community identity, and - critically - its own independent school district, which is separate from neighboring Thousand Oaks and Agoura Hills.' ],
 	[ 'q' => 'How does Oak Park compare to neighboring Agoura Hills?', 'a' => 'Oak Park and Agoura Hills are adjacent and share some retail along the Kanan Road corridor, but they have meaningfully different characters. Oak Park tends to be newer construction, more planned in its layout, with a tighter community feel and its own highly regarded school district. Agoura Hills has more urban character, more dining and retail options, equestrian heritage, and is served by LVUSD. Many families specifically choose Oak Park for the school district.' ],
 	[ 'q' => 'What kind of homes are in Oak Park?', 'a' => 'Oak Park is primarily a single-family residential community developed between the 1970s and 1990s, with a mix of ranch homes, two-story traditionals, and some newer custom construction. Lots tend to be moderate in size. There are some hillside properties with views, and the community has maintained its residential character without significant commercial sprawl.' ],
 	[ 'q' => 'Is Oak Park safe?', 'a' => 'Oak Park is consistently one of the safest communities in Ventura County. Its planned layout, engaged residents, and strong community association culture contribute to very low crime rates. It is one of the primary reasons families with children are drawn to the area.' ],
-	[ 'q' => 'What is the real estate market like in Oak Park?', 'a' => 'Oak Park has appreciated steadily alongside the broader Conejo Valley. The school district premium is real — homes in Oak Park command a meaningful price bump compared to equivalent homes in neighboring areas served by different districts. Inventory is consistently tight, and well-priced homes move quickly when they come available.' ],
+	[ 'q' => 'What is the real estate market like in Oak Park?', 'a' => 'Oak Park has appreciated steadily alongside the broader Conejo Valley. The school district premium is real - homes in Oak Park command a meaningful price bump compared to equivalent homes in neighboring areas served by different districts. Inventory is consistently tight, and well-priced homes move quickly when they come available.' ],
 ];
 ?>
 
@@ -76,7 +76,7 @@ $faqs = [
 	<div class="dmg-area-hero-inner">
 		<span class="dmg-area-hero-eyebrow">Conejo Valley Communities</span>
 		<h1 class="dmg-area-hero-title">Living in Oak Park</h1>
-		<p class="dmg-area-hero-intro">A quiet, family-focused community in the hills between Agoura Hills and Thousand Oaks &mdash; anchored by one of the highest-rated public school districts in California.</p>
+		<p class="dmg-area-hero-intro">A quiet, family-focused community in the hills between Agoura Hills and Thousand Oaks - anchored by one of the highest-rated public school districts in California.</p>
 		<div class="dmg-area-hero-ctas">
 			<a class="dmg-btn-secondary" href="/contact-us/?subject=Speak%20with%20a%20local%20expert&amp;source=local-expert">Speak with a local expert</a>
 		</div>
@@ -147,13 +147,13 @@ $faqs = [
 		<h2 class="dmg-area-section-title">One School District Changes Everything</h2>
 
 		<div class="dmg-area-prose">
-			<p>Oak Park sits in a small valley between Agoura Hills to the south and Thousand Oaks to the east, technically within Ventura County and technically unincorporated &mdash; it has no city hall, no mayor, and no city government of its own. What it does have is its own school district, and that single fact shapes nearly everything else about the community and why families choose it.</p>
+			<p>Oak Park sits in a small valley between Agoura Hills to the south and Thousand Oaks to the east, technically within Ventura County and technically unincorporated - it has no city hall, no mayor, and no city government of its own. What it does have is its own school district, and that single fact shapes nearly everything else about the community and why families choose it.</p>
 
 			<p>Oak Park Unified School District is small by design, serving only the Oak Park community. That scale produces something that larger districts struggle to replicate: consistent academic outcomes, genuine administrator accountability, and a school culture where faculty and families actually know each other. Oak Park High School posts some of the highest academic achievement numbers of any public high school in California, and has done so with enough consistency that the reputation precedes it. For families who move to the area specifically for schools, Oak Park is frequently the answer.</p>
 
-			<p>The community itself was developed primarily between the 1970s and early 1990s in a planned residential style &mdash; single-family homes on measured lots, consistent streetscapes, parks integrated into the neighborhood design. It lacks the equestrian character of old Agoura Hills and the lakeside amenity of Westlake Village, but it compensates with a tightness and calm that attracts a specific kind of buyer: families who want a place that stays out of the way and lets them live well inside it.</p>
+			<p>The community itself was developed primarily between the 1970s and early 1990s in a planned residential style - single-family homes on measured lots, consistent streetscapes, parks integrated into the neighborhood design. It lacks the equestrian character of old Agoura Hills and the lakeside amenity of Westlake Village, but it compensates with a tightness and calm that attracts a specific kind of buyer: families who want a place that stays out of the way and lets them live well inside it.</p>
 
-			<p>For day-to-day needs, residents rely mostly on Agoura Hills. The Kanan Road corridor bridges the two communities, and the practical overlap in shopping, dining, and services means Oak Park functions more like a residential annex of Agoura Hills than a standalone community &mdash; which suits most residents just fine.</p>
+			<p>For day-to-day needs, residents rely mostly on Agoura Hills. The Kanan Road corridor bridges the two communities, and the practical overlap in shopping, dining, and services means Oak Park functions more like a residential annex of Agoura Hills than a standalone community - which suits most residents just fine.</p>
 		</div>
 	</div>
 </section>
@@ -225,7 +225,7 @@ $faqs = [
 		<h2 class="dmg-area-section-title">Oak Park Unified School District</h2>
 
 		<div class="dmg-area-prose" style="margin-bottom:3rem">
-			<p><strong>Oak Park Unified School District</strong> is a small, independent district serving only the Oak Park community — one of the highest-ranked public school districts in California. Its scale creates accountability and consistency that larger districts rarely match.</p>
+			<p><strong>Oak Park Unified School District</strong> is a small, independent district serving only the Oak Park community - one of the highest-ranked public school districts in California. Its scale creates accountability and consistency that larger districts rarely match.</p>
 		</div>
 
 		<div class="dmg-info-cols">
@@ -274,7 +274,7 @@ $faqs = [
 			<div>
 				<h3>Dining &amp; Shopping</h3>
 				<ul>
-					<li><strong>Agoura Hills &mdash; Whizin&rsquo;s Plaza</strong><small>Dining and retail hub just minutes away</small></li>
+					<li><strong>Agoura Hills - Whizin&rsquo;s Plaza</strong><small>Dining and retail hub just minutes away</small></li>
 					<li><strong>Kanan Road restaurants</strong><small>Local options along the Oak Park corridor</small></li>
 					<li><strong>The Promenade at Westlake</strong><small>Upscale shopping ~10 min away</small></li>
 				</ul>
@@ -326,8 +326,6 @@ $faqs = [
 
 		<div class="dmg-area-prose">
 			<p>Oak Park is a place where the selling point is also the lived reality. The school district backs up its numbers year after year. The streets are quiet in the way people mean it when they say they want quiet streets. Families move in, the kids grow up, and a surprising number of them come back. That kind of continuity is not accidental.</p>
-
-			<p style="opacity:0.75;font-style:italic;font-size:0.95rem;margin-top:2rem">[Dave to personalize: a memory or experience that speaks to this community, anything in your own voice.]</p>
 		</div>
 	</div>
 </section>
@@ -421,7 +419,7 @@ $faqs = [
 <section class="dmg-area-section dmg-area-section--dark" style="padding-top:7rem;padding-bottom:7rem">
 	<div class="dmg-cta-block">
 		<h2>Work With a Team That Truly Knows the Conejo Valley</h2>
-		<p style="color:var(--wp--preset--color--gray-100)">For three generations, the McLaughlin family has lived, worked, and built relationships throughout the Conejo Valley. We don&rsquo;t just sell homes here &mdash; we proudly call this community home.</p>
+		<p style="color:var(--wp--preset--color--gray-100)">For three generations, the McLaughlin family has lived, worked, and built relationships throughout the Conejo Valley. We don&rsquo;t just sell homes here - we proudly call this community home.</p>
 		<div class="dmg-cta-row">
 			<a class="dmg-btn-primary" href="/contact-us/?subject=Contact%20Dave&amp;source=contact-dave">Contact Dave</a>
 		</div>
@@ -436,7 +434,7 @@ $faqs = [
 		{
 			"@type": "Place",
 			"name": "Oak Park",
-			"description": "A quiet, family-focused unincorporated community in Ventura County, anchored by Oak Park Unified School District — one of the highest-rated public school districts in California.",
+			"description": "A quiet, family-focused unincorporated community in Ventura County, anchored by Oak Park Unified School District - one of the highest-rated public school districts in California.",
 			"address": {
 				"@type": "PostalAddress",
 				"addressLocality": "Oak Park",

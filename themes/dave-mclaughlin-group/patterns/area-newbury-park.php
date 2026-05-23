@@ -24,9 +24,9 @@ $resolve_neighbor_image = function ( $slug ) {
 };
 
 $nearby = [
-	[ 'name' => 'Thousand Oaks', 'slug' => 'thousand-oaks', 'desc' => 'Newbury Park\'s city partner — shares government, schools, and amenities while offering a broader range of neighborhoods and price points.' ],
+	[ 'name' => 'Thousand Oaks', 'slug' => 'thousand-oaks', 'desc' => 'Newbury Park\'s city partner - shares government, schools, and amenities while offering a broader range of neighborhoods and price points.' ],
 	[ 'name' => 'Oak Park',      'slug' => 'oak-park',      'desc' => 'Small family-focused community over the Ventura County line with one of California\'s highest-ranked school districts.' ],
-	[ 'name' => 'Ventura',       'slug' => 'ventura',       'desc' => 'Coastal city to the northwest, reached via the 23 freeway in about 30 minutes — beach, harbor, and a lively downtown.' ],
+	[ 'name' => 'Ventura',       'slug' => 'ventura',       'desc' => 'Coastal city to the northwest, reached via the 23 freeway in about 30 minutes - beach, harbor, and a lively downtown.' ],
 ];
 
 $faqs = [
@@ -76,7 +76,7 @@ $faqs = [
 	<div class="dmg-area-hero-inner">
 		<span class="dmg-area-hero-eyebrow">Conejo Valley Communities</span>
 		<h1 class="dmg-area-hero-title">Living in Newbury Park</h1>
-		<p class="dmg-area-hero-intro">Where the Conejo Valley meets the Santa Monica Mountains &mdash; a family-oriented community with some of the best trail access in Southern California and an accessible entry point to Conejo Valley living.</p>
+		<p class="dmg-area-hero-intro">Where the Conejo Valley meets the Santa Monica Mountains - a family-oriented community with some of the best trail access in Southern California and an accessible entry point to Conejo Valley living.</p>
 		<div class="dmg-area-hero-ctas">
 			<a class="dmg-btn-secondary" href="/contact-us/?subject=Speak%20with%20a%20local%20expert&amp;source=local-expert">Speak with a local expert</a>
 		</div>
@@ -147,9 +147,9 @@ $faqs = [
 		<h2 class="dmg-area-section-title">Where the Valley Meets the Mountains</h2>
 
 		<div class="dmg-area-prose">
-			<p>Newbury Park occupies the western edge of the Conejo Valley, where the residential grid gives way to the Santa Monica Mountains National Recreation Area. It is technically part of Thousand Oaks &mdash; incorporated into the city in 1964 &mdash; but functions with its own identity, its own zip code, and a community culture that tilts more toward the trails and less toward the corporate campuses at the eastern end of the valley.</p>
+			<p>Newbury Park occupies the western edge of the Conejo Valley, where the residential grid gives way to the Santa Monica Mountains National Recreation Area. It is technically part of Thousand Oaks - incorporated into the city in 1964 - but functions with its own identity, its own zip code, and a community culture that tilts more toward the trails and less toward the corporate campuses at the eastern end of the valley.</p>
 
-			<p>The outdoor access is the headline. Newbury Park is the practical trailhead for Point Mugu State Park, the Boney Mountain Wilderness, and the Big Sycamore Canyon trail system &mdash; one of the largest expanses of undeveloped coastal mountain terrain on the continent. On a weekend morning, you can drive five minutes from any neighborhood, park, and be in genuine backcountry wilderness. That access is priced into the community&rsquo;s identity in a way that doesn&rsquo;t fully show up in the listing descriptions.</p>
+			<p>The outdoor access is the headline. Newbury Park is the practical trailhead for Point Mugu State Park, the Boney Mountain Wilderness, and the Big Sycamore Canyon trail system - one of the largest expanses of undeveloped coastal mountain terrain on the continent. On a weekend morning, you can drive five minutes from any neighborhood, park, and be in genuine backcountry wilderness. That access is priced into the community&rsquo;s identity in a way that doesn&rsquo;t fully show up in the listing descriptions.</p>
 
 			<p>Dos Vientos Ranch changed the character of Newbury Park&rsquo;s high end when it was developed in the late 1990s. The planned community was built into a valley south of the freeway, entirely surrounded by National Recreation Area land, with trails connecting the backyards directly to the open space. Homes are newer, larger, and more upscale than the rest of Newbury Park. For buyers who want a new-construction feel with wilderness at the back fence, Dos Vientos is the answer.</p>
 
@@ -329,9 +329,7 @@ $faqs = [
 		<h2 class="dmg-area-section-title">The Access Without the Premium</h2>
 
 		<div class="dmg-area-prose">
-			<p>The people who stay in Newbury Park tend to stay because of the trails. You can be in real wilderness in fifteen minutes &mdash; Boney Mountain, La Jolla Valley, canyon country that feels nothing like Los Angeles &mdash; and still have the school system, the community infrastructure, the Conejo Valley around you. It has the access without the premium, and for the right buyer, that is exactly right.</p>
-
-			<p style="opacity:0.75;font-style:italic;font-size:0.95rem;margin-top:2rem">[Dave to personalize: a memory or experience that speaks to this community, anything in your own voice.]</p>
+			<p>The people who stay in Newbury Park tend to stay because of the trails. You can be in real wilderness in fifteen minutes - Boney Mountain, La Jolla Valley, canyon country that feels nothing like Los Angeles - and still have the school system, the community infrastructure, the Conejo Valley around you. It has the access without the premium, and for the right buyer, that is exactly right.</p>
 		</div>
 	</div>
 </section>
@@ -425,7 +423,7 @@ $faqs = [
 <section class="dmg-area-section dmg-area-section--dark" style="padding-top:7rem;padding-bottom:7rem">
 	<div class="dmg-cta-block">
 		<h2>Work With a Team That Truly Knows the Conejo Valley</h2>
-		<p style="color:var(--wp--preset--color--gray-100)">For three generations, the McLaughlin family has lived, worked, and built relationships throughout the Conejo Valley. We don&rsquo;t just sell homes here &mdash; we proudly call this community home.</p>
+		<p style="color:var(--wp--preset--color--gray-100)">For three generations, the McLaughlin family has lived, worked, and built relationships throughout the Conejo Valley. We don&rsquo;t just sell homes here - we proudly call this community home.</p>
 		<div class="dmg-cta-row">
 			<a class="dmg-btn-primary" href="/contact-us/?subject=Contact%20Dave&amp;source=contact-dave">Contact Dave</a>
 		</div>
