@@ -67,6 +67,24 @@ All CPTs have REST API support enabled.
 
 The database is committed to git (`database/.ht.sqlite`). This is intentional for portability — no separate DB import needed. One developer should own content changes at a time to avoid merge conflicts on the binary file.
 
+**Quieting per-request DB churn locally.** WordPress writes to the SQLite file on every page load (sessions, transients, cron events), so left alone it pollutes the VS Code source control panel with constant "changes" that aren't real content. Each developer should mark the file with `skip-worktree` after their first clone:
+
+```
+git update-index --skip-worktree database/.ht.sqlite
+```
+
+This is a local-only flag (per developer, never committed) that tells your git "this file is tracked, but ignore its working-tree changes." The file stays tracked and stays current in the repo for everyone else.
+
+When you actually need to commit a real DB change (added a listing, edited a page, etc.):
+
+```
+git update-index --no-skip-worktree database/.ht.sqlite
+# stage + commit normally
+git update-index --skip-worktree database/.ht.sqlite
+```
+
+Do NOT add the DB to `.gitignore` — `.gitignore` only affects untracked files, so it wouldn't quiet the churn anyway, and it would mislead future contributors about whether this file should be in the repo.
+
 ## Claude Code output limits
 
 When writing large plan or spec files, **never write more than ~250 lines in a single file-write operation**. Split large plans across multiple turns using Edit to append sections. This prevents hitting the 32 K output-token ceiling and losing work mid-write.
