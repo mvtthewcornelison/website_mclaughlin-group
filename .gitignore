@@ -4,8 +4,6 @@ node_modules
 dist
 build
 vendor
-uploads
 .playwright-mcp/
 debug.log
 upgrade/
-database/.ht.sqlite
