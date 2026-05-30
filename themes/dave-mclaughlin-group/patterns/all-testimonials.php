@@ -101,7 +101,8 @@ $reviews = function_exists( 'dmg_get_reviews' ) ? dmg_get_reviews() : [];
 			?>
 				<article class="dmg-all-review">
 					<div class="dmg-all-review-head">
-						<div class="dmg-all-review-stars dmg-all-review-stars--<?php echo esc_attr( $source ); ?>" aria-label="<?php echo esc_attr( $rating . ' out of 5 stars' ); ?>">
+						<div class="dmg-all-review-stars dmg-all-review-stars--<?php echo esc_attr( $source ); ?>">
+							<span class="screen-reader-text"><?php echo esc_html( $rating . ' out of 5 stars' ); ?></span>
 							<?php for ( $i = 0; $i < $rating; $i++ ) : ?>
 								<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.95 6.99 7.55.66-5.74 4.97 1.74 7.38L12 18.27l-6.5 3.73 1.74-7.38L1.5 9.65l7.55-.66z"/></svg>
 							<?php endfor; ?>

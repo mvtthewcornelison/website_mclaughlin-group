@@ -109,7 +109,7 @@ $status_label = [
 		<p style="text-align:center;color:#737373;font-style:italic;max-width:560px;margin:0 auto">No listings yet - check back soon!</p>
 	<?php else : ?>
 		<div class="dmg-listings-wrap">
-			<div class="splide dmg-listings-carousel" aria-label="Featured Listings" data-per-page="<?php echo (int) $per_page; ?>">
+			<div class="splide dmg-listings-carousel" role="region" aria-label="Featured Listings" data-per-page="<?php echo (int) $per_page; ?>">
 				<div class="splide__track">
 					<ul class="splide__list">
 						<?php foreach ( $listings as $listing ) :
@@ -132,12 +132,16 @@ $status_label = [
 						<li class="splide__slide">
 							<article class="dmg-listing-card">
 								<?php if ( $gallery_ids ) : ?>
-									<div class="splide dmg-listing-photos" aria-label="Photos of <?php echo esc_attr( $title ); ?>">
+									<div class="splide dmg-listing-photos" role="region" aria-label="Photos of <?php echo esc_attr( $title ); ?>">
 										<div class="splide__track">
 											<ul class="splide__list">
-												<?php foreach ( $gallery_ids as $id ) : ?>
+												<?php foreach ( $gallery_ids as $index => $id ) : ?>
 													<li class="splide__slide">
-														<?php echo wp_get_attachment_image( $id, 'large', false, [ 'class' => 'dmg-listing-photo', 'loading' => 'lazy' ] ); ?>
+														<?php echo wp_get_attachment_image( $id, 'large', false, [
+															'class'   => 'dmg-listing-photo',
+															'loading' => 'lazy',
+															'alt'     => dmg_listing_photo_alt( $id, $listing->ID, $index + 1, 'home-card' ),
+														] ); ?>
 													</li>
 												<?php endforeach; ?>
 											</ul>

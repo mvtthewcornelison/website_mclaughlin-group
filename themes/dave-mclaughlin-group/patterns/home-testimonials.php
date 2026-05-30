@@ -111,7 +111,7 @@ $reviews = function_exists( 'dmg_get_reviews' ) ? dmg_get_reviews() : [];
 		<p style="text-align:center;color:var(--wp--preset--color--gray-300);font-style:italic;max-width:560px;margin:0 auto">No reviews yet, add one from the <strong>Reviews</strong> menu in the WordPress admin.</p>
 	<?php else : ?>
 		<div class="dmg-testimonials-wrap">
-			<div class="splide dmg-testimonials-carousel" aria-label="Client Testimonials">
+			<div class="splide dmg-testimonials-carousel" role="region" aria-label="Client Testimonials">
 				<div class="splide__track">
 					<ul class="splide__list">
 						<?php foreach ( $reviews as $review ) :
@@ -122,7 +122,8 @@ $reviews = function_exists( 'dmg_get_reviews' ) ? dmg_get_reviews() : [];
 						?>
 						<li class="splide__slide">
 							<figure class="dmg-testimonial">
-								<div class="dmg-testimonial-stars dmg-testimonial-stars--<?php echo esc_attr( $source ); ?>" aria-label="<?php echo esc_attr( $rating . ' out of 5 stars' ); ?>">
+								<div class="dmg-testimonial-stars dmg-testimonial-stars--<?php echo esc_attr( $source ); ?>">
+									<span class="screen-reader-text"><?php echo esc_html( $rating . ' out of 5 stars' ); ?></span>
 									<?php for ( $i = 0; $i < $rating; $i++ ) : ?>
 										<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.95 6.99 7.55.66-5.74 4.97 1.74 7.38L12 18.27l-6.5 3.73 1.74-7.38L1.5 9.65l7.55-.66z"/></svg>
 									<?php endfor; ?>

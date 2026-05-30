@@ -421,6 +421,28 @@ function dmg_get_featured_listings() {
 	] );
 }
 
+function dmg_listing_photo_alt( $attachment_id, $listing_id, $index = 1, $context = '' ) {
+	$attachment_id = absint( $attachment_id );
+	$listing_id    = absint( $listing_id );
+	$index         = max( 1, absint( $index ) );
+
+	if ( $attachment_id ) {
+		$alt = trim( (string) get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) );
+		if ( $alt ) {
+			return $alt;
+		}
+	}
+
+	$title = $listing_id ? get_the_title( $listing_id ) : '';
+	$title = $title ?: 'listing';
+
+	if ( 'hero' === $context ) {
+		return $title;
+	}
+
+	return sprintf( 'Photo %1$d of %2$s', $index, $title );
+}
+
 function dmg_get_area_listings_prioritized( $area_slug ) {
 	if ( ! $area_slug ) {
 		return [];

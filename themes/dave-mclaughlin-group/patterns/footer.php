@@ -71,6 +71,14 @@
 			color: var(--wp--preset--color--gray-500);
 			text-align: center;
 		}
+		.dmg-footer-note a {
+			color: inherit;
+			text-decoration: none;
+			border-bottom: 1px solid currentColor;
+		}
+		.dmg-footer-note a:hover {
+			color: var(--wp--preset--color--primary);
+		}
 		@media (max-width: 800px) {
 			.dmg-footer { padding: 3rem 0 2.5rem; }
 			.dmg-footer-grid { grid-template-columns: 1fr; }
@@ -106,7 +114,7 @@
 			</div>
 		</div>
 
-		<div class="dmg-footer-note">The McLaughlin Group</div>
+		<div class="dmg-footer-note">The McLaughlin Group · <a href="<?php echo esc_url( home_url( '/accessibility/' ) ); ?>">Accessibility</a></div>
 	</div>
 	<!-- /wp:html -->
 </div>

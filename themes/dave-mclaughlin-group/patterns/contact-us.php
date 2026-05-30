@@ -15,6 +15,8 @@ $source_value  = dmg_contact_field_value( 'dmg_source' ) ?: 'contact-us';
 $page_value    = dmg_contact_field_value( 'dmg_source_page' ) ?: home_url( '/contact-us/' );
 $success       = isset( $_GET['dmg_contact_success'] );
 $error         = isset( $_GET['dmg_contact_error'] );
+$form_error    = function_exists( 'dmg_contact_form_error' ) ? dmg_contact_form_error() : '';
+$has_errors    = function_exists( 'dmg_contact_has_field_errors' ) && dmg_contact_has_field_errors();
 
 $contact_subjects = [
 	'contact-us'           => 'Contact Us',
@@ -210,6 +212,18 @@ if ( ! $subject_value && isset( $contact_subjects[ $source_value ] ) ) {
 	}
 	.dmg-contact-alert--success { background:#f4faf6; border-color:#3b8a5a; color:#1f5c38; }
 	.dmg-contact-alert--error   { background:#fdf6f6; border-color:var(--wp--preset--color--primary); color:#8c1f1f; }
+	.dmg-contact-error-summary:focus { outline: 2px solid var(--wp--preset--color--primary); outline-offset: 3px; }
+	.dmg-contact-field-error {
+		margin: 0.1rem 0 0;
+		font-size: 0.875rem;
+		line-height: 1.45;
+		color: #8c1f1f;
+	}
+	.dmg-contact-field input[aria-invalid="true"],
+	.dmg-contact-field textarea[aria-invalid="true"] {
+		border-color: #B20000;
+		background: #fff;
+	}
 
 	@media (max-width: 900px) {
 		.dmg-contact-grid { grid-template-columns: 1fr; gap: 2.5rem; align-items: stretch; }
@@ -246,7 +260,21 @@ if ( ! $subject_value && isset( $contact_subjects[ $source_value ] ) ) {
 		<?php if ( $success ) : ?>
 			<div class="dmg-contact-alert dmg-contact-alert--success">Thanks - your message has been sent. We’ll be in touch soon.</div>
 		<?php endif; ?>
-		<?php if ( $error ) : ?>
+		<?php if ( $error && $form_error ) : ?>
+			<div class="dmg-contact-alert dmg-contact-alert--error dmg-contact-error-summary" tabindex="-1">
+				<p style="margin:0 0 0.5rem;font-weight:700"><?php echo esc_html( $form_error ); ?></p>
+				<?php if ( $has_errors ) : ?>
+					<ul style="margin:0;padding-left:1.25rem">
+						<?php foreach ( [ 'dmg_name', 'dmg_email', 'dmg_phone', 'dmg_subject', 'dmg_message' ] as $field_key ) :
+							$field_error = dmg_contact_field_error( $field_key );
+							if ( ! $field_error ) { continue; }
+						?>
+							<li><a href="#<?php echo esc_attr( $field_key ); ?>"><?php echo esc_html( $field_error ); ?></a></li>
+						<?php endforeach; ?>
+					</ul>
+				<?php endif; ?>
+			</div>
+		<?php elseif ( $error ) : ?>
 			<div class="dmg-contact-alert dmg-contact-alert--error">Please fill out all required fields before sending your message.</div>
 		<?php endif; ?>
 
@@ -261,30 +289,35 @@ if ( ! $subject_value && isset( $contact_subjects[ $source_value ] ) ) {
 					<div class="dmg-contact-row">
 						<div class="dmg-contact-field">
 							<label for="dmg_name">Name<span class="req" aria-hidden="true">*</span></label>
-							<input id="dmg_name" name="dmg_name" type="text" required placeholder="Your name" value="<?php echo esc_attr( $name_value ); ?>" />
+							<input id="dmg_name" name="dmg_name" type="text" autocomplete="name" required placeholder="Your name" value="<?php echo esc_attr( $name_value ); ?>"<?php echo dmg_contact_field_a11y_attrs( 'dmg_name', 'dmg_name_error' ); ?> />
+							<?php dmg_contact_render_field_error( 'dmg_name', 'dmg_name_error', 'dmg-contact-field-error' ); ?>
 						</div>
 
 						<div class="dmg-contact-field">
 							<label for="dmg_email">Email<span class="req" aria-hidden="true">*</span></label>
-							<input id="dmg_email" name="dmg_email" type="email" required placeholder="you@example.com" value="<?php echo esc_attr( $email_value ); ?>" />
+							<input id="dmg_email" name="dmg_email" type="email" autocomplete="email" required placeholder="you@example.com" value="<?php echo esc_attr( $email_value ); ?>"<?php echo dmg_contact_field_a11y_attrs( 'dmg_email', 'dmg_email_error' ); ?> />
+							<?php dmg_contact_render_field_error( 'dmg_email', 'dmg_email_error', 'dmg-contact-field-error' ); ?>
 						</div>
 					</div>
 
 					<div class="dmg-contact-row">
 						<div class="dmg-contact-field">
 							<label for="dmg_phone">Phone<span class="req" aria-hidden="true">*</span></label>
-							<input id="dmg_phone" name="dmg_phone" type="tel" required placeholder="(555) 555-5555" value="<?php echo esc_attr( $phone_value ); ?>" />
+							<input id="dmg_phone" name="dmg_phone" type="tel" autocomplete="tel" required placeholder="(555) 555-5555" value="<?php echo esc_attr( $phone_value ); ?>"<?php echo dmg_contact_field_a11y_attrs( 'dmg_phone', 'dmg_phone_error' ); ?> />
+							<?php dmg_contact_render_field_error( 'dmg_phone', 'dmg_phone_error', 'dmg-contact-field-error' ); ?>
 						</div>
 
 						<div class="dmg-contact-field">
 							<label for="dmg_subject">Subject<span class="req" aria-hidden="true">*</span></label>
-							<input id="dmg_subject" name="dmg_subject" type="text" required placeholder="What's this about?" value="<?php echo esc_attr( $subject_value ); ?>" />
+							<input id="dmg_subject" name="dmg_subject" type="text" required placeholder="What's this about?" value="<?php echo esc_attr( $subject_value ); ?>"<?php echo dmg_contact_field_a11y_attrs( 'dmg_subject', 'dmg_subject_error' ); ?> />
+							<?php dmg_contact_render_field_error( 'dmg_subject', 'dmg_subject_error', 'dmg-contact-field-error' ); ?>
 						</div>
 					</div>
 
 					<div class="dmg-contact-field dmg-contact-field--full">
 						<label for="dmg_message">Message<span class="req" aria-hidden="true">*</span></label>
-						<textarea id="dmg_message" name="dmg_message" required placeholder="Tell us a little about what you need."><?php echo esc_textarea( $message_value ); ?></textarea>
+						<textarea id="dmg_message" name="dmg_message" required placeholder="Tell us a little about what you need."<?php echo dmg_contact_field_a11y_attrs( 'dmg_message', 'dmg_message_error' ); ?>><?php echo esc_textarea( $message_value ); ?></textarea>
+						<?php dmg_contact_render_field_error( 'dmg_message', 'dmg_message_error', 'dmg-contact-field-error' ); ?>
 					</div>
 
 					<div class="dmg-contact-submit-row">
@@ -323,3 +356,16 @@ if ( ! $subject_value && isset( $contact_subjects[ $source_value ] ) ) {
 	</div>
 </section>
 <!-- /wp:group -->
+
+<?php if ( $error && $form_error ) : ?>
+<!-- wp:html -->
+<script>
+(function () {
+	var summary = document.querySelector('.dmg-contact-error-summary');
+	if (summary) {
+		summary.focus();
+	}
+}());
+</script>
+<!-- /wp:html -->
+<?php endif; ?>

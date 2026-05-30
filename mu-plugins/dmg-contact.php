@@ -16,16 +16,105 @@ function dmg_contact_seller_email() {
 	return get_option( 'dmg_seller_email', 'ddmclaugh@aol.com' );
 }
 
+function dmg_contact_state_key( $token ) {
+	$token = preg_replace( '/[^a-zA-Z0-9]/', '', (string) $token );
+	return $token ? 'dmg_contact_state_' . $token : '';
+}
+
+function dmg_contact_current_state() {
+	static $state = null;
+
+	if ( null !== $state ) {
+		return $state;
+	}
+
+	$state = [];
+	if ( empty( $_GET['dmg_contact_state'] ) ) {
+		return $state;
+	}
+
+	$key = dmg_contact_state_key( sanitize_text_field( wp_unslash( $_GET['dmg_contact_state'] ) ) );
+	if ( ! $key ) {
+		return $state;
+	}
+
+	$saved = get_transient( $key );
+	if ( is_array( $saved ) ) {
+		$state = $saved;
+	}
+
+	return $state;
+}
+
+function dmg_contact_store_state( $values, $errors, $form_error = '' ) {
+	$token = wp_generate_password( 20, false, false );
+	$key   = dmg_contact_state_key( $token );
+
+	set_transient(
+		$key,
+		[
+			'values'     => $values,
+			'errors'     => $errors,
+			'form_error' => $form_error,
+		],
+		15 * MINUTE_IN_SECONDS
+	);
+
+	return $token;
+}
+
 function dmg_contact_field_value( $key ) {
+	$state = dmg_contact_current_state();
+	if ( isset( $state['values'][ $key ] ) ) {
+		return 'dmg_message' === $key ? sanitize_textarea_field( $state['values'][ $key ] ) : sanitize_text_field( $state['values'][ $key ] );
+	}
+
 	if ( isset( $_POST[ $key ] ) ) {
-		return sanitize_text_field( wp_unslash( $_POST[ $key ] ) );
+		return 'dmg_message' === $key ? sanitize_textarea_field( wp_unslash( $_POST[ $key ] ) ) : sanitize_text_field( wp_unslash( $_POST[ $key ] ) );
 	}
 
 	if ( isset( $_GET[ $key ] ) ) {
-		return sanitize_text_field( wp_unslash( $_GET[ $key ] ) );
+		return 'dmg_message' === $key ? sanitize_textarea_field( wp_unslash( $_GET[ $key ] ) ) : sanitize_text_field( wp_unslash( $_GET[ $key ] ) );
 	}
 
 	return '';
+}
+
+function dmg_contact_field_error( $key ) {
+	$state = dmg_contact_current_state();
+
+	return isset( $state['errors'][ $key ] ) ? sanitize_text_field( $state['errors'][ $key ] ) : '';
+}
+
+function dmg_contact_form_error() {
+	$state = dmg_contact_current_state();
+
+	return isset( $state['form_error'] ) ? sanitize_text_field( $state['form_error'] ) : '';
+}
+
+function dmg_contact_has_field_errors() {
+	$state = dmg_contact_current_state();
+
+	return ! empty( $state['errors'] ) && is_array( $state['errors'] );
+}
+
+function dmg_contact_field_a11y_attrs( $key, $error_id ) {
+	$error = dmg_contact_field_error( $key );
+
+	if ( ! $error ) {
+		return '';
+	}
+
+	return ' aria-invalid="true" aria-describedby="' . esc_attr( $error_id ) . '"';
+}
+
+function dmg_contact_render_field_error( $key, $error_id, $class_name = 'dmg-field-error' ) {
+	$error = dmg_contact_field_error( $key );
+	if ( ! $error ) {
+		return;
+	}
+
+	echo '<p id="' . esc_attr( $error_id ) . '" class="' . esc_attr( $class_name ) . '">' . esc_html( $error ) . '</p>';
 }
 
 function dmg_contact_inquiry_labels() {
@@ -140,9 +229,38 @@ function dmg_handle_contact_submit() {
 	$message = isset( $_POST['dmg_message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['dmg_message'] ) ) : '';
 	$source  = isset( $_POST['dmg_source'] ) ? sanitize_text_field( wp_unslash( $_POST['dmg_source'] ) ) : 'contact-us';
 	$page    = isset( $_POST['dmg_source_page'] ) ? esc_url_raw( wp_unslash( $_POST['dmg_source_page'] ) ) : '';
+	$values  = [
+		'dmg_name'        => $name,
+		'dmg_email'       => $email,
+		'dmg_phone'       => $phone,
+		'dmg_subject'     => $subject,
+		'dmg_message'     => $message,
+		'dmg_source'      => $source,
+		'dmg_source_page' => $page,
+	];
+	$errors  = [];
 
-	if ( ! $name || ! $email || ! $phone || ! $subject || ! $message ) {
-		wp_safe_redirect( add_query_arg( [ 'dmg_contact_error' => 'required' ], wp_get_referer() ?: home_url( '/contact-us/' ) ) );
+	if ( ! $name ) {
+		$errors['dmg_name'] = 'Enter your name.';
+	}
+	if ( ! $email ) {
+		$errors['dmg_email'] = 'Enter your email address.';
+	} elseif ( ! is_email( $email ) ) {
+		$errors['dmg_email'] = 'Enter a valid email address.';
+	}
+	if ( ! $phone ) {
+		$errors['dmg_phone'] = 'Enter your phone number.';
+	}
+	if ( ! $subject ) {
+		$errors['dmg_subject'] = 'Enter a subject.';
+	}
+	if ( ! $message ) {
+		$errors['dmg_message'] = 'Enter your message.';
+	}
+
+	if ( $errors ) {
+		$token = dmg_contact_store_state( $values, $errors, 'Please correct the fields below before sending your message.' );
+		wp_safe_redirect( add_query_arg( [ 'dmg_contact_error' => 'required', 'dmg_contact_state' => $token ], wp_get_referer() ?: home_url( '/contact-us/' ) ) );
 		exit;
 	}
 
@@ -203,7 +321,8 @@ function dmg_handle_contact_submit() {
 		exit;
 	}
 
-	wp_safe_redirect( add_query_arg( [ 'dmg_contact_error' => 'save' ], wp_get_referer() ?: home_url( '/contact-us/' ) ) );
+	$token = dmg_contact_store_state( $values, [], 'We could not save your message. Please try again or contact us by phone.' );
+	wp_safe_redirect( add_query_arg( [ 'dmg_contact_error' => 'save', 'dmg_contact_state' => $token ], wp_get_referer() ?: home_url( '/contact-us/' ) ) );
 	exit;
 }
 
@@ -268,6 +387,16 @@ add_action( 'init', function () {
 		wp_insert_post( [
 			'post_title'   => 'Contact Us',
 			'post_name'    => 'contact-us',
+			'post_status'  => 'publish',
+			'post_type'    => 'page',
+			'post_content' => '',
+		] );
+	}
+
+	if ( ! get_page_by_path( 'accessibility', OBJECT, 'page' ) ) {
+		wp_insert_post( [
+			'post_title'   => 'Accessibility',
+			'post_name'    => 'accessibility',
 			'post_status'  => 'publish',
 			'post_type'    => 'page',
 			'post_content' => '',

@@ -47,6 +47,16 @@ if ( $override_url && preg_match( '~(?:youtube\.com/watch\?v=|youtu\.be/)([a-zA-
 	background: #000;
 	cursor: pointer;
 	display: block;
+	width: 100%;
+	border: 0;
+	padding: 0;
+	color: inherit;
+	font: inherit;
+	text-align: inherit;
+}
+.dmg-video-card:focus-visible {
+	outline: 3px solid #fff;
+	outline-offset: 3px;
 }
 .dmg-video-card img {
 	width: 100%;
@@ -151,11 +161,11 @@ if ( $override_url && preg_match( '~(?:youtube\.com/watch\?v=|youtu\.be/)([a-zA-
 	?>
 
 	<div class="dmg-video-hero">
-		<div
+		<button
+			type="button"
 			class="dmg-video-card"
 			data-video-id="<?php echo $hero_id; ?>"
-			role="button"
-			tabindex="0"
+			data-video-title="<?php echo $hero_title; ?>"
 			aria-label="<?php echo $hero['title'] ? 'Play: ' . $hero_title : 'Play video'; ?>"
 		>
 			<img
@@ -170,7 +180,7 @@ if ( $override_url && preg_match( '~(?:youtube\.com/watch\?v=|youtu\.be/)([a-zA-
 					<polygon points="29,22 55,36 29,50" fill="#fff"/>
 				</svg>
 			</div>
-		</div>
+		</button>
 		<?php if ( $hero['title'] ) : ?>
 			<p class="dmg-video-hero-title"><?php echo esc_html( $hero['title'] ); ?></p>
 		<?php endif; ?>
@@ -184,11 +194,11 @@ if ( $override_url && preg_match( '~(?:youtube\.com/watch\?v=|youtu\.be/)([a-zA-
 			$thumb     = esc_url( 'https://i.ytimg.com/vi/' . $video['id'] . '/hqdefault.jpg' );
 		?>
 			<div>
-				<div
+				<button
+					type="button"
 					class="dmg-video-card"
 					data-video-id="<?php echo $vid_id; ?>"
-					role="button"
-					tabindex="0"
+					data-video-title="<?php echo $vid_title; ?>"
 					aria-label="Play: <?php echo $vid_title; ?>"
 				>
 					<img
@@ -202,7 +212,7 @@ if ( $override_url && preg_match( '~(?:youtube\.com/watch\?v=|youtu\.be/)([a-zA-
 							<polygon points="17,12 34,22 17,32" fill="#fff"/>
 						</svg>
 					</div>
-				</div>
+				</button>
 				<?php if ( $video['title'] ) : ?>
 					<p class="dmg-video-card-title"><?php echo esc_html( $video['title'] ); ?></p>
 				<?php endif; ?>
@@ -228,28 +238,25 @@ if ( $override_url && preg_match( '~(?:youtube\.com/watch\?v=|youtu\.be/)([a-zA-
 
 <script>
 (function () {
-	document.querySelectorAll('.dmg-video-card').forEach(function (card) {
+	document.querySelectorAll('.dmg-video-card').forEach(function (button) {
 		function playVideo() {
-			var id = card.dataset.videoId;
+			var id = button.dataset.videoId;
+			var title = button.dataset.videoTitle || 'Video';
+			var wrapper = document.createElement('div');
 			var iframe = document.createElement('iframe');
 			iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
+			iframe.title = 'YouTube video player: ' + title;
 			iframe.setAttribute('allowfullscreen', '');
 			iframe.setAttribute('allow', 'autoplay; encrypted-media; gyroscope; picture-in-picture');
+			iframe.setAttribute('tabindex', '-1');
+			wrapper.className = 'dmg-video-card dmg-video-player';
 			iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:0';
-			card.innerHTML = '';
-			card.style.cursor = 'default';
-			card.appendChild(iframe);
-			card.removeEventListener('click', playVideo);
-			card.removeEventListener('keydown', handleKey);
+			wrapper.style.cursor = 'default';
+			wrapper.appendChild(iframe);
+			button.replaceWith(wrapper);
+			iframe.focus();
 		}
-		function handleKey(e) {
-			if (e.key === 'Enter' || e.key === ' ') {
-				e.preventDefault();
-				playVideo();
-			}
-		}
-		card.addEventListener('click', playVideo);
-		card.addEventListener('keydown', handleKey);
+		button.addEventListener('click', playVideo);
 	});
 }());
 </script>

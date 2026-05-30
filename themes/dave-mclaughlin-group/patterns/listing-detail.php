@@ -54,6 +54,8 @@ $phone_value   = dmg_contact_field_value( 'dmg_phone' );
 $message_value = dmg_contact_field_value( 'dmg_message' );
 $success       = isset( $_GET['dmg_contact_success'] );
 $error         = isset( $_GET['dmg_contact_error'] );
+$form_error    = function_exists( 'dmg_contact_form_error' ) ? dmg_contact_form_error() : '';
+$has_errors    = function_exists( 'dmg_contact_has_field_errors' ) && dmg_contact_has_field_errors();
 
 // Status badge colors.
 $status_colors = [
@@ -142,7 +144,7 @@ $badge = $status_colors[ $status ] ?? $status_colors['active'];
 		font-weight: 700;
 		letter-spacing: 0.14em;
 		text-transform: uppercase;
-		color: #777;
+		color: #555;
 	}
 	.dmg-listing-photo-btn {
 		font-family: inherit;
@@ -246,7 +248,7 @@ $badge = $status_colors[ $status ] ?? $status_colors['active'];
 		font-weight: 700;
 		letter-spacing: 0.15em;
 		text-transform: uppercase;
-		color: #888;
+		color: #555;
 		margin-bottom: 0.35rem;
 	}
 	.dmg-listing-detail-value {
@@ -381,6 +383,18 @@ $badge = $status_colors[ $status ] ?? $status_colors['active'];
 	}
 	.dmg-listing-alert--success { background: #f4faf6; border-color: #3b8a5a; color: #1f5c38; }
 	.dmg-listing-alert--error   { background: #fdf6f6; border-color: #B20000; color: #8c1f1f; }
+	.dmg-listing-error-summary:focus { outline: 2px solid #B20000; outline-offset: 3px; }
+	.dmg-listing-field-error {
+		margin: 0.1rem 0 0;
+		font-size: 0.875rem;
+		line-height: 1.45;
+		color: #8c1f1f;
+	}
+	.dmg-listing-field input[aria-invalid="true"],
+	.dmg-listing-field textarea[aria-invalid="true"] {
+		border-color: #B20000;
+		background: #fff;
+	}
 
 	@media (max-width: 600px) {
 		.dmg-listing-content { padding: 1.5rem 1.25rem 4rem; }
@@ -406,10 +420,10 @@ $badge = $status_colors[ $status ] ?? $status_colors['active'];
 	<?php /* ── 1. HERO IMAGE ── */ ?>
 	<div class="dmg-listing-hero">
 		<?php if ( $hero_url ) : ?>
-			<img src="<?php echo esc_url( $hero_url ); ?>" alt="<?php echo esc_attr( get_the_title( $post_id ) ); ?>" loading="eager" />
+			<img src="<?php echo esc_url( $hero_url ); ?>" alt="<?php echo esc_attr( dmg_listing_photo_alt( $hero_id, $post_id, 1, 'hero' ) ); ?>" loading="eager" />
 		<?php endif; ?>
 		<div class="dmg-listing-hero-overlay">
-			<p class="dmg-listing-hero-address"><?php echo esc_html( get_the_title( $post_id ) ); ?></p>
+			<h1 class="dmg-listing-hero-address"><?php echo esc_html( get_the_title( $post_id ) ); ?></h1>
 		</div>
 	</div>
 
@@ -421,7 +435,7 @@ $badge = $status_colors[ $status ] ?? $status_colors['active'];
 
 		<?php /* 2a. PHOTO GALLERY CAROUSEL - only if 2+ gallery images */ ?>
 		<?php if ( count( $carousel_ids ) >= 2 ) : ?>
-			<div class="dmg-listing-photo-toolbar" aria-label="Photo gallery controls">
+			<div class="dmg-listing-photo-toolbar" role="group" aria-label="Photo gallery controls">
 				<div class="dmg-listing-photo-control" role="group" aria-label="Photo view">
 					<span class="dmg-listing-photo-label">View</span>
 					<button class="dmg-listing-photo-btn is-active" type="button" data-gallery-view-btn="carousel" aria-pressed="true">Carousel</button>
@@ -434,24 +448,29 @@ $badge = $status_colors[ $status ] ?? $status_colors['active'];
 				</div>
 			</div>
 
-			<div class="dmg-listing-gallery splide" aria-label="<?php echo esc_attr( get_the_title( $post_id ) ); ?> photos">
+			<div class="dmg-listing-gallery splide" role="region" aria-label="<?php echo esc_attr( get_the_title( $post_id ) ); ?> photos">
 				<div class="splide__track">
 					<ul class="splide__list">
-						<?php foreach ( $carousel_ids as $img_id ) : ?>
+						<?php foreach ( $carousel_ids as $index => $img_id ) : ?>
 							<li class="splide__slide">
-								<?php echo wp_get_attachment_image( $img_id, 'large', false, [ 'loading' => 'lazy', 'decoding' => 'async' ] ); ?>
+								<?php echo wp_get_attachment_image( $img_id, 'large', false, [
+									'loading'  => 'lazy',
+									'decoding' => 'async',
+									'alt'      => dmg_listing_photo_alt( $img_id, $post_id, $index + 1, 'carousel' ),
+								] ); ?>
 							</li>
 						<?php endforeach; ?>
 					</ul>
 				</div>
 			</div>
 
-			<div class="dmg-listing-photo-grid" aria-label="<?php echo esc_attr( get_the_title( $post_id ) ); ?> photo gallery">
-				<?php foreach ( $carousel_ids as $img_id ) : ?>
+			<div class="dmg-listing-photo-grid" role="group" aria-label="<?php echo esc_attr( get_the_title( $post_id ) ); ?> photo gallery">
+				<?php foreach ( $carousel_ids as $index => $img_id ) : ?>
 					<figure class="dmg-listing-photo-tile">
 						<?php echo wp_get_attachment_image( $img_id, 'large', false, [
 							'loading'  => 'lazy',
 							'decoding' => 'async',
+							'alt'      => dmg_listing_photo_alt( $img_id, $post_id, $index + 1, 'gallery' ),
 						] ); ?>
 					</figure>
 				<?php endforeach; ?>
@@ -544,7 +563,22 @@ $badge = $status_colors[ $status ] ?? $status_colors['active'];
 			<?php if ( $success ) : ?>
 				<div class="dmg-listing-alert dmg-listing-alert--success">Thanks - your message has been sent. We&rsquo;ll be in touch soon.</div>
 			<?php endif; ?>
-			<?php if ( $error ) : ?>
+			<?php if ( $error && $form_error ) : ?>
+				<div class="dmg-listing-alert dmg-listing-alert--error dmg-listing-error-summary" tabindex="-1">
+					<p style="margin:0 0 0.5rem;font-weight:700"><?php echo esc_html( $form_error ); ?></p>
+					<?php if ( $has_errors ) : ?>
+						<ul style="margin:0;padding-left:1.25rem">
+							<?php foreach ( [ 'dmg_name', 'dmg_email', 'dmg_phone', 'dmg_message' ] as $field_key ) :
+								$field_error = dmg_contact_field_error( $field_key );
+								if ( ! $field_error ) { continue; }
+								$field_id = 'dmg_ld_' . str_replace( 'dmg_', '', $field_key );
+							?>
+								<li><a href="#<?php echo esc_attr( $field_id ); ?>"><?php echo esc_html( $field_error ); ?></a></li>
+							<?php endforeach; ?>
+						</ul>
+					<?php endif; ?>
+				</div>
+			<?php elseif ( $error ) : ?>
 				<div class="dmg-listing-alert dmg-listing-alert--error">Please fill out all required fields before sending your message.</div>
 			<?php endif; ?>
 
@@ -558,22 +592,26 @@ $badge = $status_colors[ $status ] ?? $status_colors['active'];
 				<div class="dmg-listing-form-row">
 					<div class="dmg-listing-field">
 						<label for="dmg_ld_name">Name<span class="req" aria-hidden="true">*</span></label>
-						<input id="dmg_ld_name" name="dmg_name" type="text" required placeholder="Your name" value="<?php echo esc_attr( $name_value ); ?>" />
+						<input id="dmg_ld_name" name="dmg_name" type="text" autocomplete="name" required placeholder="Your name" value="<?php echo esc_attr( $name_value ); ?>"<?php echo dmg_contact_field_a11y_attrs( 'dmg_name', 'dmg_ld_name_error' ); ?> />
+						<?php dmg_contact_render_field_error( 'dmg_name', 'dmg_ld_name_error', 'dmg-listing-field-error' ); ?>
 					</div>
 					<div class="dmg-listing-field">
 						<label for="dmg_ld_email">Email<span class="req" aria-hidden="true">*</span></label>
-						<input id="dmg_ld_email" name="dmg_email" type="email" required placeholder="you@example.com" value="<?php echo esc_attr( $email_value ); ?>" />
+						<input id="dmg_ld_email" name="dmg_email" type="email" autocomplete="email" required placeholder="you@example.com" value="<?php echo esc_attr( $email_value ); ?>"<?php echo dmg_contact_field_a11y_attrs( 'dmg_email', 'dmg_ld_email_error' ); ?> />
+						<?php dmg_contact_render_field_error( 'dmg_email', 'dmg_ld_email_error', 'dmg-listing-field-error' ); ?>
 					</div>
 				</div>
 
 				<div class="dmg-listing-field">
 					<label for="dmg_ld_phone">Phone<span class="req" aria-hidden="true">*</span></label>
-					<input id="dmg_ld_phone" name="dmg_phone" type="tel" required placeholder="(555) 555-5555" value="<?php echo esc_attr( $phone_value ); ?>" />
+					<input id="dmg_ld_phone" name="dmg_phone" type="tel" autocomplete="tel" required placeholder="(555) 555-5555" value="<?php echo esc_attr( $phone_value ); ?>"<?php echo dmg_contact_field_a11y_attrs( 'dmg_phone', 'dmg_ld_phone_error' ); ?> />
+					<?php dmg_contact_render_field_error( 'dmg_phone', 'dmg_ld_phone_error', 'dmg-listing-field-error' ); ?>
 				</div>
 
 				<div class="dmg-listing-field">
 					<label for="dmg_ld_message">Message<span class="req" aria-hidden="true">*</span></label>
-					<textarea id="dmg_ld_message" name="dmg_message" required placeholder="I&rsquo;d love to learn more about this property&hellip;"><?php echo esc_textarea( $message_value ); ?></textarea>
+					<textarea id="dmg_ld_message" name="dmg_message" required placeholder="I&rsquo;d love to learn more about this property&hellip;"<?php echo dmg_contact_field_a11y_attrs( 'dmg_message', 'dmg_ld_message_error' ); ?>><?php echo esc_textarea( $message_value ); ?></textarea>
+					<?php dmg_contact_render_field_error( 'dmg_message', 'dmg_ld_message_error', 'dmg-listing-field-error' ); ?>
 				</div>
 
 				<div>
@@ -661,3 +699,16 @@ $badge = $status_colors[ $status ] ?? $status_colors['active'];
 })();
 </script>
 <!-- /wp:html -->
+
+<?php if ( $error && $form_error ) : ?>
+<!-- wp:html -->
+<script>
+(function () {
+	var summary = document.querySelector('.dmg-listing-error-summary');
+	if (summary) {
+		summary.focus();
+	}
+}());
+</script>
+<!-- /wp:html -->
+<?php endif; ?>
