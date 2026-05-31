@@ -36,7 +36,7 @@ $status_label = [
 	<!-- /wp:spacer -->
 
 	<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontWeight":"700"}}} -->
-	<h2 class="wp-block-heading has-text-align-center" style="font-weight:700">My properties on the market</h2>
+	<h2 class="wp-block-heading has-text-align-center" style="font-weight:700">Properties on the market</h2>
 	<!-- /wp:heading -->
 
 	<!-- wp:spacer {"height":"3rem"} -->
