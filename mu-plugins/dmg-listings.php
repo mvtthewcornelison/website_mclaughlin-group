@@ -535,7 +535,7 @@ function dmg_render_idx_listing_card( $idx ) {
 }
 
 // ---------------------------------------------------------------------------
-// Auto-create "Open Listings" page (self-healing, runs on init)
+// Auto-create "My Listings" page (self-healing, runs on init)
 // ---------------------------------------------------------------------------
 add_action( 'init', function () {
 	if ( get_page_by_path( 'listings', OBJECT, 'page' ) ) {
@@ -543,7 +543,7 @@ add_action( 'init', function () {
 	}
 
 	$page_id = wp_insert_post( [
-		'post_title'  => 'Open Listings',
+		'post_title'  => 'My Listings',
 		'post_name'   => 'listings',
 		'post_status' => 'publish',
 		'post_type'   => 'page',

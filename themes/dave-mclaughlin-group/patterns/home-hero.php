@@ -27,7 +27,7 @@ $poster_url = esc_url( get_theme_file_uri( 'assets/video/hero-poster.jpg' ) );
 		<div class="wp-block-buttons">
 
 			<!-- wp:button {"backgroundColor":"white","textColor":"black","style":{"border":{"radius":"0px"},"typography":{"fontWeight":"500","letterSpacing":"0.02em"},"spacing":{"padding":{"top":"0.875rem","bottom":"0.875rem","left":"1.75rem","right":"1.75rem"}}}} -->
-			<div class="wp-block-button"><a class="wp-block-button__link has-black-color has-white-background-color has-text-color has-background wp-element-button" style="border-radius:0px;padding-top:0.875rem;padding-right:1.75rem;padding-bottom:0.875rem;padding-left:1.75rem;font-weight:500;letter-spacing:0.02em" href="/listings/">Open Listings</a></div>
+			<div class="wp-block-button"><a class="wp-block-button__link has-black-color has-white-background-color has-text-color has-background wp-element-button" style="border-radius:0px;padding-top:0.875rem;padding-right:1.75rem;padding-bottom:0.875rem;padding-left:1.75rem;font-weight:500;letter-spacing:0.02em" href="/listings/">My Listings</a></div>
 			<!-- /wp:button -->
 
 			<!-- wp:button {"backgroundColor":"white","textColor":"black","style":{"border":{"radius":"0px"},"typography":{"fontWeight":"500","letterSpacing":"0.02em"},"spacing":{"padding":{"top":"0.875rem","bottom":"0.875rem","left":"1.75rem","right":"1.75rem"}}}} -->

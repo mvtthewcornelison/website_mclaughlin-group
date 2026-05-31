@@ -26,7 +26,7 @@ $status_label = [
 		<!-- /wp:html -->
 
 		<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.25em","fontSize":"0.8125rem","fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"gray-500"} -->
-		<p class="has-gray-500-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:0.8125rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase">Featured Listings</p>
+		<p class="has-gray-500-color has-text-color" style="margin-top:0;margin-bottom:0;font-size:0.8125rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase">Dave's Listings</p>
 		<!-- /wp:paragraph -->
 	</div>
 	<!-- /wp:group -->
@@ -36,7 +36,7 @@ $status_label = [
 	<!-- /wp:spacer -->
 
 	<!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontWeight":"700"}}} -->
-	<h2 class="wp-block-heading has-text-align-center" style="font-weight:700">Properties on the market</h2>
+	<h2 class="wp-block-heading has-text-align-center" style="font-weight:700">My properties on the market</h2>
 	<!-- /wp:heading -->
 
 	<!-- wp:spacer {"height":"3rem"} -->
@@ -109,7 +109,7 @@ $status_label = [
 		<p style="text-align:center;color:#737373;font-style:italic;max-width:560px;margin:0 auto">No listings yet - check back soon!</p>
 	<?php else : ?>
 		<div class="dmg-listings-wrap">
-			<div class="splide dmg-listings-carousel" role="region" aria-label="Featured Listings" data-per-page="<?php echo (int) $per_page; ?>">
+			<div class="splide dmg-listings-carousel" role="region" aria-label="Dave's Listings" data-per-page="<?php echo (int) $per_page; ?>">
 				<div class="splide__track">
 					<ul class="splide__list">
 						<?php foreach ( $listings as $listing ) :

@@ -128,7 +128,7 @@ function dmg_contact_inquiry_labels() {
 		'schedule-consultation' => 'Schedule a consultation',
 		'speak-with-dave' => 'Speak with Dave',
 		'contact-dave' => 'Contact Dave',
-		'open-listings'    => 'Open listings',
+		'open-listings'    => 'My Listings',
 		'seller-inquiry'   => 'Seller Inquiry',
 		'buyer-inquiry'    => 'Buyer Inquiry',
 		'listing-inquiry'  => 'Listing Inquiry',

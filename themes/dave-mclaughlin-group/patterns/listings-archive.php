@@ -294,7 +294,7 @@ $neighborhoods = [
 
 <!-- ── Page header ── -->
 <section class="dmg-archive-header">
-	<h1>Open Listings</h1>
+	<h1>My Listings</h1>
 	<p>Browse available properties in the Conejo Valley and surrounding communities.</p>
 </section>
 
