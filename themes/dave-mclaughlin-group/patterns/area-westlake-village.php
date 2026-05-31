@@ -67,6 +67,9 @@ $faqs = [
 				<p style="font-size:0.9375rem;color:var(--wp--preset--color--gray-500);margin:0">Inventory in this market moves quickly, <a href="/contact-us/?subject=Questions%20about%20Westlake%20Village&amp;source=reach-out" style="color:var(--wp--preset--color--primary);font-weight:600;text-decoration:underline">reach out</a> to be notified when something becomes available.</p>
 			</div>
 		<?php endif; ?>
+		<div style="margin-top:2rem;text-align:center">
+			<a class="dmg-btn-primary" href="/westlake-village-homes-for-sale/">Browse all Westlake Village listings on MLS</a>
+		</div>
 	</div>
 </section>
 <!-- /wp:html -->

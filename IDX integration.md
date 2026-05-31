@@ -1,175 +1,161 @@
-# IDX/MLS Integration Plan — The McLaughlin Group
+# IDX/MLS Integration — The McLaughlin Group
+
+## Status: Phase 1 complete. Blocked on FlexMLS API credentials.
+
+---
+
+## What Was Built (Session: 2026-05-31)
+
+### Decisions made
+- **Vendor confirmed:** FlexMLS IDX by FBS — already installed at `plugins/flexmls-idx/` v3.18.2
+- **Primary listings page:** `/listings/` (existing page) — not a new `/my-listings/` page. Nav "My Listings" links here.
+- **Open Houses:** Removed from nav. Filter lives inside Search Homes. `/open-houses/` page exists for SEO only.
+- **Nav order:** My Listings → Search Homes → Communities ▾ → Who We Are → Contact Us → We Give Back ▾
+
+### Files created
+- `mu-plugins/dmg-idx-pages.php` — self-healing seeder for all IDX/city pages, SEO meta descriptions, IDX bridge stub
+- `themes/dave-mclaughlin-group/templates/page-idx-content.html` — shell template for functional IDX pages
+- `themes/dave-mclaughlin-group/templates/page-idx-city.html` — shell template for city SEO pages
+- `themes/dave-mclaughlin-group/templates/page-communities.html` — references communities hub pattern
+- `themes/dave-mclaughlin-group/patterns/communities-hub.php` — static grid, Browse Listings + Community Guide per city
+
+### Files modified
+- `themes/dave-mclaughlin-group/parts/header.html` — updated with new nav (note: nav is database-managed via Site Editor; file is the fallback)
+- `themes/dave-mclaughlin-group/patterns/area-*.php` (all 8) — added "Browse all [City] listings on MLS" CTA after listings grid
+
+### Pages seeded (auto-created by dmg-idx-pages.php on site start)
+- `/search-homes/`, `/my-past-sales/`, `/open-houses/`, `/communities/`
+- `/agoura-hills-homes-for-sale/`, `/malibou-lake-homes-for-sale/`, `/westlake-village-homes-for-sale/`
+- `/thousand-oaks-homes-for-sale/`, `/newbury-park-homes-for-sale/`, `/oak-park-homes-for-sale/`
+- `/malibu-homes-for-sale/`, `/ventura-homes-for-sale/`
+
+### Still needs doing before next session
+- [ ] Flush permalinks: WP Admin → Settings → Permalinks → Save (or restart site)
+- [ ] Dave to contact FBS (866-320-9977) for API Key + Secret tied to MLS ID C159092398
+
+---
 
 ## Context
 
-The site is a nearly finished WordPress block theme (FSE, no build step) for realtor Dave McLaughlin. The next major feature is an IDX/MLS feed integration via a third-party plugin (vendor not yet selected). The plan must scaffold everything that can be built now without the vendor plugin, then define exactly what changes once it is installed.
-
 Agent: Dave McLaughlin · DRE #01256235 · MLS ID: C159092398  
 Brokerage: Keller Williams Westlake Village · Office DRE #01523573 · Office MLS ID: CG13890001  
-MLS association text provided: "CMAMOR" — likely CMAOR/CSMAR via CRMLS on FlexMLS. **Must be verified with vendor.**
+MLS: CMAOR via CRMLS on FlexMLS
+
+**IDX vendor selected: FlexMLS IDX by FBS** (`plugins/flexmls-idx/`, v3.18.2, installed)  
+Credentials needed: API Key + Secret from FBS — call 866-320-9977 or fill out `https://fbsproducts.com/form/wordpress-plugin-secret-key-request/`  
+Enter credentials at: **WP Admin → Flexmls IDX → Credentials**
 
 ---
 
-## 1. Architecture
+## Pages
 
-**Integration method: shortcode-in-page-content**
+| Page | Slug | Template | IDX shortcode (post-vendor) | Status |
+|------|------|----------|-----------------------------|--------|
+| Listings | `/listings/` | `page-listings` → update to `page-idx-content` post-vendor | `[idx_listing_summary]` filtered to Agent ID C159092398, status=active | Page exists; template update pending |
+| Search Homes | `/search-homes/` | `page-idx-content` | `[idx_search]` — full MLS search, all filters | ✅ Page seeded |
+| My Past Sales | `/my-past-sales/` | `page-idx-content` | `[idx_listing_summary]` filtered to Agent ID C159092398, status=sold | ✅ Page seeded |
+| Open Houses | `/open-houses/` | `page-idx-content` | `[idx_custom_links]` or open house filter via `[idx_search]` | ✅ Page seeded (SEO only, not in nav) |
+| Communities | `/communities/` | `page-communities` | None — static hub | ✅ Live |
+| Agoura Hills | `/agoura-hills-homes-for-sale/` | `page-idx-city` | `[idx_search location="Agoura Hills"]` | ✅ Page seeded |
+| Malibou Lake | `/malibou-lake-homes-for-sale/` | `page-idx-city` | `[idx_search location="Malibou Lake"]` | ✅ Page seeded |
+| Westlake Village | `/westlake-village-homes-for-sale/` | `page-idx-city` | `[idx_search location="Westlake Village"]` | ✅ Page seeded |
+| Thousand Oaks | `/thousand-oaks-homes-for-sale/` | `page-idx-city` | `[idx_search location="Thousand Oaks"]` | ✅ Page seeded |
+| Newbury Park | `/newbury-park-homes-for-sale/` | `page-idx-city` | `[idx_search location="Newbury Park"]` | ✅ Page seeded |
+| Oak Park | `/oak-park-homes-for-sale/` | `page-idx-city` | `[idx_search location="Oak Park"]` | ✅ Page seeded |
+| Malibu | `/malibu-homes-for-sale/` | `page-idx-city` | `[idx_search location="Malibu"]` | ✅ Page seeded |
+| Ventura | `/ventura-homes-for-sale/` | `page-idx-city` | `[idx_search location="Ventura"]` | ✅ Page seeded |
 
-Each IDX page is a standard WordPress page whose `post_content` holds the vendor shortcode. A minimal block template renders `<!-- wp:post-content /-->`, which passes the content through `the_content` filter — the standard hook IDX plugins use to process shortcodes. This keeps shortcodes editable from WP admin without code deploys and avoids fragile widget/sidebar injection (no sidebars exist in this theme).
-
-**Exception — area pages:** Each area pattern (`patterns/area-agoura-hills.php` etc.) already calls `apply_filters('dmg_idx_listings_for_area', [], $area_slug)` at line 13. Post-vendor, a bridge function in `dmg-idx-pages.php` hooks here to inject MLS listings. The render stub `dmg_render_idx_listing_card()` (`mu-plugins/dmg-listings.php:513`) already defines the expected data shape: `['status', 'thumb', 'title', 'price', 'beds', 'baths', 'sqft', 'detail_url']`.
-
-**Template consolidation:** Rather than 13 identical template files, use two generic shells assigned via `_wp_page_template` meta in the seeder:
-- `page-idx-content.html` — header + `<!-- wp:post-content /-->` + footer (5 functional IDX pages)
-- `page-idx-city.html` — identical structure (8 city SEO pages)
-
-Splitting into two templates preserves the ability to style them differently later.
-
-**Slug conflict strategy:** The existing `dmg_listing` CPT auto-creates a page at `/listings/` (`dmg-listings.php:541`). Keep it there. Configure the IDX vendor's "My Listings" page to `/my-listings/`. If a vendor insists on `/listings/`, rename the CPT page to `/agent-listings/` at that time (one-line change in `dmg-listings.php` + 301 redirect). Do not rename preemptively.
-
----
-
-## 2. Pages
-
-| Page | Slug | Template | IDX content | Pre or Post vendor |
-|------|------|----------|-------------|-------------------|
-| My Listings | `/my-listings/` | `page-idx-content` | Agent ID C159092398, status=active | Post |
-| Search Homes | `/search-homes/` | `page-idx-content` | Full MLS search widget, all filters | Post |
-| My Past Sales | `/my-past-sales/` | `page-idx-content` | Agent ID C159092398, status=sold | Post |
-| Open Houses | `/open-houses/` | `page-idx-content` | Open house filter, service area cities | Post |
-| Communities | `/communities/` | `page-communities` (pattern-based) | None — static navigation hub | **Pre** |
-| Agoura Hills Homes | `/agoura-hills-homes-for-sale/` | `page-idx-city` | City-filtered search widget | Post |
-| Malibou Lake Homes | `/malibou-lake-homes-for-sale/` | `page-idx-city` | City-filtered search widget | Post |
-| Westlake Village Homes | `/westlake-village-homes-for-sale/` | `page-idx-city` | City-filtered search widget | Post |
-| Thousand Oaks Homes | `/thousand-oaks-homes-for-sale/` | `page-idx-city` | City-filtered search widget | Post |
-| Newbury Park Homes | `/newbury-park-homes-for-sale/` | `page-idx-city` | City-filtered search widget | Post |
-| Oak Park Homes | `/oak-park-homes-for-sale/` | `page-idx-city` | City-filtered search widget | Post |
-| Malibu Homes | `/malibu-homes-for-sale/` | `page-idx-city` | City-filtered search widget | Post |
-| Ventura Homes | `/ventura-homes-for-sale/` | `page-idx-city` | City-filtered search widget | Post |
-
-City SEO pages seed static `post_content` at creation (H1 + 2-3 sentence intro) so they are functional before IDX is live.
+**Note on `/listings/`:** Currently uses the `dmg/listings-archive` pattern (native CPT listings). Post-vendor, update `templates/page-listings.html` to use `<!-- wp:post-content /-->` instead of the pattern, then insert the `[idx_listing_summary]` shortcode into the page content via WP Admin.
 
 ---
 
-## 3. Pre-Vendor Work (Build Now)
+## Navigation (current, set via Site Editor)
 
-### New: `mu-plugins/dmg-idx-pages.php`
-
-Self-healing seeder following the same pattern as `dmg-areas.php` and `dmg-listings.php`. On `init` (priority 20):
-- Create all 13 pages listed above with correct `post_name`, `post_content` (static copy for city pages), and `_wp_page_template` meta
-- Emit `<meta name="description">` via `wp_head` for all 13 pages (the existing `dmg-areas.php` SEO hook only covers `/areas/` children — these pages are top-level)
-- Include stub: `add_filter('dmg_idx_listings_for_area', '__return_empty_array', 5, 2)` — placeholder until vendor bridge is written
-
-### New: `templates/page-idx-content.html`
-```html
-<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
-<!-- wp:group {"tagName":"main","layout":{"type":"default"}} -->
-<main class="wp-block-group"><!-- wp:post-content /--></main>
-<!-- /wp:group -->
-<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
+```
+My Listings → /listings/
+Search Homes → /search-homes/
+Communities ▾ → /communities/ (dropdown: 8 city pages)
+Who We Are → /who-we-are/
+Contact Us → /contact-us/
+We Give Back ▾ → Royal Family Kids
 ```
 
-### New: `templates/page-idx-city.html`
-Identical to `page-idx-content.html`. Separate file to allow independent styling later.
+---
 
-### New: `templates/page-communities.html`
-References `<!-- wp:pattern {"slug":"dmg/communities-hub"} /-->` instead of post-content.
+## Available FlexMLS Shortcodes
 
-### New: `patterns/communities-hub.php`
-Static grid linking to all 8 `/[city]-homes-for-sale/` pages and their corresponding `/areas/[slug]/` community guides. No IDX content.
+| Shortcode | Use |
+|-----------|-----|
+| `[idx_listing_summary]` | Grid of listings — use for `/listings/` (agent filter) and `/my-past-sales/` |
+| `[idx_search]` | Full search form — use for `/search-homes/` and all 8 city pages |
+| `[idx_location_links]` | Pre-built city search links — optional on Communities page |
+| `[idx_custom_links]` | Saved searches — optional for open houses or featured searches |
+| `[idx_slideshow]` | Listing photo slideshow — optional for homepage |
+| `[market_stats]` | Market statistics — optional on city SEO pages |
+| `[idx_portal_login]` | Buyer portal login — can add to nav or page |
 
-### Modify: `parts/header.html`
-Replace the existing 4-link nav with:
-- **Search Homes** → `/search-homes/`
-- **My Listings** → `/my-listings/`
-- **Open Houses** → `/open-houses/`
-- **Communities** → dropdown with 8 city links → `/[city]-homes-for-sale/`
-- **Who We Are** → `/who-we-are/` (keep)
-- **Contact Us** → `/contact-us/` (keep)
-- **We Give Back** → submenu (keep, move to end)
-
-Remove or repurpose the "Open Listings" hash-anchor link (`/#listings`) — it points to a homepage section that won't be the primary listings entry point once IDX is live.
-
-### Modify: 8 area patterns (`patterns/area-*.php`)
-In each area pattern, add a "Browse Active MLS Listings →" CTA button near the listings grid header linking to `/[city]-homes-for-sale/`. This provides navigation before IDX is live and deepens the link between community guides and IDX search pages.
+**Note:** `[idx_agent_search]` is restricted to Office/MLS accounts only — not available on a Member account like Dave's.
 
 ---
 
-## 4. Post-Vendor Work (After Plugin Install)
+## Phase 1 — Pre-Vendor Scaffolding ✅ Complete
 
-1. **Dashboard config:** Enter Agent MLS ID `C159092398` and Office MLS ID `CG13890001`. Configure each widget/shortcode per the page table above. Enable sold listing display (confirm CRMLS 365-day window applies).
-2. **Shortcode insertion:** Insert vendor shortcodes into each page's `post_content` via WP admin.
-3. **Bridge function:** Replace the stub in `dmg-idx-pages.php` with a real `dmg_idx_listings_for_area` implementation calling the vendor's PHP API. Return arrays matching `dmg_render_idx_listing_card()`'s expected keys.
-4. **CSS overrides:** IDX plugins inject their own styles; budget time for reconciling with the theme's design tokens in `theme.json`.
-5. **Slug audit:** Before activating the plugin, document every page it auto-creates. Delete or redirect any that conflict with existing slugs.
-
----
-
-## 5. Files Summary
-
-**Create:**
-- `mu-plugins/dmg-idx-pages.php`
-- `templates/page-idx-content.html`
-- `templates/page-idx-city.html`
-- `templates/page-communities.html`
-- `patterns/communities-hub.php`
-
-**Modify:**
-- `parts/header.html` — nav update
-- `patterns/area-agoura-hills.php`, `area-malibu.php`, `area-malibou-lake.php`, `area-westlake-village.php`, `area-thousand-oaks.php`, `area-newbury-park.php`, `area-oak-park.php`, `area-ventura.php` — add CTA link in each
-
-**Possibly modify (post-vendor, if slug conflict):**
-- `mu-plugins/dmg-listings.php:541` — change page `post_name` from `listings` to `agent-listings`
+- ✅ `mu-plugins/dmg-idx-pages.php` — page seeder, SEO meta, bridge stub
+- ✅ `templates/page-idx-content.html` — shell for functional IDX pages
+- ✅ `templates/page-idx-city.html` — shell for city SEO pages
+- ✅ `templates/page-communities.html` — references communities hub pattern
+- ✅ `patterns/communities-hub.php` — static grid with Browse Listings + Community Guide per city
+- ✅ Nav updated via Site Editor (My Listings → `/listings/`, Search Homes, Communities dropdown, etc.)
+- ✅ CTA links added to all 8 area patterns → `/[city]-homes-for-sale/`
+- ✅ 12 new pages seeded and accessible
+- [ ] Delete `/my-listings/` page from WP Admin → Pages (orphaned, no longer needed)
+- [ ] Flush permalinks after next site restart
 
 ---
 
-## 6. Vendor Questions (Must Resolve Before Plugin Install)
+## Phase 2 — Get Credentials & Connect Plugin
 
-1. **MLS feed:** "Do you support a CRMLS feed for CMAOR (Conejo-Malibu Association of Realtors) in Ventura County and LA County West?" Confirm the feed name/source.
-2. **Agent ID filter:** "Can I display only listings where the listing agent MLS ID equals C159092398 — in both active and sold/closed status?"
-3. **Co-listing:** "If the agent is the co-listing agent (not primary), do they appear under the agent ID filter?"
-4. **Sold listings:** "Do you support filtering sold/closed listings by agent ID, and what is the lookback window under CRMLS rules?"
-5. **Rentals:** "Does the CRMLS/CMAOR feed include residential rentals, and can I expose a rental property type filter in the search widget?"
-6. **Slug ownership:** "Which URL slugs does your plugin claim on activation, and can all of them be customized before install?"
-7. **Block theme compatibility:** "Do your shortcodes/widgets work inside `<!-- wp:post-content /-->` blocks on a WordPress Full Site Editing theme? Any known issues with Twenty Twenty-Five child themes?"
-8. **Compliance:** "Which MLS compliance elements (disclaimers, Fair Housing logo, DRE numbers on listings) does your plugin inject automatically, and which must I add manually?"
+- [ ] Dave contacts FBS (866-320-9977) and requests API Key + Secret for MLS ID C159092398
+- [ ] Confirm CMAOR/CRMLS feed is included in the account
+- [ ] Enter Key + Secret at WP Admin → Flexmls IDX → Credentials → green "Connected" badge confirms success
+- [ ] Verify feed is live: go to WP Admin → Flexmls IDX → Settings, confirm MLS/association shows correctly
 
 ---
 
-## 7. Implementation Checklist
+## Phase 3 — IDX Configuration (After Connected)
 
-### Phase 1 — Pre-Vendor Scaffolding
-- [ ] Create `mu-plugins/dmg-idx-pages.php` (page seeder + SEO meta + bridge stub)
-- [ ] Create `templates/page-idx-content.html`
-- [ ] Create `templates/page-idx-city.html`
-- [ ] Create `templates/page-communities.html`
-- [ ] Create `patterns/communities-hub.php`
-- [ ] Update `parts/header.html` navigation
-- [ ] Add CTA links to all 8 area patterns
-- [ ] Start site; verify all 13 new pages exist and render without errors
-- [ ] Flush permalinks (`studio wp eval 'flush_rewrite_rules();'`)
-- [ ] Confirm no slug collisions with existing CPT rewrites
+1. **`/listings/` page template** — update `templates/page-listings.html`: replace `<!-- wp:pattern {"slug":"dmg/listings-archive"} /-->` with `<!-- wp:post-content /-->`
+2. **Insert shortcodes** via WP Admin → Pages editor for each page:
+   - `/listings/` → `[idx_listing_summary]` with agent ID filter for C159092398, status=active
+   - `/search-homes/` → `[idx_search]` with all filters enabled
+   - `/my-past-sales/` → `[idx_listing_summary]` with agent ID filter, status=sold/closed
+   - `/open-houses/` → `[idx_search]` or `[idx_custom_links]` filtered to open houses
+   - Each city page → `[idx_search location="[City Name]"]`
+3. **Bridge function** — replace stub in `dmg-idx-pages.php` with real `dmg_idx_listings_for_area` implementation using FlexMLS PHP API to return listings for area pattern grids
+4. **CSS reconciliation** — FlexMLS injects its own styles; check against theme design tokens in `theme.json`
 
-### Phase 2 — Vendor Selection
-- [ ] Ask all 8 vendor questions above before signing up
-- [ ] Install plugin on a local staging copy first; document auto-created pages
-- [ ] Verify no slug conflicts; resolve if needed
-- [ ] Check IDX plugin CSS doesn't break existing layouts
+---
 
-### Phase 3 — IDX Configuration
-- [ ] Set Agent and Office MLS IDs in vendor dashboard
-- [ ] Configure and insert shortcodes for all 5 functional IDX pages
-- [ ] Configure and insert city-filtered shortcodes for all 8 city SEO pages
-- [ ] Implement `dmg_idx_listings_for_area` bridge function for area pattern grids
+## Phase 4 — Compliance & QA
 
-### Phase 4 — Compliance and QA
 - [ ] MLS disclaimer renders on every IDX page
 - [ ] Fair Housing logo renders
 - [ ] Agent DRE #01256235 and Office DRE #01523573 appear on listing detail pages
-- [ ] "My Listings" shows ONLY Dave's listings
-- [ ] "My Past Sales" shows ONLY Dave's sold listings
-- [ ] Rentals appear as a filter in Search Homes
-- [ ] Open Houses page shows only service area open houses
+- [ ] `/listings/` shows ONLY Dave's active listings (not all MLS)
+- [ ] `/my-past-sales/` shows ONLY Dave's sold listings
+- [ ] Open house filter works in Search Homes
+- [ ] Rentals available as property type filter in Search Homes
+- [ ] Confirm sold listing lookback window (CRMLS typically 365 days)
 - [ ] Area pattern grids show IDX listings via bridge function
 - [ ] Mobile QA on all IDX pages
-- [ ] Core Web Vitals check (IDX plugins add significant JS weight)
+- [ ] Core Web Vitals check (FlexMLS adds JS weight — test with Lighthouse)
 - [ ] Submit updated sitemap to Google Search Console
+
+---
+
+## Outstanding Questions for FBS
+
+1. Does Dave's CMAOR account include access to the full CRMLS feed or only CMAOR listings?
+2. Does `[idx_listing_summary]` support filtering by agent MLS ID (C159092398) for both active and sold status?
+3. If Dave is a co-listing agent (not primary), does he appear under the agent ID filter?
+4. Does the feed include residential rentals, and is there a rental property type filter in `[idx_search]`?

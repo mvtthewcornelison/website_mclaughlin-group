@@ -1,0 +1,572 @@
+<?php
+
+defined( 'ABSPATH' ) or die( 'This plugin requires WordPress' );
+
+$fmc_settings = get_option( 'fmc_settings' );
+if ( ! is_array( $fmc_settings ) ) {
+	$fmc_settings = array();
+}
+
+$fmc_settings[ 'default_titles' ] = isset( $fmc_settings[ 'default_titles' ] ) ? $fmc_settings[ 'default_titles' ] : 1;
+$fmc_settings[ 'multiple_summaries' ] = ( isset( $fmc_settings[ 'multiple_summaries' ] ) && 1 == $fmc_settings[ 'multiple_summaries' ] ) ? 1 : 0;
+$fmc_settings[ 'contact_notifications' ] = ( isset( $fmc_settings[ 'contact_notifications' ] ) && 1 == $fmc_settings[ 'contact_notifications' ] ) ? 1 : 0;
+$fmc_settings[ 'allow_sold_searching' ] = ( isset( $fmc_settings[ 'allow_sold_searching' ] ) && 1 == $fmc_settings[ 'allow_sold_searching' ] ) ? 1 : 0;
+$fmc_settings[ 'listing_detail_expand_sections' ] = isset( $fmc_settings[ 'listing_detail_expand_sections' ] ) ? (int) $fmc_settings[ 'listing_detail_expand_sections' ] : 0;
+$fmc_settings[ 'listing_detail_show_more_info' ] = isset( $fmc_settings[ 'listing_detail_show_more_info' ] ) ? (int) $fmc_settings[ 'listing_detail_show_more_info' ] : 1;
+$fmc_settings[ 'listing_detail_contact_on_closed' ] = isset( $fmc_settings[ 'listing_detail_contact_on_closed' ] ) ? (int) $fmc_settings[ 'listing_detail_contact_on_closed' ] : 1;
+$fmc_settings[ 'neigh_template' ] = isset( $fmc_settings[ 'neigh_template' ] ) ? $fmc_settings[ 'neigh_template' ] : '';
+$fmc_settings[ 'destwindow' ] = isset( $fmc_settings[ 'destwindow' ] ) ? $fmc_settings[ 'destwindow' ] : '';
+$fmc_settings[ 'listlink' ] = isset( $fmc_settings[ 'listlink' ] ) ? $fmc_settings[ 'listlink' ] : '';
+$fmc_settings[ 'listpref' ] = isset( $fmc_settings[ 'listpref' ] ) ? $fmc_settings[ 'listpref' ] : 'listpref';
+$fmc_settings[ 'destlink' ] = isset( $fmc_settings[ 'destlink' ] ) ? $fmc_settings[ 'destlink' ] : '';
+$fmc_settings[ 'destpref' ] = isset( $fmc_settings[ 'destpref' ] ) ? $fmc_settings[ 'destpref' ] : 'own';
+$fmc_settings[ 'permabase' ] = isset( $fmc_settings[ 'permabase' ] ) ? $fmc_settings[ 'permabase' ] : 'idx';
+$fmc_settings[ 'default_link' ] = isset( $fmc_settings[ 'default_link' ] ) ? $fmc_settings[ 'default_link' ] : '';
+$fmc_settings[ 'select2_turn_off' ] = isset( $fmc_settings[ 'select2_turn_off' ] ) ? $fmc_settings[ 'select2_turn_off' ] : 0;
+//added
+$fmc_settings[ 'chartkick_turn_off' ] = isset( $fmc_settings[ 'chartkick_turn_off' ] ) ? $fmc_settings[ 'chartkick_turn_off' ] : 0;
+
+
+
+
+add_thickbox();
+
+?>
+<form action="<?php echo admin_url( 'admin.php?page=fmc_admin_settings&tab=behavior' ); ?>" method="post">
+	<h3>General Settings</h3>
+	<table class="form-table">
+		<tbody>
+			<tr>
+				<th scope="row">
+					<label for="default_titles_y">Use Default Widget Titles</label>
+				</th>
+				<td>
+					<p>
+						<label for="default_titles_y"><input type="radio" name="fmc_settings[default_titles]" id="default_titles_y" value="1" <?php checked( $fmc_settings[ 'default_titles' ], 1 ); ?>> Yes, use default widget titles if I don&#8217;t set one</label><br />
+						<label for="default_titles_n"><input type="radio" name="fmc_settings[default_titles]" id="default_titles_n" value="0" <?php checked( $fmc_settings[ 'default_titles' ], 0 ); ?>> No, leave the title blank if I don&#8217;t set one</label>
+					</p>
+				</td>
+			</tr>
+			<tr id="fmc_settings_neighborhood_template">
+				<th scope="row">
+					<label for="neigh_template">Default Neighborhood Template</label>
+				</th>
+				<td>
+					<?php
+						$can_create_neighborhood = true;
+						$templates = get_posts( array(
+							'order' => 'ASC',
+							'orderby' => 'menu_order name',
+							'nopaging' => true,
+							'post_status' => 'draft',
+							'post_type' => 'page'
+						) );
+						if( !$templates ){
+							$can_create_neighborhood = false;
+						}
+					?>
+					<?php if( !$can_create_neighborhood ): ?>
+						<p>You do not have any draft pages set up for your Neighborhood template. <a href="<?php echo admin_url( 'post-new.php?post_type=page' ); ?>">Click here to create a new page</a> and save it as a draft that you can use for your Neighborhood template.</p>
+					<?php else: ?>
+						<select name="fmc_settings[neigh_template]" id="neigh_template" class="regular-text">
+							<?php foreach( $templates as $template ): ?>
+								<option value="<?php echo $template->ID; ?>" <?php selected( $template->ID, $fmc_settings[ 'neigh_template' ] ); ?>><?php
+									echo $template->post_title;
+									if( $fmc_settings[ 'neigh_template' ] == $template->ID ){
+										echo ' (Current Default)';
+									}
+								?></option>
+							<?php endforeach; ?>
+						</select>
+						<p class="description">Select the page to use as your default neighborhood page template.</p>
+					<?php endif; ?>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">
+					<label for="contact_notifications_y">When Leads Are Created</label>
+				</th>
+				<td>
+					<p>
+						<label for="contact_notifications_y"><input type="radio" name="fmc_settings[contact_notifications]" id="contact_notifications_y" value="1" <?php checked( $fmc_settings[ 'contact_notifications' ], 1 ); ?>> Notify me within Flexmls&reg;</label><br />
+						<label for="contact_notifications_n"><input type="radio" name="fmc_settings[contact_notifications]" id="contact_notifications_n" value="0" <?php checked( $fmc_settings[ 'contact_notifications' ], 0 ); ?>> Do not send any notifications</label>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">
+					<label for="multiple_summaries_y">Multiple Summary Lists</label>
+				</th>
+				<td>
+					<p>
+						<label for="multiple_summaries_y"><input type="radio" name="fmc_settings[multiple_summaries]" id="multiple_summaries_y" value="1" <?php checked( $fmc_settings[ 'multiple_summaries' ], 1 ); ?>> Allow multiple lists per page</label><br />
+						<label for="multiple_summaries_n"><input type="radio" name="fmc_settings[multiple_summaries]" id="multiple_summaries_n" value="0" <?php checked( $fmc_settings[ 'multiple_summaries' ], 0 ); ?>> Do not allow multiple lists per page</label>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">
+					<label for="listpref_page">Listing Not Available Page</label>
+				</th>
+				<td>
+					<p>
+						<label for="listpref_default"><input type="radio" name="fmc_settings[listpref]" id="listpref_default" value="listpref" <?php checked( $fmc_settings[ 'listpref' ], 'listpref' ); ?>> Show Default Message: <em>This listing is no longer available</em></label><br />
+						<label for="listpref_page"><input type="radio" name="fmc_settings[listpref]" id="listpref_page" value="page" <?php checked( $fmc_settings[ 'listpref' ], 'page' ); ?>> Mimic the contents of this page:</label> <select name="fmc_settings[listlink]"><?php
+							$all_public_pages = get_posts( array(
+								'order' => 'ASC',
+								'orderby' => 'menu_order name',
+								'nopaging' => true,
+								'post_type' => 'page'
+							) );
+							$all_public_pages = is_array( $all_public_pages ) ? $all_public_pages : array();
+							foreach( $all_public_pages as $template ): ?>
+								<option value="<?php echo $template->ID; ?>" <?php selected( $template->ID, $fmc_settings[ 'listlink' ] ); ?>><?php
+									echo $template->post_title;
+									if( $fmc_settings[ 'listlink' ] == $template->ID ){
+										echo ' (Current Default)';
+									}
+								?></option>
+							<?php endforeach; ?>
+						?></select>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">
+					<label for="allow_sold_searching_y">Sold & Pending Listings Search</label>
+				</th>
+				<td>
+					<p>
+						<label for="allow_sold_searching_y"><input type="radio" name="fmc_settings[allow_sold_searching]" id="allow_sold_searching_y" value="1" <?php checked( $fmc_settings[ 'allow_sold_searching' ], 1 ); ?>> Yes, allow visitors to search for sold & pending listings</label><br />
+						<label for="allow_sold_searching_n"><input type="radio" name="fmc_settings[allow_sold_searching]" id="allow_sold_searching_n" value="0" <?php checked( $fmc_settings[ 'allow_sold_searching' ], 0 ); ?>> No, do not allow searches for sold & pending listings</label>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">
+					<label for="listing_detail_expand_sections_y">Expand all listing detail page sections by default</label>
+				</th>
+				<td>
+					<p>
+						<label for="listing_detail_expand_sections_y"><input type="radio" name="fmc_settings[listing_detail_expand_sections]" id="listing_detail_expand_sections_y" value="1" <?php checked( $fmc_settings[ 'listing_detail_expand_sections' ], 1 ); ?>> Yes, show all sections expanded</label><br />
+						<label for="listing_detail_expand_sections_n"><input type="radio" name="fmc_settings[listing_detail_expand_sections]" id="listing_detail_expand_sections_n" value="0" <?php checked( $fmc_settings[ 'listing_detail_expand_sections' ], 0 ); ?>> No, show other sections collapsed (users can expand each)</label>
+					</p>
+					<p class="description">Address Information, Location Tax &amp; Legal, General Property Information, and Property Features are always expanded. When set to No, remaining sections (e.g. Contract Information, Kitchen Features) start collapsed to reduce scrolling.</p>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">
+					<label for="listing_detail_show_more_info_y">Show &quot;More Information&quot; section on listing detail pages</label>
+				</th>
+				<td>
+					<p>
+						<label for="listing_detail_show_more_info_y"><input type="radio" name="fmc_settings[listing_detail_show_more_info]" id="listing_detail_show_more_info_y" value="1" <?php checked( $fmc_settings[ 'listing_detail_show_more_info' ], 1 ); ?>> Yes, show the More Information section</label><br />
+						<label for="listing_detail_show_more_info_n"><input type="radio" name="fmc_settings[listing_detail_show_more_info]" id="listing_detail_show_more_info_n" value="0" <?php checked( $fmc_settings[ 'listing_detail_show_more_info' ], 0 ); ?>> No, hide the More Information section</label>
+					</p>
+					<p class="description">When No, the expandable &quot;More Information&quot; block is not displayed on listing detail pages.</p>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">
+					<label for="listing_detail_contact_on_closed_y">Contact on sold &amp; closed listings</label>
+				</th>
+				<td>
+					<p>
+						<label for="listing_detail_contact_on_closed_y"><input type="radio" name="fmc_settings[listing_detail_contact_on_closed]" id="listing_detail_contact_on_closed_y" value="1" <?php checked( $fmc_settings[ 'listing_detail_contact_on_closed' ], 1 ); ?>> Yes, show the Contact button on sold &amp; closed listings</label><br />
+						<label for="listing_detail_contact_on_closed_n"><input type="radio" name="fmc_settings[listing_detail_contact_on_closed]" id="listing_detail_contact_on_closed_n" value="0" <?php checked( $fmc_settings[ 'listing_detail_contact_on_closed' ], 0 ); ?>> No, hide it on sold &amp; closed listings</label>
+					</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<h3>Linking &amp; Link Settings</h3>
+	<table class="form-table">
+		<tbody>
+			<tr>
+				<th scope="row">
+					<label for="default_link">Default IDX Link</label>
+				</th>
+				<td>
+					<p>
+						<select name="fmc_settings[default_link]" id="default_link"><?php
+							$SparkAPI = new \SparkAPI\IDXLinks();
+							$idx_links = $SparkAPI->get_all_idx_links();
+							if( $idx_links ){
+								foreach( $idx_links as $idx_link ){
+									echo '<option value="' . $idx_link[ 'LinkId' ] . '" ' . selected( $idx_link[ 'LinkId' ], $fmc_settings[ 'default_link' ], false ) . '>' . $idx_link[ 'Name' ] . '</option>';
+								}
+							}
+						?></select>
+					</p>
+					<p class="description">Select the default Flexmls&reg; IDX link your widgets should use</p>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">
+					<label>Open IDX Links</label><br />
+					<small><a href="#TB_inline?width=600&height=300&inlineId=destpref_docs" class="thickbox" title="How to Use IDX Links">How this works</a></small>
+				</th>
+				<td>
+					<p>
+						<label for="destpref_own"><input type="radio" name="fmc_settings[destpref]" id="destpref_own" value="own" <?php checked( $fmc_settings[ 'destpref' ], 'own' ); ?>> Separate from WordPress</label><br />
+						<label for="destpref_page"><input type="radio" name="fmc_settings[destpref]" id="destpref_page" value="page" <?php checked( $fmc_settings[ 'destpref' ], 'page' ); ?>> Framed on this page:</label> <select name="fmc_settings[destlink]" id="fmc_settings_destlink">
+							<?php foreach( $all_public_pages as $template ): ?>
+								<option value="<?php echo $template->ID; ?>" <?php selected( $template->ID, $fmc_settings[ 'destlink' ] ); ?>><?php
+									echo $template->post_title;
+									if( $fmc_settings[ 'destlink' ] == $template->ID ){
+										echo ' (Current Default)';
+									}
+								?></option>
+							<?php endforeach; ?>
+						</select>
+						<?php
+						$destlink_id = isset( $fmc_settings[ 'destlink' ] ) && is_numeric( $fmc_settings[ 'destlink' ] ) ? (int) $fmc_settings[ 'destlink' ] : 0;
+						if ( $destlink_id > 0 ) {
+							$edit_url = admin_url( 'post.php?post=' . $destlink_id . '&action=edit' );
+							printf( ' <a href="%s" id="fmc-destlink-edit" data-edit-base="%s">Edit page</a>', esc_url( $edit_url ), esc_attr( admin_url( 'post.php?post=' ) ) );
+						} else {
+							echo ' <a href="#" id="fmc-destlink-edit" style="display:none;" data-edit-base="' . esc_attr( admin_url( 'post.php?post=' ) ) . '">Edit page</a>';
+						}
+						?>
+					</p>
+					<hr />
+					<p><label for="destwindow_new"><input type="checkbox" name="fmc_settings[destwindow]" id="destwindow_new" value="new" <?php checked( $fmc_settings[ 'destwindow' ], 'new' ); ?>> Open links in a new tab or window</label></p>
+					<div id="destpref_docs" style="display: none;">
+						<p>The page you select must have the following shortcode in the body of the page:</p>
+						<code>[idx_frame width="100%" height="600"]</code>
+						<p>By using this shortcode, it allows the Flexmls&reg; IDX plugin to catch links and show the appropriate pages to your users. If the page with this shortcode is viewed and no link is provided, the <em>Default IDX Link</em> you set will be displayed.</p>
+						<p>Note: When you activated this plugin, a page with this shortcode in the body was created automatically.</p>
+						<p>Another Note: If you're using a SEO plugin, you may need to disable Permalink Cleaning for this feature to work.</p>
+					</div>
+					
+					<?php
+					// Display nginx warning for destination page changes (only if nginx is detected and destlink is set)
+					if ( \FlexMLS\Admin\NginxCompatibility::is_nginx() && !empty( $fmc_settings[ 'destlink' ] ) ) {
+						$last_destlink_change = get_transient( 'fmc_destlink_changed' );
+						$recently_changed_destlink = $last_destlink_change && ( time() - $last_destlink_change ) < 300;
+						
+						if ( $recently_changed_destlink ) {
+							?>
+							<div style="background: #f8d7da; padding: 10px; margin: 10px 0; border: 1px solid #f5c6cb; border-radius: 4px;">
+								<p style="margin: 0; color: #721c24; font-size: 13px;">
+									<strong>⚠️ nginx Update Required:</strong> You just changed the destination page. Your nginx configuration needs to be updated with the new page ID: <code><?php echo esc_html( $fmc_settings[ 'destlink' ] ); ?></code>
+								</p>
+							</div>
+							<?php
+						}
+					}
+					?>
+				</td>
+			</tr>
+			<tr id="fmc-setting-permalink-base">
+				<th scope="row">
+					<label for="permabase">Permalink Base</label>
+				</th>
+				<td>
+					<p><code><?php echo site_url( '/' ); ?></code> <input type="text" class="regular-text code" name="fmc_settings[permabase]" id="permabase" value="<?php echo $fmc_settings[ 'permabase' ]; ?>"></p>
+					<p class="description">Changes the URL for special plugin pages. e.g., <?php echo site_url( $fmc_settings[ 'permabase' ] . '/search' ); ?></p>
+					
+					<?php
+					// Display nginx warning for permalink base changes
+					\FlexMLS\Admin\NginxCompatibility::display_nginx_permabase_warning();
+					?>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<h3>Labels</h3>
+	<p>Customize how property types names are displayed on your site.</p>
+	<table class="form-table">
+		<tbody>
+			<tr>
+				<th scope="row">
+					<label>On The MLS</label>
+				</th>
+				<td>
+					<strong>On Your Site</strong>
+				</td>
+			</tr>
+			<?php
+				$SparkPropertyTypes = new \SparkAPI\PropertyTypes();
+				$property_types = $SparkPropertyTypes->get_property_types();
+				$property_types_letters = array();
+				if ( ! is_array( $property_types ) ) {
+					$property_types = array();
+				}
+				foreach( $property_types as $label => $name ){
+					$value_to_show = $name;
+					if( isset( $fmc_settings[ 'property_type_label_' . $label ] ) ){
+						$value_to_show = $fmc_settings[ 'property_type_label_' . $label ];
+					}
+					$property_types_letters[] = $label;
+			?>
+			<tr>
+				<th scope="row">
+					<label for="property_type_label_<?php echo $label; ?>"><?php echo $name; ?></label>
+				</th>
+				<td>
+					<p><input type="text" class="regular-text" name="fmc_settings[property_type_label_<?php echo $label; ?>]" id="property_type_label_<?php echo $label; ?>" value="<?php echo $value_to_show; ?>"></p>
+				</td>
+			</tr>
+			<?php
+				}
+			?>
+			<input type="hidden" name="fmc_settings[property_types]" value="<?php echo implode( ',', $property_types_letters ); ?>">
+		</tbody>
+	</table>
+	<h3>Search Results Page (Version 1 Template Only)</h3>
+	<p>Customize which fields are shown on the search results page. Drag the fields to change their order.</p>
+	<table class="form-table">
+		<tbody>
+			<tr>
+				<th scope="row">
+					<label>Search Results Fields</label>
+				</th>
+				<td>
+					<?php
+						$SparkFields = new \SparkAPI\StandardFields();
+						$property_fields = $SparkFields->get_standard_fields();
+
+						$json_fields = json_encode( isset( $fmc_settings[ 'search_results_fields' ] ) && is_array( $fmc_settings[ 'search_results_fields' ] ) ? $fmc_settings[ 'search_results_fields' ] : array() );
+
+						// Template that will be populated with $jsonFields data through js
+						$json_template  = '<div id="flexmls_connect__field_{{field_id}}" class="flexmls_connect__admin_srf_row">';
+						$json_template .= '<span class="flexmls_connect__admin_srf_field_col">{{field_id}}</span>';
+						$json_template .= '<input class="flexmls_connect__admin_srf_display_col" type="text" name="fmc_settings[search_results_fields][{{field_id}}]" value="{{display_name}}">';
+						$json_template .= '<a class="flexmls_connect__admin_srf_delete" href="#">Delete</a>';
+						$json_template .= '</div>';
+					?>
+					<div id="flexmls_connect__admin_srf_table" class="flexmls_connect__admin_srf_table" data-fields='<?php echo $json_fields; ?>' data-template='<?php echo $json_template; ?>'>
+						<div class="flexmls_connect__admin_srf_labels">
+							<div class="flexmls_connect__admin_srf_label flexmls_connect__admin_srf_field_col">Field ID</div>
+							<div class="flexmls_connect__admin_srf_label flexmls_connect__admin_srf_display_col">Display Name</div>
+						</div>
+					</div>
+					<br />
+					<select data-placeholder="Add a new field..." class="chosen-select flexmls_connect__admin_srf_add_new" style="width:350px;" tabindex="4">
+						<option value=""></option>
+						<?php if( is_array( $property_fields ) ): ?>
+							<?php foreach( $property_fields[ 0 ] as $property_key => $property_val ): ?>
+								<option value="<?php echo $property_key; ?>"><?php echo $property_val[ 'Label' ]; ?></option>
+							<?php endforeach; ?>
+						<?php endif; ?>
+					</select>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+    <h3>Select2 Scripts</h3>
+    <p>By default, Flexmls plugin loads Select2 scripts. If there are conflicts with other plugins or themes, turn off loading it.</p>
+    <table class="form-table">
+        <tr><th>Turn off loading Select2</th>
+            <td>
+                <p><label for="select2_turn_off_none"><input type="radio" name="fmc_settings[select2_turn_off]" id="select2_turn_off_none" value="0" <?php checked( $fmc_settings[ 'select2_turn_off' ], '0' ); ?>> Do not turn off loading Select2 scripts</label></p>
+                <p><label for="select2_turn_off_all"><input type="radio" name="fmc_settings[select2_turn_off]" id="select2_turn_off_all" value="all" <?php checked( $fmc_settings[ 'select2_turn_off' ], 'all' ); ?>> Turn off loading Select2 scripts in Admin and User areas</label></p>
+                <p><label for="select2_turn_off_admin"><input type="radio" name="fmc_settings[select2_turn_off]" id="select2_turn_off_admin" value="admin" <?php checked( $fmc_settings[ 'select2_turn_off' ], 'admin' ); ?>> Turn off loading Select2 scripts in Admin area only</label></p>
+                <p><label for="select2_turn_off_user"><input type="radio" name="fmc_settings[select2_turn_off]" id="select2_turn_off_user" value="user" <?php checked( $fmc_settings[ 'select2_turn_off' ], 'user' ); ?>> Turn off loading Select2 scripts in User area only</label></p>
+            </td>
+        </tr>
+    </table>
+<?php if ( isset( $fmc_settings[ 'market_stat_version' ] ) && $fmc_settings[ 'market_stat_version' ] == 'v2' ) : ?>
+    <h3>Chartkick Scripts</h3>
+    <p>Using Version 2 of the market stats widget, Flexmls plugin loads Chartkick JS scripts. If there are conflicts with other plugins or themes, turn off loading it.</p>
+    <table class="form-table">
+        <tr><th>Turn off loading Chartkick JS</th>
+            <td>
+                <p><label for="chartkick_turn_off_none"><input type="radio" name="fmc_settings[chartkick_turn_off]" id="chartkick_turn_off_none" value="0" <?php checked( $fmc_settings[ 'chartkick_turn_off' ], '0' ); ?>> Do not turn off loading Chartkick scripts</label></p>
+                <p><label for="chartkick_turn_off_all"><input type="radio" name="fmc_settings[chartkick_turn_off]" id="chartkick_turn_off_all" value="1" <?php checked( $fmc_settings[ 'chartkick_turn_off' ], '1' ); ?>> Turn off loading Chartkick scripts</label></p>
+            </td>
+        </tr>
+    </table>
+    <?php endif; ?>
+    
+    
+    <p><?php wp_nonce_field( 'update_fmc_behavior_action', 'update_fmc_behavior_nonce' ); ?><button type="submit" class="button-primary">Save Settings</button></p>
+</form>
+
+<style>
+	tr.flexmls-setting-highlight { background-color: #f0f6fc; outline: 1px solid #2271b1; transition: background-color 0.5s ease-out; }
+</style>
+<script>
+jQuery(document).ready(function($) {
+	var originalPermabase = '<?php echo esc_js( $fmc_settings[ 'permabase' ] ); ?>';
+	var originalDestlink = '<?php echo esc_js( $fmc_settings[ 'destlink' ] ); ?>';
+	var nginxConfigTextarea = null;
+	var currentValuesContainer = null;
+	
+	// Update "Edit page" link when destination page dropdown changes
+	$('#fmc_settings_destlink').on('change', function() {
+		var link = $('#fmc-destlink-edit');
+		var base = link.data('edit-base');
+		var id = $(this).val();
+		if (base && id) {
+			link.attr('href', base + id + '&action=edit').show();
+		} else {
+			link.attr('href', '#').hide();
+		}
+	});
+
+	// Scroll to and highlight Permalink Base section when linked from Support page
+	if (window.location.hash === '#fmc-setting-permalink-base') {
+		setTimeout(function() {
+			var row = $('#fmc-setting-permalink-base');
+			if (row.length) {
+				row[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+				row.addClass('flexmls-setting-highlight');
+				setTimeout(function() { row.removeClass('flexmls-setting-highlight'); }, 12000);
+			}
+		}, 100);
+	}
+
+	// Auto-expand nginx guidance section if URL contains the anchor
+	if (window.location.hash === '#nginx-configuration-guidance') {
+		// Wait a moment for the page to fully load, then expand the nginx guidance
+		setTimeout(function() {
+			var nginxGuidance = $('#nginx-configuration-guidance');
+			if (nginxGuidance.length > 0) {
+				var details = nginxGuidance.find('details');
+				if (details.length > 0 && !details.attr('open')) {
+					details.attr('open', 'open');
+					// Scroll to the section
+					nginxGuidance[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}
+			}
+		}, 100);
+	}
+	
+	// Function to update nginx configuration and current values via AJAX
+	function updateNginxConfig(permabase, destlink) {
+		// Only make AJAX call if nginx warning exists
+		var nginxWarning = $('.nginx-permabase-guidance');
+		if (nginxWarning.length === 0) {
+			return;
+		}
+		
+		// Find the nginx config textarea
+		if (!nginxConfigTextarea) {
+			nginxConfigTextarea = nginxWarning.find('textarea[id="nginx-permabase-config"]');
+		}
+		
+		// Find current values container - there might be multiple instances
+		if (!currentValuesContainer) {
+			currentValuesContainer = nginxWarning.find('p:contains("Current permalink base")');
+		}
+		
+		// Make AJAX request to get updated nginx rules
+		$.ajax({
+			url: ajaxurl,
+			type: 'POST',
+			data: {
+				action: 'fmc_get_nginx_rules',
+				permabase: permabase,
+				destlink: destlink,
+				nonce: '<?php echo wp_create_nonce( 'fmc_nginx_rules_nonce' ); ?>'
+			},
+			success: function(response) {
+				if (response.success) {
+					// Update nginx configuration textarea
+					if (nginxConfigTextarea.length > 0) {
+						nginxConfigTextarea.val(response.data.rules);
+					}
+					
+					// Update current values display - handle multiple instances
+					if (currentValuesContainer.length > 0) {
+						var newContent = 'Current permalink base: <code>' + response.data.permabase + '</code>';
+						if (response.data.destlink && response.data.destlink !== '0') {
+							newContent += '<br>Current destination page ID: <code>' + response.data.destlink + '</code>';
+						}
+						// Update all instances of current values
+						currentValuesContainer.each(function() {
+							$(this).html(newContent);
+						});
+					}
+				}
+			},
+			error: function() {
+				console.log('Failed to update nginx configuration');
+			}
+		});
+	}
+	
+	// Show nginx warning when permalink base field is focused or changed
+	$('#permabase').on('focus change input', function() {
+		var currentValue = $(this).val();
+		var nginxWarning = $(this).closest('td').find('.nginx-permabase-guidance');
+		
+		// If nginx warning exists and value has changed, show a note and expand the warning
+		if (nginxWarning.length > 0 && currentValue !== originalPermabase) {
+			// Expand the warning if it's collapsed
+			var details = nginxWarning.find('details');
+			if (details.length > 0 && !details.attr('open')) {
+				details.attr('open', 'open');
+			}
+			
+			// Add the change notice only to the first nginx warning container if it doesn't exist
+			if (!$('.value-changed-notice').length) {
+				$('.nginx-permabase-guidance').first().find('> details > div').prepend('<div class="value-changed-notice" style="background: #d4edda; padding: 8px; margin-bottom: 10px; border: 1px solid #c3e6cb; border-radius: 4px; color: #155724; font-size: 13px;"><strong>Note:</strong> You will need to update your nginx configuration after saving this change.</div>');
+			}
+			
+			// Update nginx configuration in real-time
+			var currentDestlink = $('select[name="fmc_settings[destlink]"]').val() || '0';
+			updateNginxConfig(currentValue, currentDestlink);
+		}
+	});
+	
+	// Hide the note when value is reverted to original
+	$('#permabase').on('input', function() {
+		var currentValue = $(this).val();
+		var nginxWarning = $(this).closest('td').find('.nginx-permabase-guidance');
+		
+		if (currentValue === originalPermabase) {
+			$('.value-changed-notice').remove();
+			// Optionally collapse the warning if it was auto-expanded
+			var details = nginxWarning.find('details');
+			if (details.length > 0 && details.attr('open') && !details.data('user-opened')) {
+				details.removeAttr('open');
+			}
+		}
+		
+		// Update nginx configuration in real-time
+		var currentDestlink = $('select[name="fmc_settings[destlink]"]').val() || '0';
+		updateNginxConfig(currentValue, currentDestlink);
+	});
+	
+	// Show nginx warning when destination page is changed
+	$('select[name="fmc_settings[destlink]"]').on('change', function() {
+		var currentValue = $(this).val();
+		var nginxWarning = $('.nginx-permabase-guidance');
+		
+		// If nginx warning exists and value has changed, show a note and expand the warning
+		if (nginxWarning.length > 0 && currentValue !== originalDestlink) {
+			// Expand the warning if it's collapsed
+			var details = nginxWarning.find('details');
+			if (details.length > 0 && !details.attr('open')) {
+				details.attr('open', 'open');
+			}
+			
+			// Add the change notice only to the first nginx warning container if it doesn't exist
+			if (!$('.value-changed-notice').length) {
+				$('.nginx-permabase-guidance').first().find('> details > div').prepend('<div class="value-changed-notice" style="background: #d4edda; padding: 8px; margin-bottom: 10px; border: 1px solid #c3e6cb; border-radius: 4px; color: #155724; font-size: 13px;"><strong>Note:</strong> You will need to update your nginx configuration after saving this change.</div>');
+			}
+			
+			// Update nginx configuration in real-time
+			var currentPermabase = $('#permabase').val() || originalPermabase;
+			updateNginxConfig(currentPermabase, currentValue);
+		}
+		
+		// Hide the note when value is reverted to original
+		if (currentValue === originalDestlink) {
+			$('.value-changed-notice').remove();
+			// Optionally collapse the warning if it was auto-expanded
+			var details = nginxWarning.find('details');
+			if (details.length > 0 && details.attr('open') && !details.data('user-opened')) {
+				details.removeAttr('open');
+			}
+		}
+		
+		// Update nginx configuration in real-time
+		var currentPermabase = $('#permabase').val() || originalPermabase;
+		updateNginxConfig(currentPermabase, currentValue);
+	});
+});
+</script>
